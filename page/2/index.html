@@ -265,107 +265,6 @@
             
               
                 
-                <a class="post-title-link" href="/2015/10/25/blog24/" itemprop="url">
-                  Android自定义ExpandableRecyclerView的实现
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-10-25T22:44:08+08:00" content="2015-10-25">
-              2015-10-25
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><video id="video" controls preload="none" width="220" poster="http://7vzpfd.com1.z0.glb.clouddn.com/device-2015-10-25-225241.png"><br>      <source id="mp4" src="http://7vzpfd.com1.z0.glb.clouddn.com/device-2015-10-25-234244.mp4" type="video/mp4"><br>      <source id="webm" src="http://media.w3.org/2010/05/sintel/trailer.webm" type="video/webm"><br>      <p>Your user agent does not support the HTML5 Video element.</p><br>    </video><br><strong><em>双击视频放大观看</em></strong></p>
-<blockquote>
-<p>最近在做项目的时候，用到了可扩展的RecyclerView.在github上找到了一个ListView的第三方库，不支持RecyclerView，也比较臃肿，下面是自己实现的一个可扩展RecyclerView．源代码地址<a href="https://github.com/shellljx/CityCircle/blob/master/app/src/main/java/shellljx/gmail/com/app/adapter/TopicAdapter.java" target="_blank" rel="external">点我</a></p>
-</blockquote>
-<p>#####原理<br>首先要把整个扩展<code>RecyclerView</code>的功能逻辑分成两部分：</p>
-<p>1.在<code>onBindViewHolder</code>方法中通过<code>eHolder.buttonExp.setTag(position);</code>给每个<code>holder</code>设置TAG,这个TAG是这一条数据的<code>position</code>是唯一的.然后在绑定数据的时候,根据得到的每一个holder的TAG是否等于已经展开状态的那个<code>position</code>来设置该<code>holder</code>是否应该处于展开状态.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (((Integer) eHolder.buttonExp.getTag()).intValue() == mLastPosition) &#123;</div><div class="line">    eHolder.openExpand();</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">    eHolder.closeExpand();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>2.因为整个屏幕中可见的item中,只能有一个处于展开状态,所以当点击了触发按钮,该item执行展开动画,并保存该item所对应的position和ViewHolder.然后让上一个已经展开的item关闭.但是上一个展开的ViewHolder有可能已经被复用了(即回复到没有展开的状态)所以还要复写<code>onViewRecycled</code>方法,判断ViewHolder是否已经被复用.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">eHolder.buttonExp.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(<span class="keyword">final</span> View view)</span> </span>&#123;</div><div class="line">        eHolder.runAnimator();</div><div class="line">        LinearLayout btn = (LinearLayout) view;</div><div class="line">        <span class="keyword">int</span> clickPos = ((Integer) btn.getTag()).intValue();</div><div class="line">        <span class="keyword">if</span> (clickPos != mLastPosition) &#123;</div><div class="line">            eHolder.runAnimator(<span class="keyword">true</span>);</div><div class="line">            mLastPosition = clickPos;</div><div class="line">            <span class="keyword">if</span> (mLastHolder != <span class="keyword">null</span>) &#123;</div><div class="line">                <span class="keyword">if</span> (!isRecyced)</div><div class="line">                    mLastHolder.runAnimator();</div><div class="line">            &#125;</div><div class="line">            mLastHolder = eHolder;</div><div class="line">            isRecyced = <span class="keyword">false</span>;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            mLastHolder = <span class="keyword">null</span>;</div><div class="line">            mLastPosition = -<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p><strong><em>下面是完整代码</em></strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TopicAdapter</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span>.<span class="title">Adapter</span>&lt;<span class="title">RecyclerView</span>.<span class="title">ViewHolder</span>&gt; </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Context mContext;</div><div class="line">    <span class="keyword">private</span> TopicHeader header;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mHeaderLayoutId;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mLayoutId;</div><div class="line">    <span class="keyword">private</span> LayoutInflater mInflate;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mLastPosition = -<span class="number">1</span>;</div><div class="line">    <span class="keyword">private</span> ExpandViewHolder mLastHolder = <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isRecyced;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mAnimatedPosition = -<span class="number">1</span>;</div><div class="line">    <span class="keyword">private</span> List&lt;Topic&gt; mDatas;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TopicAdapter</span><span class="params">(Context context, RecyclerView listview, List&lt;Topic&gt; data, TopicHeader header, <span class="keyword">int</span> layoutId, <span class="keyword">int</span> headerLayoutId)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.mContext = context;</div><div class="line">        <span class="keyword">this</span>.header = header;</div><div class="line">        <span class="keyword">this</span>.mDatas = data;</div><div class="line">        <span class="keyword">this</span>.mHeaderLayoutId = headerLayoutId;</div><div class="line">        <span class="keyword">this</span>.mLayoutId = layoutId;</div><div class="line">        <span class="keyword">this</span>.mInflate = LayoutInflater.from(mContext);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getItemCount</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mDatas.size();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">public</span> RecyclerView.<span class="function">ViewHolder <span class="title">onCreateViewHolder</span><span class="params">(ViewGroup parent, <span class="keyword">int</span> viewType)</span> </span>&#123;</div><div class="line">        <span class="keyword">switch</span> (viewType) &#123;</div><div class="line">            <span class="keyword">case</span> Constants.EXTRA.LIST_LOADING:</div><div class="line">                View loading = mInflate.inflate(R.layout.loading_first_time, parent, <span class="keyword">false</span>);</div><div class="line">                <span class="keyword">return</span> <span class="keyword">new</span> LoadingViewHolder(loading);</div><div class="line">            <span class="keyword">case</span> Constants.EXTRA.LIST_ITEM:</div><div class="line">                View item = mInflate.inflate(mLayoutId, parent, <span class="keyword">false</span>);</div><div class="line">                <span class="keyword">return</span> <span class="keyword">new</span> ExpandViewHolder(item);</div><div class="line">            <span class="keyword">case</span> Constants.EXTRA.LIST_HEADER:</div><div class="line">                View header = mInflate.inflate(mHeaderLayoutId, parent, <span class="keyword">false</span>);</div><div class="line">                <span class="keyword">return</span> <span class="keyword">new</span> HeaderViewHolder(header);</div><div class="line">            <span class="keyword">default</span>:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onBindViewHolder</span><span class="params">(<span class="keyword">final</span> RecyclerView.ViewHolder holder, <span class="keyword">int</span> position)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (holder <span class="keyword">instanceof</span> ExpandViewHolder) &#123;</div><div class="line">            <span class="keyword">final</span> ExpandViewHolder eHolder = (ExpandViewHolder) holder;</div><div class="line">            <span class="comment">//当列表向上滑动的时候position是出现在下边界的item，</span></div><div class="line">            <span class="comment">// 当列表向下滑动的时候，position是出现在上边界的item</span></div><div class="line">            <span class="keyword">if</span> (mAnimatedPosition &lt; position) &#123;</div><div class="line">                eHolder.animatorSet.start();</div><div class="line">                mAnimatedPosition = position;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                mAnimatedPosition = position;</div><div class="line">            &#125;</div><div class="line">            eHolder.buttonExp.setTag(position);</div><div class="line">            eHolder.buttonExp.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">                <span class="meta">@Override</span></div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(<span class="keyword">final</span> View view)</span> </span>&#123;</div><div class="line">                    eHolder.runAnimator();</div><div class="line">                    LinearLayout btn = (LinearLayout) view;</div><div class="line">                    <span class="keyword">int</span> clickPos = ((Integer) btn.getTag()).intValue();</div><div class="line">                    <span class="keyword">if</span> (clickPos != mLastPosition) &#123;</div><div class="line">                        eHolder.runAnimator(<span class="keyword">true</span>);</div><div class="line">                        mLastPosition = clickPos;</div><div class="line">                        <span class="keyword">if</span> (mLastHolder != <span class="keyword">null</span>) &#123;</div><div class="line">                            <span class="keyword">if</span> (!isRecyced)</div><div class="line">                                mLastHolder.runAnimator();</div><div class="line">                        &#125;</div><div class="line">                        mLastHolder = eHolder;</div><div class="line">                        isRecyced = <span class="keyword">false</span>;</div><div class="line">                    &#125; <span class="keyword">else</span> &#123;</div><div class="line">                        mLastHolder = <span class="keyword">null</span>;</div><div class="line">                        mLastPosition = -<span class="number">1</span>;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line">            <span class="keyword">if</span> (((Integer) eHolder.buttonExp.getTag()).intValue() == mLastPosition) &#123;</div><div class="line">                eHolder.openExpand();</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                eHolder.closeExpand();</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (holder <span class="keyword">instanceof</span> HeaderViewHolder) &#123;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getItemViewType</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == mDatas.get(position)) &#123;</div><div class="line">            <span class="keyword">if</span> (position == <span class="number">0</span>)</div><div class="line">                <span class="keyword">return</span> Constants.EXTRA.LIST_HEADER; <span class="comment">//当第一个item为空，返回header</span></div><div class="line">            <span class="keyword">return</span> Constants.EXTRA.LIST_LOADING;    <span class="comment">//当最后一个item为空，返回加载中</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> Constants.EXTRA.LIST_ITEM;           <span class="comment">//返回正常item</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onViewRecycled</span><span class="params">(RecyclerView.ViewHolder holder)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onViewRecycled(holder);</div><div class="line">        <span class="keyword">if</span> (mLastHolder != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">if</span> (holder == mLastHolder) &#123;</div><div class="line">                isRecyced = !isRecyced;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ExpandViewHolder</span> <span class="keyword">extends</span> <span class="title">AnimationViewHolder</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="keyword">public</span> TextView buttonA, buttonB;</div><div class="line">        <span class="keyword">public</span> LinearLayout buttonExp;</div><div class="line">        <span class="keyword">public</span> <span class="keyword">final</span> LinearLayout ll;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">boolean</span> status = <span class="keyword">false</span>;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ExpandViewHolder</span><span class="params">(View itemView)</span> </span>&#123;</div><div class="line">            <span class="keyword">super</span>(itemView);</div><div class="line">            buttonA = (TextView) itemView.findViewById(R.id.bt_a);</div><div class="line">            buttonB = (TextView) itemView.findViewById(R.id.bt_b);</div><div class="line">            buttonExp = (LinearLayout) itemView.findViewById(R.id.ll_expand_btn);</div><div class="line">            ll = (LinearLayout) itemView.findViewById(R.id.expandable);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">runAnimator</span><span class="params">(<span class="keyword">boolean</span> isExpand)</span> </span>&#123;</div><div class="line">            ValueAnimator valueAnimator;</div><div class="line">            <span class="keyword">if</span> (isExpand) &#123;</div><div class="line">                status = <span class="keyword">true</span>;</div><div class="line">                valueAnimator = ValueAnimator.ofInt(<span class="number">0</span>, <span class="number">120</span>);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                status = <span class="keyword">false</span>;</div><div class="line">                valueAnimator = ValueAnimator.ofInt(<span class="number">120</span>, <span class="number">0</span>);</div><div class="line">            &#125;</div><div class="line">            valueAnimator.setDuration(<span class="number">150</span>);</div><div class="line">            valueAnimator.setInterpolator(<span class="keyword">new</span> LinearInterpolator());</div><div class="line">            valueAnimator.addUpdateListener(<span class="keyword">new</span> ValueAnimator.AnimatorUpdateListener() &#123;</div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationUpdate</span><span class="params">(ValueAnimator animation)</span> </span>&#123;</div><div class="line">                    Integer value = (Integer) animation.getAnimatedValue();</div><div class="line">                    ll.getLayoutParams().height = value.intValue();</div><div class="line">                    ll.requestLayout();</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line">            valueAnimator.start();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">runAnimator</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">if</span> (status) &#123;</div><div class="line">                runAnimator(<span class="keyword">false</span>);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                runAnimator(<span class="keyword">true</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">closeExpand</span><span class="params">()</span> </span>&#123;</div><div class="line">            ll.getLayoutParams().height = <span class="number">0</span>;</div><div class="line">            ll.requestLayout();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">openExpand</span><span class="params">()</span> </span>&#123;</div><div class="line">            ll.getLayoutParams().height = <span class="number">120</span>;</div><div class="line">            ll.requestLayout();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">HeaderViewHolder</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span>.<span class="title">ViewHolder</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">HeaderViewHolder</span><span class="params">(View itemView)</span> </span>&#123;</div><div class="line">            <span class="keyword">super</span>(itemView);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">LoadingViewHolder</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span>.<span class="title">ViewHolder</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">LoadingViewHolder</span><span class="params">(View itemView)</span> </span>&#123;</div><div class="line">            <span class="keyword">super</span>(itemView);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2015/10/23/13/" itemprop="url">
                   需求更新太快的弊端
                 </a>
@@ -460,7 +359,7 @@
             
               
                 
-                <a class="post-title-link" href="/2015/09/19/blog26/" itemprop="url">
+                <a class="post-title-link" href="/2015/09/19/git-rebase-git-cherry-pick-branch/" itemprop="url">
                   git rebase & git cherry-pick&branch
                 </a>
               
@@ -479,6 +378,25 @@
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
+                    <span itemprop="name">技术杂烩</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -503,18 +421,12 @@
 
       
         
-          
-            <p><img src="http://ww1.sinaimg.cn/bmiddle/63918611gw1eqxtzlte6cj206i08awen.jpg" alt="Linus Torvalds"><br>题图是git的发明人—Linux 教父 Linus Torvalds </p>
-<blockquote>
-<p>在软件开发过程中，版本控制和多人协作非常的重要，Ｇit在这两个方面的功能是非常的强大的．在实际工作中Git对我的帮助非常的大，我经常用到这几个指令<code>rebase</code>,<code>cherry-pick</code>,<code>branch</code>,<code>checkout</code>,<code>stash</code>，<code>reset</code></p>
-</blockquote>
-<hr>
-<p>####branch<br>首先锁一下<code>branch</code>分支，在实际开发过程中，开发一个新的功能就新建一个分支，如果正在开发一个新功能，突然来了一个其他功能的bug,如果修改bug的代码和新功能的代码commit混在一起，不同功能的代码commit混在一起，如果同时开发的功能点非常多的话，就会非常混乱，通过<code>git checkout -b newbranch</code>创建不同的分支，来管理不同的开发需求，会让代码管理清楚很多．</p>
-<p>####cherry-pick<br>当多个分支合并代码时，使用<code>merge</code>,会有很多的问题，解决一些莫名的冲突会花费很长的时间．<code>git cherry-pick</code>可以把一个分支上特定的commit合并到另一个分支上去，这样出现的<code>conflict</code>就会少得多，甚至没有冲突．</p>
-<p>####rebase<br><code>rebase</code>指令功能非常的强大，它可用修改commit历史，可以合并多个commit为一个commit，可以调换commit之间的顺序….非常好用．</p>
-<p>####stash<br>当你在一个分支上正写着代码，突然需要你切换到另一个分支上去改bug,你又不想现在提交，可以使用<code>git stash</code>指令，最后记得要把代码<code>pop</code>出来．</p>
-
-          
+          <p><img src="http://ww1.sinaimg.cn/bmiddle/63918611gw1eqxtzlte6cj206i08awen.jpg" alt="Linus Torvalds"><br>题图是git的发明人—Linux 教父 Linus Torvalds<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/09/19/git-rebase-git-cherry-pick-branch/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -562,7 +474,7 @@
             
               
                 
-                <a class="post-title-link" href="/2015/09/08/digitaloceanan-zhuang-laravel/" itemprop="url">
+                <a class="post-title-link" href="/2015/09/08/digitalocean安装laravel/" itemprop="url">
                   digitalocean安装laravel
                 </a>
               
@@ -581,6 +493,25 @@
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
+                    <span itemprop="name">技术杂烩</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -691,7 +622,7 @@
             
               
                 
-                <a class="post-title-link" href="/2015/07/14/androiddan-chu-quan-ping-dialog/" itemprop="url">
+                <a class="post-title-link" href="/2015/07/14/Android弹出全屏Dialog/" itemprop="url">
                   Android弹出全屏Dialog
                 </a>
               
@@ -710,6 +641,25 @@
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
+                    <span itemprop="name">技术杂烩</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -785,7 +735,7 @@
             
               
                 
-                <a class="post-title-link" href="/2015/07/05/bukkitxu-lie-hua-cun-chu-zuo-biao/" itemprop="url">
+                <a class="post-title-link" href="/2015/07/05/Bukkit序列化存储坐标/" itemprop="url">
                   Bukkit序列化存储坐标
                 </a>
               
@@ -804,6 +754,25 @@
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
+                    <span itemprop="name">技术杂烩</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -829,7 +798,7 @@
       
         
           
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div></pre></td><td class="code"><pre><div class="line">import java.util.HashMap;</div><div class="line">import java.util.Map;</div><div class="line"> </div><div class="line">import org.bukkit.Bukkit;</div><div class="line">import org.bukkit.Location;</div><div class="line">import org.bukkit.configuration.serialization.ConfigurationSerializable;</div><div class="line"> </div><div class="line">public class Position implements ConfigurationSerializable&#123;</div><div class="line"> </div><div class="line">    private String world;</div><div class="line">    private double x, y, z;</div><div class="line"> </div><div class="line">    public Position(Location location)&#123;</div><div class="line">        this(location.getWorld().getName(), location.getX(), location.getY(), location.getZ());</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public Position(String world, double x, double y, double z)&#123;</div><div class="line">        setWorld(world);</div><div class="line">        setX(x);</div><div class="line">        setY(y);</div><div class="line">        setZ(z);</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public String getWorld() &#123;</div><div class="line">        return world;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public void setWorld(String world) &#123;</div><div class="line">        this.world = world;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public double getX() &#123;</div><div class="line">        return x;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public void setX(double x) &#123;</div><div class="line">        this.x = x;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public double getY() &#123;</div><div class="line">        return y;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public void setY(double y) &#123;</div><div class="line">        this.y = y;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public double getZ() &#123;</div><div class="line">        return z;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public void setZ(double z) &#123;</div><div class="line">        this.z = z;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public Location getLocation()&#123;</div><div class="line">        return new Location(Bukkit.getWorld(getWorld()), getZ(), getY(), getZ());</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    @Override</div><div class="line">    public Map&lt;String, Object&gt; serialize() &#123;</div><div class="line">        Map&lt;String, Object&gt; result = new HashMap&lt;String, Object&gt;();</div><div class="line"> </div><div class="line">        result.put(&quot;world&quot;, getWorld());</div><div class="line">        result.put(&quot;x&quot;, getX());</div><div class="line">        result.put(&quot;y&quot;, getY());</div><div class="line">        result.put(&quot;z&quot;, getZ());</div><div class="line"> </div><div class="line">        return result;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public static Position deserialize(Map&lt;String, Object&gt; args)&#123;</div><div class="line">        return new Position((String)args.get(&quot;world&quot;), (Double)args.get(&quot;x&quot;), (Double)args.get(&quot;y&quot;), (Double)args.get(&quot;z&quot;));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line">import java.util.HashMap;</div><div class="line">import java.util.Map;</div><div class="line"> </div><div class="line">import org.bukkit.Bukkit;</div><div class="line">import org.bukkit.Location;</div><div class="line">&lt;!--more--&gt;</div><div class="line">import org.bukkit.configuration.serialization.ConfigurationSerializable;</div><div class="line"> </div><div class="line">public class Position implements ConfigurationSerializable&#123;</div><div class="line"> </div><div class="line">    private String world;</div><div class="line">    private double x, y, z;</div><div class="line"> </div><div class="line">    public Position(Location location)&#123;</div><div class="line">        this(location.getWorld().getName(), location.getX(), location.getY(), location.getZ());</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public Position(String world, double x, double y, double z)&#123;</div><div class="line">        setWorld(world);</div><div class="line">        setX(x);</div><div class="line">        setY(y);</div><div class="line">        setZ(z);</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public String getWorld() &#123;</div><div class="line">        return world;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public void setWorld(String world) &#123;</div><div class="line">        this.world = world;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public double getX() &#123;</div><div class="line">        return x;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public void setX(double x) &#123;</div><div class="line">        this.x = x;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public double getY() &#123;</div><div class="line">        return y;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public void setY(double y) &#123;</div><div class="line">        this.y = y;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public double getZ() &#123;</div><div class="line">        return z;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public void setZ(double z) &#123;</div><div class="line">        this.z = z;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public Location getLocation()&#123;</div><div class="line">        return new Location(Bukkit.getWorld(getWorld()), getZ(), getY(), getZ());</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    @Override</div><div class="line">    public Map&lt;String, Object&gt; serialize() &#123;</div><div class="line">        Map&lt;String, Object&gt; result = new HashMap&lt;String, Object&gt;();</div><div class="line"> </div><div class="line">        result.put(&quot;world&quot;, getWorld());</div><div class="line">        result.put(&quot;x&quot;, getX());</div><div class="line">        result.put(&quot;y&quot;, getY());</div><div class="line">        result.put(&quot;z&quot;, getZ());</div><div class="line"> </div><div class="line">        return result;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public static Position deserialize(Map&lt;String, Object&gt; args)&#123;</div><div class="line">        return new Position((String)args.get(&quot;world&quot;), (Double)args.get(&quot;x&quot;), (Double)args.get(&quot;y&quot;), (Double)args.get(&quot;z&quot;));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>然后不要忘了在主类中注册<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">static&#123;</div><div class="line">    ConfigurationSerialization.registerClass(Position.class);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
           
@@ -880,7 +849,7 @@
             
               
                 
-                <a class="post-title-link" href="/2015/05/29/an-zhuang-laravelhou-fang-wen-zhu-ye-403huo-zhe-502/" itemprop="url">
+                <a class="post-title-link" href="/2015/05/29/安装laravel后，访问主页403或者502/" itemprop="url">
                   安装laravel后，访问主页403或者502
                 </a>
               
@@ -900,6 +869,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
+                    <span itemprop="name">技术杂烩</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -923,10 +911,12 @@
 
       
         
-          
-            <p>安装了laravel后，一直出现403或者502的错误，郁闷了好几天，今天终于知道了原因。原来是php解析错误造成的，我少安装了一个php模块<code>php5-fpm</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apt-get install php5-fpm</div></pre></td></tr></table></figure>
-          
+          <p>安装了laravel后，一直出现403或者502的错误，郁闷了好几天，今天终于知道了原因。原来是php解析错误造成的，我少安装了一个php模块<code>php5-fpm</code><br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/05/29/安装laravel后，访问主页403或者502/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -974,7 +964,7 @@
             
               
                 
-                <a class="post-title-link" href="/2015/05/11/androidfang-jie-cao-jing-xuan-di-bu-cai-dan-lan/" itemprop="url">
+                <a class="post-title-link" href="/2015/05/11/Android仿“节操精选底部菜单栏”/" itemprop="url">
                   Android仿“节操精选底部菜单栏”
                 </a>
               
@@ -994,6 +984,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
+                    <span itemprop="name">技术杂烩</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -1017,20 +1026,14 @@
 
       
         
-          
-            <blockquote>
+          <blockquote>
 <p>分享一个android Demo，这是我做的一个放“节操精选的底部菜单栏”，运用了自定义View和Animation的知识点。是一个学习自定义view的不错的例子</p>
 </blockquote>
-<p>####一.关于用到的一些知识点和资源</p>
-<ol>
-<li><a href="http://developer.android.com/training/custom-views/create-view.html" target="_blank" rel="external">自定义View</a></li>
-<li><a href="http://www.iconfont.cn/" target="_blank" rel="external">图标</a></li>
-</ol>
-<p>####二.代码地址<br><a href="https://camo.githubusercontent.com/cbd3211f1185a6acf59c4f1d53824a756e2c4f16/687474703a2f2f69312e74696574756b752e636f6d2f356364616234616437643937336232302e676966" target="_blank" rel="external">GitHub</a></p>
-<hr>
-<p>效果图<br><img src="https://camo.githubusercontent.com/cbd3211f1185a6acf59c4f1d53824a756e2c4f16/687474703a2f2f69312e74696574756b752e636f6d2f356364616234616437643937336232302e676966" alt=""></p>
-
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/05/11/Android仿“节操精选底部菜单栏”/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1078,7 +1081,7 @@
             
               
                 
-                <a class="post-title-link" href="/2015/04/25/minecraftfu-wu-qi-kua-fu-liao-tian-cha-jian/" itemprop="url">
+                <a class="post-title-link" href="/2015/04/25/Minecraft服务器跨服聊天插件/" itemprop="url">
                   Minecraft服务器跨服聊天插件
                 </a>
               
@@ -1098,6 +1101,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/年轻时的往事/" itemprop="url" rel="index">
+                    <span itemprop="name">年轻时的往事</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -1121,15 +1143,14 @@
 
       
         
-          
-            <blockquote>
+          <blockquote>
 <p>最近实习，也很少更新博客了，今天就更新一下吧。</p>
 </blockquote>
-<p>前几天做了一款跨服聊天的Minecraft服务器免费插件<a href="http://www.mcbbs.net/thread-433831-1-1.html" target="_blank" rel="external">插件链接</a>，<a href="https://github.com/shellljx/MultiServerChat" target="_blank" rel="external">Github链接</a>，这个插件是基于<code>Java Socket</code>实现的一个多客户端聊天室，子服务器的玩家发送的聊天信息通过主服务器进行转发实现跨服聊天。</p>
-<p>一些腐竹觉得最初版本有点不符合他们的实际情况，找我来定制，效果不错</p>
-<p><img src="http://i4.tietuku.com/167497642eb57754.png" alt="有图有真相"></p>
-
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/04/25/Minecraft服务器跨服聊天插件/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1177,7 +1198,7 @@
             
               
                 
-                <a class="post-title-link" href="/2015/04/04/nginxbu-neng-jie-xi-phpde-jie-jue-fang-fa/" itemprop="url">
+                <a class="post-title-link" href="/2015/04/04/Nginx不能解析php的解决方法/" itemprop="url">
                   Nginx不能解析php的解决方法
                 </a>
               
@@ -1196,6 +1217,25 @@
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
+                    <span itemprop="name">技术杂烩</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -1220,37 +1260,136 @@
 
       
         
-          
-            <blockquote>
+          <blockquote>
 <p>今天想在自己的服务器上安装一个开源的php论坛平台，论坛平台上传到服务器上，绑定好三级域名之后发现服务器无法解析php文件但是可以解析html，经过google发现原来nginx默认不能解析php，要进行设置才可以。</p>
 </blockquote>
 <hr>
-<p>下面是我在设置nginx解析php的过程和遇到的一些问题。</p>
-<ol>
-<li><p>先安装php</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install php5-cli php5-cgi mysql-server php5-mysql</div></pre></td></tr></table></figure>
-</li>
-<li><p>安装FastCgi</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install spawn-fcgi</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>3.配置nginx修改index的一行修改为:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index index.php index.html index.htm;</div></pre></td></tr></table></figure></p>
-<p>4.配置nginx去掉下面部分的注释用于支持 php 脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">location ~ \.php$ &#123;</div><div class="line">include /etc/nginx/fastcgi_params; #需放在第一行，否则会出错</div><div class="line">fastcgi_pass 127.0.0.1:9000;</div><div class="line">fastcgi_index index.php;</div><div class="line">fastcgi_param SCRIPT_FILENAME /var/www/nginx-default$fastcgi_script_name;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>5.重启nginx<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service nginx restart</div></pre></td></tr></table></figure></p>
-<p>6.启动fastcgi php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">spawn-fcgi -a 127.0.0.1 -p 9000 -C 10 -u www-data -f /usr/bin/php-cgi</div></pre></td></tr></table></figure></p>
-<p><strong>为了让php-cgi开机自启动： Ubuntu开机之后会执行/etc/rc.local文件中的脚本 所以我们可以直接在/etc/rc.local中添加启动脚本。 spawn-fcgi -a 127.0.0.1 -p 9000 -C 10 -u www-data -f /usr/bin/php-cgi 添加到语句：exit 0 前面才行</strong></p>
-<p>7.创建、测试phpinfo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vi /var/www/nginx-default/info.php</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;?php phpinfo(); ?&gt;</div></pre></td></tr></table></figure>
-<p>经过上面的几步后应该就可以解析php了，但是有的时候还是会出现错误。</p>
-<p><strong>502 Bad Gateway</strong></p>
-<p>首先要使用指令<code>ps aux | grep php</code>来检查一下<strong>php-fpm</strong>是否在运行<br>，如果在输出的进程中没有<strong>php-fpm</strong>的字样，你要重新安装php-fpm.如果<br>有看到php-fpm的字样，那就可以忽略这一步了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get remove php5 php5-cgi php5-fpm</div><div class="line">sudo apt-get install php5 php5-cgi php5-fpm</div></pre></td></tr></table></figure></p>
-<p>然后打开配置文件<code>/etc/php5/fpm/pool.d/www.conf</code>找到<code>listen</code>修改成和<code>/etc/nginx/sites-available/default</code>中的<code>fastcgi_pass</code>一样就可以了，<br>我是修改成下面这个样子的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">listen = 127.0.0.1:9000</div></pre></td></tr></table></figure></p>
-<p><strong>File not found</strong></p>
-<p>如果经过上面的操作又出现了<code>File not found</code>这个错误的话，一般都是服务器配置错误了。我的<code>nginx/sites-available/default</code>配置文件是配置成这样的，我服务器根目录在<code>/var/www/bbs</code>文件夹下.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">        listen 80;</div><div class="line"></div><div class="line">        root /var/www/bbs;</div><div class="line">        index index.html index.htm index.php;</div><div class="line"></div><div class="line">        # Make site accessible from http://localhost/</div><div class="line">        server_name bbs.linghun.me;</div><div class="line"></div><div class="line">        location ~ \.php$ &#123;</div><div class="line">        include /etc/nginx/fastcgi_params; #需放在第一行，否则会出错</div><div class="line">        fastcgi_pass 127.0.0.1:9000;</div><div class="line">        fastcgi_index index.php;</div><div class="line">        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
-<p>至此就可以解析php了</p>
+<p>下面是我在设置nginx解析php的过程和遇到的一些问题。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/04/04/Nginx不能解析php的解决方法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/03/22/bukkit定制插件今天终于完美交付了/" itemprop="url">
+                  bukkit定制插件今天终于完美交付了
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-03-22T11:36:38+08:00" content="2015-03-22">
+              2015-03-22
+            </time>
+          </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/年轻时的往事/" itemprop="url" rel="index">
+                    <span itemprop="name">年轻时的往事</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<blockquote>
+<p>在实践的过程中提升技术</p>
+</blockquote>
+</blockquote>
+<p>以前都是些一写免费插件分享到mcbbs，这一次的CustomJob是帮别人定制的插件，具体的功能就是把玩家分成4种职业，然后每一种职业都有各自的武器装备，不同职业之间不能共用武器装备，还有转职，聊天前缀等功能。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/03/22/bukkit定制插件今天终于完美交付了/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1322,7 +1461,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-count">23</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1330,7 +1469,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1339,7 +1478,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

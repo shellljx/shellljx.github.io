@@ -1,0 +1,721 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="fonts.useso.com/css?family=Lato:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="服务器," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="前段时间在digitalocean上安装laravel遇到了out of memory的坑，下面是一个完美的安装方法
+
+How To Install Laravel with Nginx on an Ubuntu 12.04 LTS VPS
+
+
+Laravel is a framework for websites in the PHP programming language. It allow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="digitalocean安装laravel">
+<meta property="og:url" content="http://yoursite.com/2015/09/08/digitalocean安装laravel/index.html">
+<meta property="og:site_name" content="Shell's Blog">
+<meta property="og:description" content="前段时间在digitalocean上安装laravel遇到了out of memory的坑，下面是一个完美的安装方法
+
+How To Install Laravel with Nginx on an Ubuntu 12.04 LTS VPS
+
+
+Laravel is a framework for websites in the PHP programming language. It allow">
+<meta property="og:updated_time" content="2015-09-08T09:44:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="digitalocean安装laravel">
+<meta name="twitter:description" content="前段时间在digitalocean上安装laravel遇到了out of memory的坑，下面是一个完美的安装方法
+
+How To Install Laravel with Nginx on an Ubuntu 12.04 LTS VPS
+
+
+Laravel is a framework for websites in the PHP programming language. It allow">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/09/08/digitalocean安装laravel/"/>
+
+
+  <title> digitalocean安装laravel | Shell's Blog </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Shell's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                digitalocean安装laravel
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-09-08T17:30:14+08:00" content="2015-09-08">
+              2015-09-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
+                    <span itemprop="name">技术杂烩</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>前段时间在digitalocean上安装laravel遇到了<code>out of memory</code>的坑，下面是一个完美的安装方法</p>
+<blockquote>
+<p>How To Install Laravel with Nginx on an Ubuntu 12.04 LTS VPS</p>
+</blockquote>
+<hr>
+<p>Laravel is a framework for websites in the PHP programming language. It allows developers to rapidly develop a website by abstracting common tasks used in most web projects, such as authentication, sessions, and caching. Laravel 4, the newest version of Laravel is based on an older framework called Symfony, but with a more expressive syntax. It is installed using Composer, a Dependency Manager, allowing developers to integrate even more open source PHP projects in a web project. If you want to want to read a quick introduction to Laravel, read the introduction. If you want to learn more about Composer, visit the website.</p>
+<p>Preparation</p>
+<p>Let’s start off by updating the packages installed on your VPS. This makes sure no issues will arise on incompatible versions of the software. Also, make sure you run everything in this tutorial as root, and if you don’t, make sure you add sudo before every command!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">apt-get update &amp;&amp; apt-get upgrade</div><div class="line">Hit Enter when you&apos;re asked to confirm.</div></pre></td></tr></table></figure>
+<p>Installation<br>Now we need to install the actual packages required to install Laravel. This will basically be Nginx and PHP. Because Composer is run from the command line, we do need php5-cli, and because we want to manage the connection between Nginx and PHP using the FastCGI Process Manager, we will need php5-fpm as well. Besides, Laravel requires php5-mcrypt and Composer requires git.</p>
+<p><code>apt-get install nginx php5-fpm php5-cli php5-mcrypt git</code><br>This should take a while to install, but you are now ready to configure Nginx and PHP.</p>
+<p>Configuring Nginx</p>
+<p>We will configure Nginx like Laravel is the only website you will run on it, basically accepting every HTTP request, no matter what the Host header contains. If you want more than one website on your VPS, please refer to this tutorial.</p>
+<p>Make a dedicated folder for your Laravel website:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir /var/www</div><div class="line">mkdir /var/www/laravel</div></pre></td></tr></table></figure></p>
+<p>Open up the default virtual host file.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano /etc/nginx/sites-available/default</div></pre></td></tr></table></figure></p>
+<p>The configuration should look like below:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">    listen   80 default_server;</div><div class="line"></div><div class="line">    root /var/www/laravel/public/;</div><div class="line">    index index.php index.html index.htm;</div><div class="line"></div><div class="line">    location / &#123;</div><div class="line">         try_files $uri $uri/ /index.php$is_args$args;</div><div class="line">    &#125;</div><div class="line"># pass the PHP scripts to FastCGI server listening on  /var/run/php5-fpm.sock</div><div class="line">    location ~ \.php$ &#123;</div><div class="line">            try_files $uri /index.php =404;</div><div class="line">            fastcgi_pass unix:/var/run/php5-fpm.sock;</div><div class="line">            fastcgi_index index.php;</div><div class="line">            fastcgi_param SCRIPT_FILENAME 							$document_root$fastcgi_script_name;</div><div class="line">            include fastcgi_params;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Now save and exit!</p>
+<p>Configuring PHP</p>
+<p>We need to make a small change in the PHP configuration. Open the php.ini file:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano /etc/php5/fpm/php.ini</div></pre></td></tr></table></figure></p>
+<p>Find the line, <code>cgi.fix_pathinfo=1</code>, and change the 1 to 0.<br><code>cgi.fix_pathinfo=0</code><br>If this number is kept as 1, the PHP interpreter will do its best to process the file that is as near to the requested file as possible. This is a possible security risk. If this number is set to 0, conversely, the interpreter will only process the exact file path — a much safer alternative. Now save it and exit nano.</p>
+<p>We need to make another small change in the php5-fpm configuration. Open up www.conf:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano /etc/php5/fpm/pool.d/www.conf</div></pre></td></tr></table></figure></p>
+<p>Find the line, <code>listen = 127.0.0.1:9000</code>, and change the <code>127.0.0.1:9000</code> to <code>/var/run/php5-fpm.sock</code>.</p>
+<p><code>listen = /var/run/php5-fpm.sock</code></p>
+<p>Again: save and exit!</p>
+<p>(Re)Starting PHP and Nginx</p>
+<p>Now make sure that both services are restarted.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">service php5-fpm restart</div><div class="line">service nginx restart</div></pre></td></tr></table></figure></p>
+<p>Installing Composer</p>
+<p>It is now time to install Composer, this process is quite straightforward. Let’s start off by downloading Composer:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -sS https://getcomposer.org/installer | php</div></pre></td></tr></table></figure>
+<p>Now install it globally:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mv composer.phar /usr/local/bin/composer</div></pre></td></tr></table></figure></p>
+<p>Installing Laravel</p>
+<p>Heads Up: If you’re installing Laravel on DigitalOcean’s 512MB VPS, make sure you add a swapfile to Ubuntu to prevent it from running out of memory. You can quickly do this by issuing the following commands. This will only work during 1 session, so if you reboot during this tutorial, add the swapfile again.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dd if=/dev/zero of=/swapfile bs=1024 count=512k</div><div class="line">mkswap /swapfile</div><div class="line">swapon /swapfile</div></pre></td></tr></table></figure></p>
+<p>Finally, let’s install Laravel.<br><strong><em>laravel5的安装方法参考<a href="http://www.golaravel.com/laravel/" target="_blank" rel="external">laravel中文社区</a></em></strong></p>
+<p>Fixing permissions</p>
+<p>This is really quite a easy fix:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">chgrp -R www-data /var/www/laravel</div><div class="line">chmod -R 775 /var/www/laravel/app/storage</div></pre></td></tr></table></figure></p>
+<p>Wrap Up<br>So that it, you can now enjoy Laravel running on a fast Nginx backend! If you want to use MySQL on your Laravel installation, it is extremely easy: just issue apt-get install mysql-server and MySQL will be installed right away. For more information on using Laravel visit the website. Happy developing!<br><a href="https://www.digitalocean.com/community/tutorials/how-to-install-laravel-with-nginx-on-an-ubuntu-12-04-lts-vps" target="_blank" rel="external">原文</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/服务器/" rel="tag">#服务器</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/14/Android弹出全屏Dialog/" rel="next" title="Android弹出全屏Dialog">
+                <i class="fa fa-chevron-left"></i> Android弹出全屏Dialog
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/09/19/git-rebase-git-cherry-pick-branch/" rel="prev" title="git rebase & git cherry-pick&branch">
+                git rebase & git cherry-pick&branch <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars0.githubusercontent.com/u/7572018?v=3&s=466"
+               alt="shell" />
+          <p class="site-author-name" itemprop="name">shell</p>
+          <p class="site-description motion-element" itemprop="description">量变产生质变</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shellljx" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shellljx" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shellljx" target="_blank" title="QQ">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  QQ
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shellljx" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shell</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
