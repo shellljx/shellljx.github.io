@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content=" - Android," />
+  <meta name="keywords" content="Android," />
 
 
 
@@ -90,27 +90,16 @@
 
 
 
-<meta name="description" content="今天双11,看着别人剁手的感觉就是爽….写代码写累了…去吃点狗粮.
-
-今天把数据库缓存功能终于写完了,调试了也没有什么bug,接下来开始写展示页面.
-胜利就在眼前!">
+<meta name="description" content="在一些使用场景中，为了防止数据重复加载，经常需要保存fragment的状态，下面列举出一些最近我遇到的一些场景。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="哈哈哈哈哈">
-<meta property="og:url" content="http://yoursite.com/2015/11/11/blog31/index.html">
+<meta property="og:title" content="Fragment状态保存">
+<meta property="og:url" content="http://yoursite.com/2016/04/19/Fragment状态保存/index.html">
 <meta property="og:site_name" content="Shell's Blog">
-<meta property="og:description" content="今天双11,看着别人剁手的感觉就是爽….写代码写累了…去吃点狗粮.
-
-今天把数据库缓存功能终于写完了,调试了也没有什么bug,接下来开始写展示页面.
-胜利就在眼前!">
-<meta property="og:image" content="http://7vzpfd.com1.z0.glb.clouddn.com/4d8e849aa8a98bf69b44f8ac21a58707.gif">
-<meta property="og:updated_time" content="2015-11-11T09:41:51.000Z">
+<meta property="og:description" content="在一些使用场景中，为了防止数据重复加载，经常需要保存fragment的状态，下面列举出一些最近我遇到的一些场景。">
+<meta property="og:updated_time" content="2016-04-19T02:39:51.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="哈哈哈哈哈">
-<meta name="twitter:description" content="今天双11,看着别人剁手的感觉就是爽….写代码写累了…去吃点狗粮.
-
-今天把数据库缓存功能终于写完了,调试了也没有什么bug,接下来开始写展示页面.
-胜利就在眼前!">
-<meta name="twitter:image" content="http://7vzpfd.com1.z0.glb.clouddn.com/4d8e849aa8a98bf69b44f8ac21a58707.gif">
+<meta name="twitter:title" content="Fragment状态保存">
+<meta name="twitter:description" content="在一些使用场景中，为了防止数据重复加载，经常需要保存fragment的状态，下面列举出一些最近我遇到的一些场景。">
 
 
 
@@ -131,10 +120,10 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2015/11/11/blog31/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/04/19/Fragment状态保存/"/>
 
 
-  <title> 哈哈哈哈哈 | Shell's Blog </title>
+  <title> Fragment状态保存 | Shell's Blog </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -274,7 +263,7 @@
             
             
               
-                哈哈哈哈哈
+                Fragment状态保存
               
             
           </h1>
@@ -286,8 +275,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-11-11T17:25:48+08:00" content="2015-11-11">
-              2015-11-11
+            <time itemprop="dateCreated" datetime="2016-04-19T10:04:34+08:00" content="2016-04-19">
+              2016-04-19
             </time>
           </span>
 
@@ -320,10 +309,14 @@
 
       
         <blockquote>
-<p>今天双11,看着别人剁手的感觉就是爽….<br><img src="http://7vzpfd.com1.z0.glb.clouddn.com/4d8e849aa8a98bf69b44f8ac21a58707.gif" alt=""><br>写代码写累了…去吃点狗粮.</p>
+<p>在一些使用场景中，为了防止数据重复加载，经常需要保存fragment的状态，下面列举出一些最近我遇到的一些场景。<br><a id="more"></a></p>
+<p>##ViewPager and Fragments</p>
 </blockquote>
-<p>今天把数据库缓存功能终于写完了,调试了也没有什么bug,接下来开始写展示页面.</p>
-<p>胜利就在眼前!</p>
+<ol>
+<li>需求<br>如果有一个ViewPager，里面有多个子页面，ViewPager翻页的时候默认会预加载当前页面的前后两个页面，当ViewPager再次滚动到以前的Fragment页面的时候就不需要再次进行网络请求。</li>
+<li>原理<br>当<code>FragmentPagerAdapter</code>添加一个fragment到FragmentManager中的时候它会使用一个根据这个fragment将被添加到的position生成一个特定的<code>tag</code>，<code>FragmentPagerAdapter.getItem(int position)</code>只有在这个position所对应的fragment不存在的时候才会调用。当Android注意到对于这个position已经创建过一个fragment，它将尝试使用<code>Fragment.findFragmentByTag()</code>来重新得到这个已经被缓存的fragment，而不是重新创建一个。所有的这些逻辑<code>FragmentPagerAdapter</code>都已经帮我们做好了。所以最好不要把fragment的初始化代码放到<code>getItem(int)</code>方法中。<br>当使用<code>FragmentPagerAdapter</code>的时候，我们让adapter去帮我们管理fragment，默认会帮我们预加载当前页面前后相邻的两个页面并且不会被销毁(除非使用<code>FragmentStatePagerAdapter</code>)已经加载到内存中的网络请求数据不会被销毁。然后在fragment中使用一下逻辑，重利用数据集<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if (mTabContent == null) &#123;</div><div class="line">    mPresenter.getTopicList(mTabTitle, mPageIndex, true);</div><div class="line">&#125; else &#123;</div><div class="line">    mAdapter.setData(mTabContent.getTopics());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
 
       
     </div>
@@ -346,7 +339,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Android/" rel="tag"># - Android</a>
+            <a href="/tags/Android/" rel="tag">#Android</a>
           
         </div>
       
@@ -355,16 +348,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/11/11/blog30/" rel="next" title="Android 框架 OrmLite">
-                <i class="fa fa-chevron-left"></i> Android 框架 OrmLite
+              <a href="/2015/12/02/阻止ViewPager的某个子页面滑动/" rel="next" title="阻止ViewPager的某个子页面滑动">
+                <i class="fa fa-chevron-left"></i> 阻止ViewPager的某个子页面滑动
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/11/11/blog32/" rel="prev" title="给RecyclerView添加header和footer">
-                给RecyclerView添加header和footer <i class="fa fa-chevron-right"></i>
+              <a href="/2016/05/05/status-barhe-navigation-barde-xian-shi-yu-yin-cang/" rel="prev" title="Status Bar和Navigation Bar的显示与隐藏">
+                Status Bar和Navigation Bar的显示与隐藏 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -433,17 +426,24 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

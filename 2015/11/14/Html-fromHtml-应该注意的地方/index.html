@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Android," />
 
 
 
@@ -90,15 +90,16 @@
 
 
 
-<meta name="description" content="量变产生质变">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Shell's Blog">
-<meta property="og:url" content="http://yoursite.com/archives/2016/02/index.html">
+<meta name="description" content="Html.fromHtml()方法确实是一个非常好用的方法,它可以解析html标签,来展示图文混合的丰富的界面.昨天遇到了一个bug就是关于fromHtml()的.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Html.fromHtml()应该注意的地方">
+<meta property="og:url" content="http://yoursite.com/2015/11/14/Html-fromHtml-应该注意的地方/index.html">
 <meta property="og:site_name" content="Shell's Blog">
-<meta property="og:description" content="量变产生质变">
+<meta property="og:description" content="Html.fromHtml()方法确实是一个非常好用的方法,它可以解析html标签,来展示图文混合的丰富的界面.昨天遇到了一个bug就是关于fromHtml()的.">
+<meta property="og:updated_time" content="2015-11-19T06:35:04.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Shell's Blog">
-<meta name="twitter:description" content="量变产生质变">
+<meta name="twitter:title" content="Html.fromHtml()应该注意的地方">
+<meta name="twitter:description" content="Html.fromHtml()方法确实是一个非常好用的方法,它可以解析html标签,来展示图文混合的丰富的界面.昨天遇到了一个bug就是关于fromHtml()的.">
 
 
 
@@ -119,10 +120,10 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2016/02/"/>
+  <link rel="canonical" href="http://yoursite.com/2015/11/14/Html-fromHtml-应该注意的地方/"/>
 
 
-  <title> 归档 | Shell's Blog </title>
+  <title> Html.fromHtml()应该注意的地方 | Shell's Blog </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -143,7 +144,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
@@ -241,66 +242,136 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 30 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
 
-      
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Html.fromHtml()应该注意的地方
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-11-14T13:58:58+08:00" content="2015-11-14">
+              2015-11-14
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
       
 
       
+        <blockquote>
+<p>Html.fromHtml()方法确实是一个非常好用的方法,它可以解析html标签,来展示图文混合的丰富的界面.昨天遇到了一个bug就是关于fromHtml()的.</p>
+</blockquote>
+<a id="more"></a>
+<p>在解析html中<code>&lt;a&gt;</code>标签的时候,部分标签内的链接类似<code>href=&#39;/member/abc&#39;</code>这样的形式,是一个相对的路径,Android找不到能够处理这种没有<code>http://</code>超链接的app,整个程序就崩溃了.解决办法就是在这解析到这种<code>&lt;a&gt;</code>标签的时候移除该<code>URLSpan</code>,再添加一个<code>ClickableSpan</code>.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 点击@后面的人名崩溃的问题,并且点击@用户名跳转到用户详情页</div><div class="line"> * http://androblip.huiges.nl/2010/11/28/handling-html-in-a-textview/</div><div class="line"> */</div><div class="line">URLSpan[] urlSpans = htmlSpannable.getSpans(<span class="number">0</span>,htmlSpannable.length(),URLSpan.class);</div><div class="line"><span class="keyword">for</span> (URLSpan span : urlSpans)&#123;</div><div class="line">    <span class="keyword">int</span> start = htmlSpannable.getSpanStart(span);</div><div class="line">    <span class="keyword">int</span> end = htmlSpannable.getSpanEnd(span);</div><div class="line">    <span class="keyword">int</span> flag = htmlSpannable.getSpanFlags(span);</div><div class="line">    <span class="keyword">if</span> (!span.getURL().startsWith(<span class="string">"http"</span>)&amp;&amp;span.getURL().contains(<span class="string">"/member/"</span>))&#123;</div><div class="line">        ClickableSpan clickableSpan = <span class="keyword">new</span> ClickableSpan() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View widget)</span> </span>&#123;</div><div class="line">                Toast.makeText(getContext(),<span class="string">"@"</span>,Toast.LENGTH_SHORT).show();</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        htmlSpannable.removeSpan(span);</div><div class="line">        htmlSpannable.setSpan(clickableSpan,start,end,flag);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://androblip.huiges.nl/2010/11/28/handling-html-in-a-textview/" target="_blank" rel="external">解决方法原链接</a></p>
+
+      
+    </div>
+
+    <div>
+      
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2016">2016</h2>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
         </div>
       
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/11/11/哈哈哈哈哈/" rel="next" title="哈哈哈哈哈">
+                <i class="fa fa-chevron-left"></i> 哈哈哈哈哈
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/12/02/阻止ViewPager的某个子页面滑动/" rel="prev" title="阻止ViewPager的某个子页面滑动">
+                阻止ViewPager的某个子页面滑动 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
-
-  <article class="post post-type-normal" itemscope itemtype="//schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/02/11/blog37/" itemprop="url">
-              
-                <span itemprop="name">Fragment生命周期</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-02-11T13:52:27+08:00"
-              content="2016-02-11" >
-          02-11
-        </time>
-      </div>
-
-    </header>
+      
+    </footer>
   </article>
 
 
 
-    
-
-  </section>
-
-  
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -308,6 +379,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -327,8 +402,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://avatars0.githubusercontent.com/u/7572018?v=3&s=466"
@@ -339,17 +423,24 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -409,6 +500,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -521,11 +623,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
 
 
   

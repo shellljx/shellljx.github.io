@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content=" - Android," />
+  <meta name="keywords" content="Android," />
 
 
 
@@ -90,22 +90,16 @@
 
 
 
-<meta name="description" content="hangyang大神关于 Android 异步消息处理机制 让你深入理解 Looper、Handler、Message三者关系的文章http://blog.csdn.net/lmj623565791/article/details/38377229
-
-还有几个方法view.post(runnable)和Activity.runonUiThread(runnable)这两个方法和handler.p">
+<meta name="description" content="hangyang大神关于 Android 异步消息处理机制 让你深入理解 Looper、Handler、Message三者关系的文章http://blog.csdn.net/lmj623565791/article/details/38377229">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android多线程">
 <meta property="og:url" content="http://yoursite.com/2016/05/18/androidduo-xian-cheng/index.html">
 <meta property="og:site_name" content="Shell's Blog">
-<meta property="og:description" content="hangyang大神关于 Android 异步消息处理机制 让你深入理解 Looper、Handler、Message三者关系的文章http://blog.csdn.net/lmj623565791/article/details/38377229
-
-还有几个方法view.post(runnable)和Activity.runonUiThread(runnable)这两个方法和handler.p">
+<meta property="og:description" content="hangyang大神关于 Android 异步消息处理机制 让你深入理解 Looper、Handler、Message三者关系的文章http://blog.csdn.net/lmj623565791/article/details/38377229">
 <meta property="og:updated_time" content="2016-05-18T06:59:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android多线程">
-<meta name="twitter:description" content="hangyang大神关于 Android 异步消息处理机制 让你深入理解 Looper、Handler、Message三者关系的文章http://blog.csdn.net/lmj623565791/article/details/38377229
-
-还有几个方法view.post(runnable)和Activity.runonUiThread(runnable)这两个方法和handler.p">
+<meta name="twitter:description" content="hangyang大神关于 Android 异步消息处理机制 让你深入理解 Looper、Handler、Message三者关系的文章http://blog.csdn.net/lmj623565791/article/details/38377229">
 
 
 
@@ -315,12 +309,12 @@
 
       
         <blockquote>
-<p>hangyang大神关于 Android 异步消息处理机制 让你深入理解 Looper、Handler、Message三者关系的文章<a href="http://blog.csdn.net/lmj623565791/article/details/38377229" target="_blank" rel="external">http://blog.csdn.net/lmj623565791/article/details/38377229</a></p>
+<p>hangyang大神关于 Android 异步消息处理机制 让你深入理解 Looper、Handler、Message三者关系的文章<a href="http://blog.csdn.net/lmj623565791/article/details/38377229" target="_blank" rel="external">http://blog.csdn.net/lmj623565791/article/details/38377229</a><br><a id="more"></a><br>还有几个方法<code>view.post(runnable)</code>和<code>Activity.runonUiThread(runnable)</code>这两个方法和<code>handler.post(runnable)</code>一样，都是发送一个<code>Message</code>而不是创建一个新的线程。不同点是<code>Handler.post()</code>是发送消息到handler创建的ui线程中，而<code>view.post</code>和<code>Activity.runonuiThread</code>都是发送消息到view或者activity所在线程(UI线程)的<code>Handler</code>里。</p>
 </blockquote>
-<p>还有几个方法<code>view.post(runnable)</code>和<code>Activity.runonUiThread(runnable)</code>这两个方法和<code>handler.post(runnable)</code>一样，都是发送一个<code>Message</code>而不是创建一个新的线程。不同点是<code>Handler.post()</code>是发送消息到handler创建的ui线程中，而<code>view.post</code>和<code>Activity.runonuiThread</code>都是发送消息到view或者activity所在线程(UI线程)的<code>Handler</code>里。</p>
 <p>代码例子：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></div><div class="line">    <span class="attr">android:orientation</span>=<span class="string">"vertical"</span>&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/title"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"60dp"</span> /&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">Button</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/btn"</span></div><div class="line">        <span class="attr">android:text</span>=<span class="string">"view.post(runnable)"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span> /&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">Button</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/btn2"</span></div><div class="line">        <span class="attr">android:text</span>=<span class="string">"activity.runonUIthread"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span> /&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">Button</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/btn3"</span></div><div class="line">        <span class="attr">android:text</span>=<span class="string">"handler.post(runnable)"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span> /&gt;</div><div class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></div></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line">btn1.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                <span class="keyword">try</span> &#123;</div><div class="line">                    Thread.sleep(<span class="number">3000</span>);</div><div class="line">                    btn1.post(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">                        <span class="meta">@Override</span></div><div class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                            title.setText(<span class="string">"按钮1修改"</span>);</div><div class="line">                        &#125;</div><div class="line">                    &#125;);</div><div class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;).start();</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line">btn2.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                <span class="keyword">try</span> &#123;</div><div class="line">                    Thread.sleep(<span class="number">3000</span>);</div><div class="line">                    TestActivity.<span class="keyword">this</span>.runOnUiThread(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">                        <span class="meta">@Override</span></div><div class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                            title.setText(<span class="string">"按钮2修改"</span>);</div><div class="line">                        &#125;</div><div class="line">                    &#125;);</div><div class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;).start();</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line">btn3.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                <span class="keyword">try</span> &#123;</div><div class="line">                    Thread.sleep(<span class="number">3000</span>);</div><div class="line">                    handler.post(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">                        <span class="meta">@Override</span></div><div class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                            title.setText(<span class="string">"按钮3修改"</span>);</div><div class="line">                        &#125;</div><div class="line">                    &#125;);</div><div class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;).start();</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -342,7 +336,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Android/" rel="tag"># - Android</a>
+            <a href="/tags/Android/" rel="tag">#Android</a>
           
         </div>
       
@@ -429,17 +423,24 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

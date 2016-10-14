@@ -265,491 +265,6 @@
             
               
                 
-                <a class="post-title-link" href="/2015/11/11/blog32/" itemprop="url">
-                  给RecyclerView添加header和footer
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-11-11T22:06:10+08:00" content="2015-11-11">
-              2015-11-11
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>这个Adapter可以给RecyclerView添加header和footer,<a href="https://gist.github.com/darnmason/7bbf8beae24fe7296c8a" target="_blank" rel="external">链接</a></p>
-</blockquote>
-<p>使用方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">listview.setLayoutManager(<span class="keyword">new</span> LinearLayoutManager(<span class="keyword">this</span>));</div><div class="line">mAdapter = <span class="keyword">new</span> TestAdapter(<span class="keyword">this</span>);</div><div class="line">headerAdapter = <span class="keyword">new</span> HeaderViewRecyclerAdapter(mAdapter);</div><div class="line">View header = LayoutInflater.from(<span class="keyword">this</span>).inflate(R.layout.item_header,listview,<span class="keyword">false</span>);</div><div class="line">headerAdapter.addHeaderView(header);</div><div class="line">listview.setAdapter(headerAdapter);</div></pre></td></tr></table></figure></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HeaderViewRecyclerAdapter</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span>.<span class="title">Adapter</span>&lt;<span class="title">RecyclerView</span>.<span class="title">ViewHolder</span>&gt; </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> HEADERS_START = Integer.MIN_VALUE;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> FOOTERS_START = Integer.MIN_VALUE + <span class="number">10</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ITEMS_START = Integer.MIN_VALUE + <span class="number">20</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ADAPTER_MAX_TYPES = <span class="number">100</span>;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> RecyclerView.Adapter mWrappedAdapter;</div><div class="line">    <span class="keyword">private</span> List&lt;View&gt; mHeaderViews, mFooterViews;</div><div class="line">    <span class="keyword">private</span> Map&lt;Class, Integer&gt; mItemTypesOffset;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Construct a new header view recycler adapter</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> adapter The underlying adapter to wrap</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HeaderViewRecyclerAdapter</span><span class="params">(RecyclerView.Adapter adapter)</span> </span>&#123;</div><div class="line">        mHeaderViews = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        mFooterViews = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        mItemTypesOffset = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">        setWrappedAdapter(adapter);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Replaces the          adapter, notifying RecyclerView of changes</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> adapter The new adapter to wrap</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAdapter</span><span class="params">(RecyclerView.Adapter adapter)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (mWrappedAdapter != <span class="keyword">null</span> &amp;&amp; mWrappedAdapter.getItemCount() &gt; <span class="number">0</span>) &#123;</div><div class="line">            notifyItemRangeRemoved(getHeaderCount(), mWrappedAdapter.getItemCount());</div><div class="line">        &#125;</div><div class="line">        setWrappedAdapter(adapter);</div><div class="line">        notifyItemRangeInserted(getHeaderCount(), mWrappedAdapter.getItemCount());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> RecyclerView.<span class="function">Adapter <span class="title">getWrappedAdapter</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mWrappedAdapter;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getItemViewType</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> hCount = getHeaderCount();</div><div class="line">        <span class="keyword">if</span> (position &lt; hCount) <span class="keyword">return</span> HEADERS_START + position;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">int</span> itemCount = mWrappedAdapter.getItemCount();</div><div class="line">            <span class="keyword">if</span> (position &lt; hCount + itemCount) &#123;</div><div class="line">                <span class="keyword">return</span> getAdapterTypeOffset() + mWrappedAdapter.getItemViewType(position - hCount);</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">return</span> FOOTERS_START + position - hCount - itemCount;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">public</span> RecyclerView.<span class="function">ViewHolder <span class="title">onCreateViewHolder</span><span class="params">(ViewGroup viewGroup, <span class="keyword">int</span> viewType)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (viewType &lt; HEADERS_START + getHeaderCount())</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> StaticViewHolder(mHeaderViews.get(viewType - HEADERS_START));</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (viewType &lt; FOOTERS_START + getFooterCount())</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> StaticViewHolder(mFooterViews.get(viewType - FOOTERS_START));</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> mWrappedAdapter.onCreateViewHolder(viewGroup, viewType - getAdapterTypeOffset());</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onBindViewHolder</span><span class="params">(RecyclerView.ViewHolder viewHolder, <span class="keyword">int</span> position)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> hCount = getHeaderCount();</div><div class="line">        <span class="keyword">if</span> (position &gt;= hCount &amp;&amp; position &lt; hCount + mWrappedAdapter.getItemCount())</div><div class="line">            mWrappedAdapter.onBindViewHolder(viewHolder, position - hCount);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Add a static view to appear at the start of the RecyclerView. Headers are displayed in the</div><div class="line">     * order they were added.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> view The header view to add</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addHeaderView</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">        mHeaderViews.add(view);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeHeaderView</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">        mHeaderViews.remove(view);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Add a static view to appear at the end of the RecyclerView. Footers are displayed in the</div><div class="line">     * order they were added.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> view The footer view to add</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addFooterView</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">        mFooterViews.add(view);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeFooterView</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">        mFooterViews.remove(view);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getItemCount</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> getHeaderCount() + getFooterCount() + getWrappedItemCount();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * <span class="doctag">@return</span> The item count in the underlying adapter</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getWrappedItemCount</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mWrappedAdapter.getItemCount();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * <span class="doctag">@return</span> The number of header views added</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getHeaderCount</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mHeaderViews.size();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * <span class="doctag">@return</span> The number of footer views added</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getFooterCount</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mFooterViews.size();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setWrappedAdapter</span><span class="params">(RecyclerView.Adapter adapter)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (mWrappedAdapter != <span class="keyword">null</span>) mWrappedAdapter.unregisterAdapterDataObserver(mDataObserver);</div><div class="line">        mWrappedAdapter = adapter;</div><div class="line">        Class adapterClass = mWrappedAdapter.getClass();</div><div class="line">        <span class="keyword">if</span> (!mItemTypesOffset.containsKey(adapterClass)) putAdapterTypeOffset(adapterClass);</div><div class="line">        mWrappedAdapter.registerAdapterDataObserver(mDataObserver);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">putAdapterTypeOffset</span><span class="params">(Class adapterClass)</span> </span>&#123;</div><div class="line">        mItemTypesOffset.put(adapterClass, ITEMS_START + mItemTypesOffset.size() * ADAPTER_MAX_TYPES);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getAdapterTypeOffset</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mItemTypesOffset.get(mWrappedAdapter.getClass());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> RecyclerView.AdapterDataObserver mDataObserver = <span class="keyword">new</span> RecyclerView.AdapterDataObserver() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onChanged</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">super</span>.onChanged();</div><div class="line">            notifyDataSetChanged();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onItemRangeChanged</span><span class="params">(<span class="keyword">int</span> positionStart, <span class="keyword">int</span> itemCount)</span> </span>&#123;</div><div class="line">            <span class="keyword">super</span>.onItemRangeChanged(positionStart, itemCount);</div><div class="line">            notifyItemRangeChanged(positionStart + getHeaderCount(), itemCount);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onItemRangeInserted</span><span class="params">(<span class="keyword">int</span> positionStart, <span class="keyword">int</span> itemCount)</span> </span>&#123;</div><div class="line">            <span class="keyword">super</span>.onItemRangeInserted(positionStart, itemCount);</div><div class="line">            notifyItemRangeInserted(positionStart + getHeaderCount(), itemCount);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onItemRangeRemoved</span><span class="params">(<span class="keyword">int</span> positionStart, <span class="keyword">int</span> itemCount)</span> </span>&#123;</div><div class="line">            <span class="keyword">super</span>.onItemRangeRemoved(positionStart, itemCount);</div><div class="line">            notifyItemRangeRemoved(positionStart + getHeaderCount(), itemCount);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onItemRangeMoved</span><span class="params">(<span class="keyword">int</span> fromPosition, <span class="keyword">int</span> toPosition, <span class="keyword">int</span> itemCount)</span> </span>&#123;</div><div class="line">            <span class="keyword">super</span>.onItemRangeMoved(fromPosition, toPosition, itemCount);</div><div class="line">            <span class="keyword">int</span> hCount = getHeaderCount();</div><div class="line">            <span class="comment">// <span class="doctag">TODO:</span> No notifyItemRangeMoved method?</span></div><div class="line">            notifyItemRangeChanged(fromPosition + hCount, toPosition + hCount + itemCount);</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticViewHolder</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span>.<span class="title">ViewHolder</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">StaticViewHolder</span><span class="params">(View itemView)</span> </span>&#123;</div><div class="line">            <span class="keyword">super</span>(itemView);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/11/11/blog31/" itemprop="url">
-                  哈哈哈哈哈
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-11-11T17:25:48+08:00" content="2015-11-11">
-              2015-11-11
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>今天双11,看着别人剁手的感觉就是爽….<br><img src="http://7vzpfd.com1.z0.glb.clouddn.com/4d8e849aa8a98bf69b44f8ac21a58707.gif" alt=""><br>写代码写累了…去吃点狗粮.</p>
-</blockquote>
-<p>今天把数据库缓存功能终于写完了,调试了也没有什么bug,接下来开始写展示页面.</p>
-<p>胜利就在眼前!</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/11/11/blog30/" itemprop="url">
-                  Android 框架 OrmLite
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-11-11T08:42:12+08:00" content="2015-11-11">
-              2015-11-11
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>关于OrmLite的教程网上有很多,但是有些细节上的坑需要注意一下..<br>昨天要用到<code>OrmLite</code>的一对多的关联,结果踩了一个大坑</p>
-</blockquote>
-<hr>
-<p>有两个model,<code>TabelContent</code>和<code>Topic</code>,之间关系是一对多.模型定义如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@DatabaseTable</span>(tableName = <span class="string">"tb_topic"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Topic</span> </span>&#123;</div><div class="line">    <span class="meta">@DatabaseField</span>(generatedId = <span class="keyword">true</span>)</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;                         			<span class="comment">//数据库记录id,自增</span></div><div class="line">    <span class="meta">@DatabaseField</span>(columnName = <span class="string">"nodeName"</span>)</div><div class="line">    <span class="keyword">private</span> String nodeName;               <span class="comment">//来自节点的名字</span></div><div class="line">    <span class="meta">@DatabaseField</span>(columnName = <span class="string">"createTime"</span>)</div><div class="line">    <span class="keyword">private</span> String createTime;               <span class="comment">//发布时间</span></div><div class="line">    <span class="meta">@DatabaseField</span>(columnName = <span class="string">"replies"</span>)</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> replies;                            <span class="comment">//回复次数</span></div><div class="line">    <span class="meta">@DatabaseField</span>(foreign = <span class="keyword">true</span>,foreignAutoRefresh = <span class="keyword">true</span>)</div><div class="line">    <span class="keyword">private</span> TableContent content;</div><div class="line">&#125;</div><div class="line">    <span class="comment">//get set方法省略</span></div></pre></td></tr></table></figure></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@DatabaseTable</span>(tableName = <span class="string">"tb_table_content"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TableContent</span> </span>&#123;</div><div class="line">    <span class="meta">@DatabaseField</span>(generatedId = <span class="keyword">true</span>)</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;                         		   <span class="comment">//数据库记录id</span></div><div class="line">    <span class="meta">@DatabaseField</span>(columnName = <span class="string">"name"</span>)</div><div class="line">    <span class="keyword">private</span> String name;                     	<span class="comment">//tab名字</span></div><div class="line">    <span class="meta">@DatabaseField</span>(columnName = <span class="string">"page"</span>)</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> page;                           	<span class="comment">//当前页码</span></div><div class="line">    <span class="meta">@DatabaseField</span>(columnName = <span class="string">"totalPages"</span>)</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> totalPages;                 	<span class="comment">//总页码</span></div><div class="line">    <span class="meta">@ForeignCollectionField</span>(eager = <span class="keyword">true</span>)</div><div class="line">    <span class="keyword">private</span> Collection&lt;Topic&gt; topics;  <span class="comment">//话题列表</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong><em>在创建数据的时候要注意的地方如下:</em></strong></p>
-<p>1.在创建<code>TableContent</code>的数据记录的时候,要遍历一个个的创建<code>Topic</code>数据<br>2.<code>TableContent</code>要比<code>Topic</code>先<code>create</code>才可以,否则通过关联去不到数据..<br>3.<code>Topic</code>添加记录之前记得要set外键,否则也查询不到数据<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mDataBaseHelper.getTableContentDao().create(mData);</div><div class="line"><span class="keyword">for</span> (Topic topic:mData.getTopics())&#123;</div><div class="line">	<span class="comment">//记得set外键</span></div><div class="line">	topic.setContent(mData);				</div><div class="line">    mDataBaseHelper.getTopicDao().create(topic);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/11/09/blog29/" itemprop="url">
-                  ＃今天遇到bug了吗？＃
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-11-09T17:12:12+08:00" content="2015-11-09">
-              2015-11-09
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>今天虽然没有遇到什么bug，但是调一个界面布局，调了半天，想要调出一个完美的界面，看着舒服的界面，字体大小，控件之间的间距，字体颜色，背景色，调来调去，看了不少其他应用的布局，最后终于调出了比较满意的效果．审美和界面设计能力令人捉急啊．．．．加油，我的openv2ex开源客户端．</p>
-<p><img src="http://7vzpfd.com1.z0.glb.clouddn.com/Screenshot_2015-11-09-17-32-09.png" width="240"></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/10/27/blog25/" itemprop="url">
-                  本站域名已更换为licrafter.com
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-10-27T10:55:26+08:00" content="2015-10-27">
-              2015-10-27
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>以前的域名linghun.me已经到期了，现在本站域名改为licrafter.com  新的域名新的开始。。。。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2015/10/25/blog24/" itemprop="url">
                   Android自定义ExpandableRecyclerView的实现
                 </a>
@@ -1249,6 +764,519 @@
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/07/05/bukkitxu-lie-hua-cun-chu-zuo-biao/" itemprop="url">
+                  Bukkit序列化存储坐标
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-07-05T10:55:36+08:00" content="2015-07-05">
+              2015-07-05
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div></pre></td><td class="code"><pre><div class="line">import java.util.HashMap;</div><div class="line">import java.util.Map;</div><div class="line"> </div><div class="line">import org.bukkit.Bukkit;</div><div class="line">import org.bukkit.Location;</div><div class="line">import org.bukkit.configuration.serialization.ConfigurationSerializable;</div><div class="line"> </div><div class="line">public class Position implements ConfigurationSerializable&#123;</div><div class="line"> </div><div class="line">    private String world;</div><div class="line">    private double x, y, z;</div><div class="line"> </div><div class="line">    public Position(Location location)&#123;</div><div class="line">        this(location.getWorld().getName(), location.getX(), location.getY(), location.getZ());</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public Position(String world, double x, double y, double z)&#123;</div><div class="line">        setWorld(world);</div><div class="line">        setX(x);</div><div class="line">        setY(y);</div><div class="line">        setZ(z);</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public String getWorld() &#123;</div><div class="line">        return world;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public void setWorld(String world) &#123;</div><div class="line">        this.world = world;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public double getX() &#123;</div><div class="line">        return x;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public void setX(double x) &#123;</div><div class="line">        this.x = x;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public double getY() &#123;</div><div class="line">        return y;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public void setY(double y) &#123;</div><div class="line">        this.y = y;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public double getZ() &#123;</div><div class="line">        return z;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public void setZ(double z) &#123;</div><div class="line">        this.z = z;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public Location getLocation()&#123;</div><div class="line">        return new Location(Bukkit.getWorld(getWorld()), getZ(), getY(), getZ());</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    @Override</div><div class="line">    public Map&lt;String, Object&gt; serialize() &#123;</div><div class="line">        Map&lt;String, Object&gt; result = new HashMap&lt;String, Object&gt;();</div><div class="line"> </div><div class="line">        result.put(&quot;world&quot;, getWorld());</div><div class="line">        result.put(&quot;x&quot;, getX());</div><div class="line">        result.put(&quot;y&quot;, getY());</div><div class="line">        result.put(&quot;z&quot;, getZ());</div><div class="line"> </div><div class="line">        return result;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    public static Position deserialize(Map&lt;String, Object&gt; args)&#123;</div><div class="line">        return new Position((String)args.get(&quot;world&quot;), (Double)args.get(&quot;x&quot;), (Double)args.get(&quot;y&quot;), (Double)args.get(&quot;z&quot;));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后不要忘了在主类中注册<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">static&#123;</div><div class="line">    ConfigurationSerialization.registerClass(Position.class);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/05/29/an-zhuang-laravelhou-fang-wen-zhu-ye-403huo-zhe-502/" itemprop="url">
+                  安装laravel后，访问主页403或者502
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-05-29T14:57:02+08:00" content="2015-05-29">
+              2015-05-29
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>安装了laravel后，一直出现403或者502的错误，郁闷了好几天，今天终于知道了原因。原来是php解析错误造成的，我少安装了一个php模块<code>php5-fpm</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apt-get install php5-fpm</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/05/11/androidfang-jie-cao-jing-xuan-di-bu-cai-dan-lan/" itemprop="url">
+                  Android仿“节操精选底部菜单栏”
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-05-11T21:46:48+08:00" content="2015-05-11">
+              2015-05-11
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>分享一个android Demo，这是我做的一个放“节操精选的底部菜单栏”，运用了自定义View和Animation的知识点。是一个学习自定义view的不错的例子</p>
+</blockquote>
+<p>####一.关于用到的一些知识点和资源</p>
+<ol>
+<li><a href="http://developer.android.com/training/custom-views/create-view.html" target="_blank" rel="external">自定义View</a></li>
+<li><a href="http://www.iconfont.cn/" target="_blank" rel="external">图标</a></li>
+</ol>
+<p>####二.代码地址<br><a href="https://camo.githubusercontent.com/cbd3211f1185a6acf59c4f1d53824a756e2c4f16/687474703a2f2f69312e74696574756b752e636f6d2f356364616234616437643937336232302e676966" target="_blank" rel="external">GitHub</a></p>
+<hr>
+<p>效果图<br><img src="https://camo.githubusercontent.com/cbd3211f1185a6acf59c4f1d53824a756e2c4f16/687474703a2f2f69312e74696574756b752e636f6d2f356364616234616437643937336232302e676966" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/04/25/minecraftfu-wu-qi-kua-fu-liao-tian-cha-jian/" itemprop="url">
+                  Minecraft服务器跨服聊天插件
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-04-25T00:16:55+08:00" content="2015-04-25">
+              2015-04-25
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>最近实习，也很少更新博客了，今天就更新一下吧。</p>
+</blockquote>
+<p>前几天做了一款跨服聊天的Minecraft服务器免费插件<a href="http://www.mcbbs.net/thread-433831-1-1.html" target="_blank" rel="external">插件链接</a>，<a href="https://github.com/shellljx/MultiServerChat" target="_blank" rel="external">Github链接</a>，这个插件是基于<code>Java Socket</code>实现的一个多客户端聊天室，子服务器的玩家发送的聊天信息通过主服务器进行转发实现跨服聊天。</p>
+<p>一些腐竹觉得最初版本有点不符合他们的实际情况，找我来定制，效果不错</p>
+<p><img src="http://i4.tietuku.com/167497642eb57754.png" alt="有图有真相"></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/04/04/nginxbu-neng-jie-xi-phpde-jie-jue-fang-fa/" itemprop="url">
+                  Nginx不能解析php的解决方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-04-04T22:43:24+08:00" content="2015-04-04">
+              2015-04-04
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>今天想在自己的服务器上安装一个开源的php论坛平台，论坛平台上传到服务器上，绑定好三级域名之后发现服务器无法解析php文件但是可以解析html，经过google发现原来nginx默认不能解析php，要进行设置才可以。</p>
+</blockquote>
+<hr>
+<p>下面是我在设置nginx解析php的过程和遇到的一些问题。</p>
+<ol>
+<li><p>先安装php</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install php5-cli php5-cgi mysql-server php5-mysql</div></pre></td></tr></table></figure>
+</li>
+<li><p>安装FastCgi</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install spawn-fcgi</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>3.配置nginx修改index的一行修改为:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index index.php index.html index.htm;</div></pre></td></tr></table></figure></p>
+<p>4.配置nginx去掉下面部分的注释用于支持 php 脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">location ~ \.php$ &#123;</div><div class="line">include /etc/nginx/fastcgi_params; #需放在第一行，否则会出错</div><div class="line">fastcgi_pass 127.0.0.1:9000;</div><div class="line">fastcgi_index index.php;</div><div class="line">fastcgi_param SCRIPT_FILENAME /var/www/nginx-default$fastcgi_script_name;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>5.重启nginx<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service nginx restart</div></pre></td></tr></table></figure></p>
+<p>6.启动fastcgi php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">spawn-fcgi -a 127.0.0.1 -p 9000 -C 10 -u www-data -f /usr/bin/php-cgi</div></pre></td></tr></table></figure></p>
+<p><strong>为了让php-cgi开机自启动： Ubuntu开机之后会执行/etc/rc.local文件中的脚本 所以我们可以直接在/etc/rc.local中添加启动脚本。 spawn-fcgi -a 127.0.0.1 -p 9000 -C 10 -u www-data -f /usr/bin/php-cgi 添加到语句：exit 0 前面才行</strong></p>
+<p>7.创建、测试phpinfo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vi /var/www/nginx-default/info.php</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;?php phpinfo(); ?&gt;</div></pre></td></tr></table></figure>
+<p>经过上面的几步后应该就可以解析php了，但是有的时候还是会出现错误。</p>
+<p><strong>502 Bad Gateway</strong></p>
+<p>首先要使用指令<code>ps aux | grep php</code>来检查一下<strong>php-fpm</strong>是否在运行<br>，如果在输出的进程中没有<strong>php-fpm</strong>的字样，你要重新安装php-fpm.如果<br>有看到php-fpm的字样，那就可以忽略这一步了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get remove php5 php5-cgi php5-fpm</div><div class="line">sudo apt-get install php5 php5-cgi php5-fpm</div></pre></td></tr></table></figure></p>
+<p>然后打开配置文件<code>/etc/php5/fpm/pool.d/www.conf</code>找到<code>listen</code>修改成和<code>/etc/nginx/sites-available/default</code>中的<code>fastcgi_pass</code>一样就可以了，<br>我是修改成下面这个样子的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">listen = 127.0.0.1:9000</div></pre></td></tr></table></figure></p>
+<p><strong>File not found</strong></p>
+<p>如果经过上面的操作又出现了<code>File not found</code>这个错误的话，一般都是服务器配置错误了。我的<code>nginx/sites-available/default</code>配置文件是配置成这样的，我服务器根目录在<code>/var/www/bbs</code>文件夹下.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">        listen 80;</div><div class="line"></div><div class="line">        root /var/www/bbs;</div><div class="line">        index index.html index.htm index.php;</div><div class="line"></div><div class="line">        # Make site accessible from http://localhost/</div><div class="line">        server_name bbs.linghun.me;</div><div class="line"></div><div class="line">        location ~ \.php$ &#123;</div><div class="line">        include /etc/nginx/fastcgi_params; #需放在第一行，否则会出错</div><div class="line">        fastcgi_pass 127.0.0.1:9000;</div><div class="line">        fastcgi_index index.php;</div><div class="line">        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<p>至此就可以解析php了</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1294,17 +1322,24 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

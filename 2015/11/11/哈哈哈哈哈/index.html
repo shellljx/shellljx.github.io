@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content=" - Android," />
+  <meta name="keywords" content="OpenV2ex," />
 
 
 
@@ -90,22 +90,18 @@
 
 
 
-<meta name="description" content="当RxJava和Retrofit配合发起网络请求之后，在请求还没返回来的时候快速的取消订阅会导致下面的报错java.lang.RuntimeException: Unable to pause activity {my.project.MyActivity}: android.os.NetworkOnMainThreadException
-
-然后在github上面看到了JakeWharton大婶">
+<meta name="description" content="今天双11,看着别人剁手的感觉就是爽….写代码写累了…去吃点狗粮.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RxJava之取消订阅">
-<meta property="og:url" content="http://yoursite.com/2016/03/09/blog38/index.html">
+<meta property="og:title" content="哈哈哈哈哈">
+<meta property="og:url" content="http://yoursite.com/2015/11/11/哈哈哈哈哈/index.html">
 <meta property="og:site_name" content="Shell's Blog">
-<meta property="og:description" content="当RxJava和Retrofit配合发起网络请求之后，在请求还没返回来的时候快速的取消订阅会导致下面的报错java.lang.RuntimeException: Unable to pause activity {my.project.MyActivity}: android.os.NetworkOnMainThreadException
-
-然后在github上面看到了JakeWharton大婶">
-<meta property="og:updated_time" content="2016-03-09T14:59:17.000Z">
+<meta property="og:description" content="今天双11,看着别人剁手的感觉就是爽….写代码写累了…去吃点狗粮.">
+<meta property="og:image" content="http://7vzpfd.com1.z0.glb.clouddn.com/4d8e849aa8a98bf69b44f8ac21a58707.gif">
+<meta property="og:updated_time" content="2015-11-11T09:41:51.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RxJava之取消订阅">
-<meta name="twitter:description" content="当RxJava和Retrofit配合发起网络请求之后，在请求还没返回来的时候快速的取消订阅会导致下面的报错java.lang.RuntimeException: Unable to pause activity {my.project.MyActivity}: android.os.NetworkOnMainThreadException
-
-然后在github上面看到了JakeWharton大婶">
+<meta name="twitter:title" content="哈哈哈哈哈">
+<meta name="twitter:description" content="今天双11,看着别人剁手的感觉就是爽….写代码写累了…去吃点狗粮.">
+<meta name="twitter:image" content="http://7vzpfd.com1.z0.glb.clouddn.com/4d8e849aa8a98bf69b44f8ac21a58707.gif">
 
 
 
@@ -126,10 +122,10 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/03/09/blog38/"/>
+  <link rel="canonical" href="http://yoursite.com/2015/11/11/哈哈哈哈哈/"/>
 
 
-  <title> RxJava之取消订阅 | Shell's Blog </title>
+  <title> 哈哈哈哈哈 | Shell's Blog </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -269,7 +265,7 @@
             
             
               
-                RxJava之取消订阅
+                哈哈哈哈哈
               
             
           </h1>
@@ -281,11 +277,30 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-09T12:46:57+08:00" content="2016-03-09">
-              2016-03-09
+            <time itemprop="dateCreated" datetime="2015-11-11T17:25:48+08:00" content="2015-11-11">
+              2015-11-11
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/生活趣事/" itemprop="url" rel="index">
+                    <span itemprop="name">生活趣事</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -315,10 +330,11 @@
 
       
         <blockquote>
-<p>当RxJava和Retrofit配合发起网络请求之后，在请求还没返回来的时候快速的取消订阅会导致下面的报错<code>java.lang.RuntimeException: Unable to pause activity {my.project.MyActivity}: android.os.NetworkOnMainThreadException</code></p>
+<p>今天双11,看着别人剁手的感觉就是爽….<br><img src="http://7vzpfd.com1.z0.glb.clouddn.com/4d8e849aa8a98bf69b44f8ac21a58707.gif" alt=""><br>写代码写累了…去吃点狗粮.</p>
 </blockquote>
-<p>然后在github上面看到了<code>JakeWharton</code>大婶的回答.这个报错是OkHttp2.5的一个bug，解决的办法就是需要指定<code>unsubscribeOn()</code>发生的线程为异步线程:<code>unsubscribeOn(Schedulers.io())</code>或者<code>Schedulers.computation()</code>.</p>
-<p><a href="https://github.com/square/retrofit/issues/1046" target="_blank" rel="external">Unsubscription of RxJavaCallAdapterFactory$CallOnSubscribe$1 requires Network thread on Android #1046</a></p>
+<a id="more"></a>
+<p>今天把数据库缓存功能终于写完了,调试了也没有什么bug,接下来开始写展示页面.</p>
+<p>胜利就在眼前!</p>
 
       
     </div>
@@ -341,7 +357,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Android/" rel="tag"># - Android</a>
+            <a href="/tags/OpenV2ex/" rel="tag">#OpenV2ex</a>
           
         </div>
       
@@ -350,16 +366,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/02/11/blog37/" rel="next" title="Fragment生命周期">
-                <i class="fa fa-chevron-left"></i> Fragment生命周期
+              <a href="/2015/11/11/Android-框架-OrmLite/" rel="next" title="Android 框架 OrmLite">
+                <i class="fa fa-chevron-left"></i> Android 框架 OrmLite
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/04/19/blog39/" rel="prev" title="Fragment状态保存">
-                Fragment状态保存 <i class="fa fa-chevron-right"></i>
+              <a href="/2015/11/14/Html-fromHtml-应该注意的地方/" rel="prev" title="Html.fromHtml()应该注意的地方">
+                Html.fromHtml()应该注意的地方 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -428,17 +444,24 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

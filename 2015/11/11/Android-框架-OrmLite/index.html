@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content=" - Android," />
+  <meta name="keywords" content="Android," />
 
 
 
@@ -90,25 +90,16 @@
 
 
 
-<meta name="description" content="关于OrmLite的教程网上有很多,但是有些细节上的坑需要注意一下..昨天要用到OrmLite的一对多的关联,结果踩了一个大坑
-
-
-有两个model,TabelContent和Topic,之间关系是一对多.模型定义如下1234567891011121314@DatabaseTable(tableName = &quot;tb_topic&quot;)public class Topic &amp;#123;    @Dat">
+<meta name="description" content="关于OrmLite的教程网上有很多,但是有些细节上的坑需要注意一下..昨天要用到OrmLite的一对多的关联,结果踩了一个大坑">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android 框架 OrmLite">
-<meta property="og:url" content="http://yoursite.com/2015/11/11/blog30/index.html">
+<meta property="og:url" content="http://yoursite.com/2015/11/11/Android-框架-OrmLite/index.html">
 <meta property="og:site_name" content="Shell's Blog">
-<meta property="og:description" content="关于OrmLite的教程网上有很多,但是有些细节上的坑需要注意一下..昨天要用到OrmLite的一对多的关联,结果踩了一个大坑
-
-
-有两个model,TabelContent和Topic,之间关系是一对多.模型定义如下1234567891011121314@DatabaseTable(tableName = &quot;tb_topic&quot;)public class Topic &amp;#123;    @Dat">
+<meta property="og:description" content="关于OrmLite的教程网上有很多,但是有些细节上的坑需要注意一下..昨天要用到OrmLite的一对多的关联,结果踩了一个大坑">
 <meta property="og:updated_time" content="2015-11-11T03:21:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 框架 OrmLite">
-<meta name="twitter:description" content="关于OrmLite的教程网上有很多,但是有些细节上的坑需要注意一下..昨天要用到OrmLite的一对多的关联,结果踩了一个大坑
-
-
-有两个model,TabelContent和Topic,之间关系是一对多.模型定义如下1234567891011121314@DatabaseTable(tableName = &quot;tb_topic&quot;)public class Topic &amp;#123;    @Dat">
+<meta name="twitter:description" content="关于OrmLite的教程网上有很多,但是有些细节上的坑需要注意一下..昨天要用到OrmLite的一对多的关联,结果踩了一个大坑">
 
 
 
@@ -129,7 +120,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2015/11/11/blog30/"/>
+  <link rel="canonical" href="http://yoursite.com/2015/11/11/Android-框架-OrmLite/"/>
 
 
   <title> Android 框架 OrmLite | Shell's Blog </title>
@@ -290,6 +281,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
+                    <span itemprop="name">技术杂烩</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -320,8 +330,7 @@
         <blockquote>
 <p>关于OrmLite的教程网上有很多,但是有些细节上的坑需要注意一下..<br>昨天要用到<code>OrmLite</code>的一对多的关联,结果踩了一个大坑</p>
 </blockquote>
-<hr>
-<p>有两个model,<code>TabelContent</code>和<code>Topic</code>,之间关系是一对多.模型定义如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@DatabaseTable</span>(tableName = <span class="string">"tb_topic"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Topic</span> </span>&#123;</div><div class="line">    <span class="meta">@DatabaseField</span>(generatedId = <span class="keyword">true</span>)</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;                         			<span class="comment">//数据库记录id,自增</span></div><div class="line">    <span class="meta">@DatabaseField</span>(columnName = <span class="string">"nodeName"</span>)</div><div class="line">    <span class="keyword">private</span> String nodeName;               <span class="comment">//来自节点的名字</span></div><div class="line">    <span class="meta">@DatabaseField</span>(columnName = <span class="string">"createTime"</span>)</div><div class="line">    <span class="keyword">private</span> String createTime;               <span class="comment">//发布时间</span></div><div class="line">    <span class="meta">@DatabaseField</span>(columnName = <span class="string">"replies"</span>)</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> replies;                            <span class="comment">//回复次数</span></div><div class="line">    <span class="meta">@DatabaseField</span>(foreign = <span class="keyword">true</span>,foreignAutoRefresh = <span class="keyword">true</span>)</div><div class="line">    <span class="keyword">private</span> TableContent content;</div><div class="line">&#125;</div><div class="line">    <span class="comment">//get set方法省略</span></div></pre></td></tr></table></figure></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><p>有两个model,<code>TabelContent</code>和<code>Topic</code>,之间关系是一对多.模型定义如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@DatabaseTable</span>(tableName = <span class="string">"tb_topic"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Topic</span> </span>&#123;</div><div class="line">    <span class="meta">@DatabaseField</span>(generatedId = <span class="keyword">true</span>)</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;                         			<span class="comment">//数据库记录id,自增</span></div><div class="line">    <span class="meta">@DatabaseField</span>(columnName = <span class="string">"nodeName"</span>)</div><div class="line">    <span class="keyword">private</span> String nodeName;               <span class="comment">//来自节点的名字</span></div><div class="line">    <span class="meta">@DatabaseField</span>(columnName = <span class="string">"createTime"</span>)</div><div class="line">    <span class="keyword">private</span> String createTime;               <span class="comment">//发布时间</span></div><div class="line">    <span class="meta">@DatabaseField</span>(columnName = <span class="string">"replies"</span>)</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> replies;                            <span class="comment">//回复次数</span></div><div class="line">    <span class="meta">@DatabaseField</span>(foreign = <span class="keyword">true</span>,foreignAutoRefresh = <span class="keyword">true</span>)</div><div class="line">    <span class="keyword">private</span> TableContent content;</div><div class="line">&#125;</div><div class="line">    <span class="comment">//get set方法省略</span></div></pre></td></tr></table></figure></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@DatabaseTable</span>(tableName = <span class="string">"tb_table_content"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TableContent</span> </span>&#123;</div><div class="line">    <span class="meta">@DatabaseField</span>(generatedId = <span class="keyword">true</span>)</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;                         		   <span class="comment">//数据库记录id</span></div><div class="line">    <span class="meta">@DatabaseField</span>(columnName = <span class="string">"name"</span>)</div><div class="line">    <span class="keyword">private</span> String name;                     	<span class="comment">//tab名字</span></div><div class="line">    <span class="meta">@DatabaseField</span>(columnName = <span class="string">"page"</span>)</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> page;                           	<span class="comment">//当前页码</span></div><div class="line">    <span class="meta">@DatabaseField</span>(columnName = <span class="string">"totalPages"</span>)</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> totalPages;                 	<span class="comment">//总页码</span></div><div class="line">    <span class="meta">@ForeignCollectionField</span>(eager = <span class="keyword">true</span>)</div><div class="line">    <span class="keyword">private</span> Collection&lt;Topic&gt; topics;  <span class="comment">//话题列表</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><strong><em>在创建数据的时候要注意的地方如下:</em></strong></p>
 <p>1.在创建<code>TableContent</code>的数据记录的时候,要遍历一个个的创建<code>Topic</code>数据<br>2.<code>TableContent</code>要比<code>Topic</code>先<code>create</code>才可以,否则通过关联去不到数据..<br>3.<code>Topic</code>添加记录之前记得要set外键,否则也查询不到数据<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mDataBaseHelper.getTableContentDao().create(mData);</div><div class="line"><span class="keyword">for</span> (Topic topic:mData.getTopics())&#123;</div><div class="line">	<span class="comment">//记得set外键</span></div><div class="line">	topic.setContent(mData);				</div><div class="line">    mDataBaseHelper.getTopicDao().create(topic);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
@@ -347,7 +356,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Android/" rel="tag"># - Android</a>
+            <a href="/tags/Android/" rel="tag">#Android</a>
           
         </div>
       
@@ -364,7 +373,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/11/11/blog31/" rel="prev" title="哈哈哈哈哈">
+              <a href="/2015/11/11/哈哈哈哈哈/" rel="prev" title="哈哈哈哈哈">
                 哈哈哈哈哈 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -434,17 +443,24 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -511,7 +527,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li></ol></div>
             
           </div>
         </section>
