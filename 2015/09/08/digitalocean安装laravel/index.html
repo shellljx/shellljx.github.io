@@ -92,29 +92,20 @@
 
 <meta name="description" content="前段时间在digitalocean上安装laravel遇到了out of memory的坑，下面是一个完美的安装方法
 
-How To Install Laravel with Nginx on an Ubuntu 12.04 LTS VPS
-
-
-Laravel is a framework for websites in the PHP programming language. It allow">
+How To Install Laravel with Nginx on an Ubuntu 12.04 LTS VPS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="digitalocean安装laravel">
 <meta property="og:url" content="http://yoursite.com/2015/09/08/digitalocean安装laravel/index.html">
 <meta property="og:site_name" content="Shell's Blog">
 <meta property="og:description" content="前段时间在digitalocean上安装laravel遇到了out of memory的坑，下面是一个完美的安装方法
 
-How To Install Laravel with Nginx on an Ubuntu 12.04 LTS VPS
-
-
-Laravel is a framework for websites in the PHP programming language. It allow">
+How To Install Laravel with Nginx on an Ubuntu 12.04 LTS VPS">
 <meta property="og:updated_time" content="2015-09-08T09:44:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="digitalocean安装laravel">
 <meta name="twitter:description" content="前段时间在digitalocean上安装laravel遇到了out of memory的坑，下面是一个完美的安装方法
 
-How To Install Laravel with Nginx on an Ubuntu 12.04 LTS VPS
-
-
-Laravel is a framework for websites in the PHP programming language. It allow">
+How To Install Laravel with Nginx on an Ubuntu 12.04 LTS VPS">
 
 
 
@@ -346,11 +337,11 @@ Laravel is a framework for websites in the PHP programming language. It allow">
 <blockquote>
 <p>How To Install Laravel with Nginx on an Ubuntu 12.04 LTS VPS</p>
 </blockquote>
+<a id="more"></a>
 <hr>
 <p>Laravel is a framework for websites in the PHP programming language. It allows developers to rapidly develop a website by abstracting common tasks used in most web projects, such as authentication, sessions, and caching. Laravel 4, the newest version of Laravel is based on an older framework called Symfony, but with a more expressive syntax. It is installed using Composer, a Dependency Manager, allowing developers to integrate even more open source PHP projects in a web project. If you want to want to read a quick introduction to Laravel, read the introduction. If you want to learn more about Composer, visit the website.</p>
 <p>Preparation</p>
-<p>Let’s start off by updating the packages installed on your VPS. This makes sure no issues will arise on incompatible versions of the software. Also, make sure you run everything in this tutorial as root, and if you don’t, make sure you add sudo before every command!</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">apt-get update &amp;&amp; apt-get upgrade</div><div class="line">Hit Enter when you&apos;re asked to confirm.</div></pre></td></tr></table></figure>
+<p>Let’s start off by updating the packages installed on your VPS. This makes sure no issues will arise on incompatible versions of the software. Also, make sure you run everything in this tutorial as root, and if you don’t, make sure you add sudo before every command!<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">apt-get update &amp;&amp; apt-get upgrade</div><div class="line">Hit Enter when you&apos;re asked to confirm.</div></pre></td></tr></table></figure></p>
 <p>Installation<br>Now we need to install the actual packages required to install Laravel. This will basically be Nginx and PHP. Because Composer is run from the command line, we do need php5-cli, and because we want to manage the connection between Nginx and PHP using the FastCGI Process Manager, we will need php5-fpm as well. Besides, Laravel requires php5-mcrypt and Composer requires git.</p>
 <p><code>apt-get install nginx php5-fpm php5-cli php5-mcrypt git</code><br>This should take a while to install, but you are now ready to configure Nginx and PHP.</p>
 <p>Configuring Nginx</p>
