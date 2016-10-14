@@ -1,0 +1,661 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="fonts.useso.com/css?family=Lato:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content=" - Android," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="这个Adapter可以给RecyclerView添加header和footer,链接
+
+使用方法123456listview.setLayoutManager(new LinearLayoutManager(this));mAdapter = new TestAdapter(this);headerAdapter = new HeaderViewRecyclerAdapter(mAdapter)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="给RecyclerView添加header和footer">
+<meta property="og:url" content="http://yoursite.com/2015/11/11/blog32/index.html">
+<meta property="og:site_name" content="Shell's Blog">
+<meta property="og:description" content="这个Adapter可以给RecyclerView添加header和footer,链接
+
+使用方法123456listview.setLayoutManager(new LinearLayoutManager(this));mAdapter = new TestAdapter(this);headerAdapter = new HeaderViewRecyclerAdapter(mAdapter)">
+<meta property="og:updated_time" content="2015-11-11T14:10:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="给RecyclerView添加header和footer">
+<meta name="twitter:description" content="这个Adapter可以给RecyclerView添加header和footer,链接
+
+使用方法123456listview.setLayoutManager(new LinearLayoutManager(this));mAdapter = new TestAdapter(this);headerAdapter = new HeaderViewRecyclerAdapter(mAdapter)">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/11/11/blog32/"/>
+
+
+  <title> 给RecyclerView添加header和footer | Shell's Blog </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Shell's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                给RecyclerView添加header和footer
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-11-11T22:06:10+08:00" content="2015-11-11">
+              2015-11-11
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>这个Adapter可以给RecyclerView添加header和footer,<a href="https://gist.github.com/darnmason/7bbf8beae24fe7296c8a" target="_blank" rel="external">链接</a></p>
+</blockquote>
+<p>使用方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">listview.setLayoutManager(<span class="keyword">new</span> LinearLayoutManager(<span class="keyword">this</span>));</div><div class="line">mAdapter = <span class="keyword">new</span> TestAdapter(<span class="keyword">this</span>);</div><div class="line">headerAdapter = <span class="keyword">new</span> HeaderViewRecyclerAdapter(mAdapter);</div><div class="line">View header = LayoutInflater.from(<span class="keyword">this</span>).inflate(R.layout.item_header,listview,<span class="keyword">false</span>);</div><div class="line">headerAdapter.addHeaderView(header);</div><div class="line">listview.setAdapter(headerAdapter);</div></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HeaderViewRecyclerAdapter</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span>.<span class="title">Adapter</span>&lt;<span class="title">RecyclerView</span>.<span class="title">ViewHolder</span>&gt; </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> HEADERS_START = Integer.MIN_VALUE;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> FOOTERS_START = Integer.MIN_VALUE + <span class="number">10</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ITEMS_START = Integer.MIN_VALUE + <span class="number">20</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ADAPTER_MAX_TYPES = <span class="number">100</span>;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> RecyclerView.Adapter mWrappedAdapter;</div><div class="line">    <span class="keyword">private</span> List&lt;View&gt; mHeaderViews, mFooterViews;</div><div class="line">    <span class="keyword">private</span> Map&lt;Class, Integer&gt; mItemTypesOffset;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Construct a new header view recycler adapter</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> adapter The underlying adapter to wrap</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HeaderViewRecyclerAdapter</span><span class="params">(RecyclerView.Adapter adapter)</span> </span>&#123;</div><div class="line">        mHeaderViews = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        mFooterViews = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        mItemTypesOffset = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">        setWrappedAdapter(adapter);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Replaces the          adapter, notifying RecyclerView of changes</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> adapter The new adapter to wrap</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAdapter</span><span class="params">(RecyclerView.Adapter adapter)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (mWrappedAdapter != <span class="keyword">null</span> &amp;&amp; mWrappedAdapter.getItemCount() &gt; <span class="number">0</span>) &#123;</div><div class="line">            notifyItemRangeRemoved(getHeaderCount(), mWrappedAdapter.getItemCount());</div><div class="line">        &#125;</div><div class="line">        setWrappedAdapter(adapter);</div><div class="line">        notifyItemRangeInserted(getHeaderCount(), mWrappedAdapter.getItemCount());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> RecyclerView.<span class="function">Adapter <span class="title">getWrappedAdapter</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mWrappedAdapter;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getItemViewType</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> hCount = getHeaderCount();</div><div class="line">        <span class="keyword">if</span> (position &lt; hCount) <span class="keyword">return</span> HEADERS_START + position;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">int</span> itemCount = mWrappedAdapter.getItemCount();</div><div class="line">            <span class="keyword">if</span> (position &lt; hCount + itemCount) &#123;</div><div class="line">                <span class="keyword">return</span> getAdapterTypeOffset() + mWrappedAdapter.getItemViewType(position - hCount);</div><div class="line">            &#125; <span class="keyword">else</span> <span class="keyword">return</span> FOOTERS_START + position - hCount - itemCount;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">public</span> RecyclerView.<span class="function">ViewHolder <span class="title">onCreateViewHolder</span><span class="params">(ViewGroup viewGroup, <span class="keyword">int</span> viewType)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (viewType &lt; HEADERS_START + getHeaderCount())</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> StaticViewHolder(mHeaderViews.get(viewType - HEADERS_START));</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (viewType &lt; FOOTERS_START + getFooterCount())</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> StaticViewHolder(mFooterViews.get(viewType - FOOTERS_START));</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> mWrappedAdapter.onCreateViewHolder(viewGroup, viewType - getAdapterTypeOffset());</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onBindViewHolder</span><span class="params">(RecyclerView.ViewHolder viewHolder, <span class="keyword">int</span> position)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> hCount = getHeaderCount();</div><div class="line">        <span class="keyword">if</span> (position &gt;= hCount &amp;&amp; position &lt; hCount + mWrappedAdapter.getItemCount())</div><div class="line">            mWrappedAdapter.onBindViewHolder(viewHolder, position - hCount);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Add a static view to appear at the start of the RecyclerView. Headers are displayed in the</div><div class="line">     * order they were added.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> view The header view to add</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addHeaderView</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">        mHeaderViews.add(view);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeHeaderView</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">        mHeaderViews.remove(view);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Add a static view to appear at the end of the RecyclerView. Footers are displayed in the</div><div class="line">     * order they were added.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> view The footer view to add</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addFooterView</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">        mFooterViews.add(view);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeFooterView</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">        mFooterViews.remove(view);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getItemCount</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> getHeaderCount() + getFooterCount() + getWrappedItemCount();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * <span class="doctag">@return</span> The item count in the underlying adapter</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getWrappedItemCount</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mWrappedAdapter.getItemCount();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * <span class="doctag">@return</span> The number of header views added</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getHeaderCount</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mHeaderViews.size();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * <span class="doctag">@return</span> The number of footer views added</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getFooterCount</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mFooterViews.size();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setWrappedAdapter</span><span class="params">(RecyclerView.Adapter adapter)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (mWrappedAdapter != <span class="keyword">null</span>) mWrappedAdapter.unregisterAdapterDataObserver(mDataObserver);</div><div class="line">        mWrappedAdapter = adapter;</div><div class="line">        Class adapterClass = mWrappedAdapter.getClass();</div><div class="line">        <span class="keyword">if</span> (!mItemTypesOffset.containsKey(adapterClass)) putAdapterTypeOffset(adapterClass);</div><div class="line">        mWrappedAdapter.registerAdapterDataObserver(mDataObserver);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">putAdapterTypeOffset</span><span class="params">(Class adapterClass)</span> </span>&#123;</div><div class="line">        mItemTypesOffset.put(adapterClass, ITEMS_START + mItemTypesOffset.size() * ADAPTER_MAX_TYPES);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getAdapterTypeOffset</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mItemTypesOffset.get(mWrappedAdapter.getClass());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> RecyclerView.AdapterDataObserver mDataObserver = <span class="keyword">new</span> RecyclerView.AdapterDataObserver() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onChanged</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">super</span>.onChanged();</div><div class="line">            notifyDataSetChanged();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onItemRangeChanged</span><span class="params">(<span class="keyword">int</span> positionStart, <span class="keyword">int</span> itemCount)</span> </span>&#123;</div><div class="line">            <span class="keyword">super</span>.onItemRangeChanged(positionStart, itemCount);</div><div class="line">            notifyItemRangeChanged(positionStart + getHeaderCount(), itemCount);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onItemRangeInserted</span><span class="params">(<span class="keyword">int</span> positionStart, <span class="keyword">int</span> itemCount)</span> </span>&#123;</div><div class="line">            <span class="keyword">super</span>.onItemRangeInserted(positionStart, itemCount);</div><div class="line">            notifyItemRangeInserted(positionStart + getHeaderCount(), itemCount);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onItemRangeRemoved</span><span class="params">(<span class="keyword">int</span> positionStart, <span class="keyword">int</span> itemCount)</span> </span>&#123;</div><div class="line">            <span class="keyword">super</span>.onItemRangeRemoved(positionStart, itemCount);</div><div class="line">            notifyItemRangeRemoved(positionStart + getHeaderCount(), itemCount);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onItemRangeMoved</span><span class="params">(<span class="keyword">int</span> fromPosition, <span class="keyword">int</span> toPosition, <span class="keyword">int</span> itemCount)</span> </span>&#123;</div><div class="line">            <span class="keyword">super</span>.onItemRangeMoved(fromPosition, toPosition, itemCount);</div><div class="line">            <span class="keyword">int</span> hCount = getHeaderCount();</div><div class="line">            <span class="comment">// <span class="doctag">TODO:</span> No notifyItemRangeMoved method?</span></div><div class="line">            notifyItemRangeChanged(fromPosition + hCount, toPosition + hCount + itemCount);</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticViewHolder</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span>.<span class="title">ViewHolder</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">StaticViewHolder</span><span class="params">(View itemView)</span> </span>&#123;</div><div class="line">            <span class="keyword">super</span>(itemView);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># - Android</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/11/11/blog31/" rel="next" title="哈哈哈哈哈">
+                <i class="fa fa-chevron-left"></i> 哈哈哈哈哈
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/11/14/blog33/" rel="prev" title="Html.fromHtml()应该注意的地方">
+                Html.fromHtml()应该注意的地方 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars0.githubusercontent.com/u/7572018?v=3&s=466"
+               alt="shell" />
+          <p class="site-author-name" itemprop="name">shell</p>
+          <p class="site-description motion-element" itemprop="description">量变产生质变</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shellljx" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shellljx" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shellljx" target="_blank" title="QQ">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  QQ
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shellljx" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shell</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

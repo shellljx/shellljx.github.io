@@ -458,9 +458,834 @@
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/10/09/39/" itemprop="url">
+                  Dinnerbone和bukkit的故事
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-09T11:58:48+08:00" content="2016-10-09">
+              2016-10-09
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p><a href="and that&#39;s because I did absolutely every update myself up until the day I joined Mojang">译自Dinnerbone的博文</a><br>文章作者:  <a href="https://dinnerbone.com/blog/" target="_blank" rel="external">Dinnerbone</a>   on Jan. 6, 2013<br>译文:  <a href="http://licrafter.com" target="_blank" rel="external">shell</a></p>
+</blockquote>
+<p>今年的一月1日对我来说是不同寻常的一天，难以相信，我亲爱的小宝贝<code>Bukkit</code>已经两岁了。虽然听起来非常的肉麻，但是我仍然记得这<a href="https://github.com/Bukkit/Bukkit/commit/4e8311a6551e8d7794cff73c57a481251b47459c" target="_blank" rel="external">写下的第一个commit</a>就好像是发生在昨天一样。<br>我想现在是一个奇妙的时刻给大家介绍这个项目的历史，它对我生活的影响以及如何发展到今天这个大型项目的所有事情。其中一些事情可能对于一部分人来说是不知道的，还有一些事情有点过时了。但我会尽自己最大的努力让这篇文章值得一读。虽然<code>Bukkit</code>项目是曾经发生在我身上的最好的事情，但并非没有一些大的失误和缺点。我可能把这些事情告诉大家，但是写下这些事情并非易事因为可能牵涉一些利害关系。</p>
+<p>在介绍<code>Bukkit</code>之前，先让我带大家回到2010年并向大家介绍另一个服务器改造平台，那就是被大家熟知的”<a href="https://github.com/traitor/Minecraft-Server-Mod" target="_blank" rel="external">hMod</a>“.当时<code>Minecraft</code>才发展到<code>Alpha 1.2</code>当时改造这个游戏和现在是完全不一样的。<code>hMod</code>是一个叫<strong>hey0</strong>的人创建的，这是一个让人们不需要学习如何反编译<code>minecraft</code>的源码就可以制作更加定制化的服务器的尝试。它听起来不像一个改造平台因为它不是为这个目的而生的，只是和改造平台有点相似。它为服主提供了一些方便的实用工具比如通过一些指令<code>(/ban,/give)</code>来控制服务器，白名单，和一些服务器运行日志。这些在今天大家看起来理所当然的东西在当时对那些勇敢的有兴趣的mod开发者来说是难以置信的奢华的功能。不知何时开始<code>hMod</code>加快了发展速度人们开始通过编写插件扩展它，向这个已经雄心勃勃的项目加入更多的功能。</p>
+<p>我非常喜欢这个奇特的项目的设计理念，我想要一探究竟并尝试制作自己的插件。可以根据自己的想法定制一个游戏？是的！我之前没怎么接触过java，但是我学习新的编程语言非常快速并且我对C#非常熟悉所以还是比较容易做这件事情的。我精确的知道自己要做什么并且我有很多支持我并且想要和我一起尝试的朋友。在当时<code>Minecraft</code>多人游戏是一个非常新鲜并且有很多问题的东西。比如在当时矿车就是一个无敌崩溃机器(非常严重;你不能破坏它们并且铁轨可以使你的服务端和客户端崩溃)，所以迫切的需要一个能够在服务器快速的四处走动的新方法。在网上已经有一些插件可以让玩家使用指令<code>/teleport</code>在玩家之间传送，但是我不喜欢这种。命令没有任何方式和图形世界进行交互！所以我开始准备编写一个插件叫做”<a href="https://www.youtube.com/watch?v=mvBN_PddR-g" target="_blank" rel="external">Stargate</a>“，我希望它能够成为现在传送门插件的标准。没有任何的先例，我全力以赴努力让Stargate实现我的思路。在不同的传送门之间定位合适的位置传送保持姿势不变，使用木牌作为交互的方式(在当时没有任何其他插件做到的－现在这个功能很普遍)。</p>
+<p>在我制作<code>Stargate</code>的过程中，我稀里糊涂的和其他几个同样不知道为何会这样的人承担起了维护<code>hMod</code>的重担，<strong>Hey0</strong>已经销声匿迹了,<code>Minecraft</code>更新的比以前更频繁了。 我们需要知道要去做什么！我和<strong>Grum</strong>管理并花费时间更新<code>hMod</code>，这是一个恐怖的任务花费了大量的时间，但是我们完成了这个任务。这个项目很难控制，我们甚至不能发布自己的版本，所以这是一个极其困难的境地做这件事情－但是我们做到了。我和<strong>Grum</strong>花费了几个月的时间更新<code>hMode</code>，后来我们对于不得不支持有问题的东西甚至无法修复它们而感到疲倦。我私下对其他人交流并建议从头开始一个新的项目，一个我们可以集中精力去做一些真正需要的事情并且希望做一些更棒的事情。一些人认为不值得花费时间去开启一个新的项目，其他的一些人(<strong>Grum</strong>,<strong>Tahg</strong>,<strong>EvilSeph</strong>)认为这是一个很好的想法。我想，任何积极的回应足够让这个项目开始，所以我朝着我的计划前进。</p>
+<p>人们经常问我，“为什么叫’Bukkit’?”.好吧，说起来有点傻傻的，在我的主页IRC频道有个程序叫做”Scrapbucket”,是我fork的<a href="http://wiki.xkcd.com/irc/Bucket" target="_blank" rel="external">xkcd’s IRC bot “Bucket”</a>.我提议新项目叫做”CraftBucket”,其他成员表示赞同这是一个好名字。当我们意识到要吧项目分成两部分(一个API一个实现部分)的时候我们决定分别叫做”Bucket”和”CraftBucket”-但是<strong>Grum</strong>开玩的提议”Bukkit”这个其实妙想的名字。不用多说，就是它了:)</p>
+<p>所以我们有了自己的团体和计划，我们已经准备好接管世界了。我们发表了一个声明表示我们不再维护<code>hMod</code>我们将创建一个新的项目。这个声明被发表在一个小网站上。<a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-tools/1260642-introducing-bukkit-a-new-minecraft-server-mod" target="_blank" rel="external">minecraftforum thread现在还可以访问</a>，刚开始团队对声明的反响非常好，但的确滋生了普遍的热潮”一个项目死去，我们需要另一个项目来填补空白”许多其他的项目突然出现和我们竞争代替我们要做的事情，但是他们没有坚持下去。我非常的激动，有太多的事情需要去做，如果我专注的去做，我可以完成很多东西。全力以赴，我们的项目和其他的相比一只在成长。过了几个月后，最初的团队失去了奋斗的激情我们只剩下了4个人的”核心”。<strong>我自己</strong>,<strong>Grum</strong>,<strong>EvilSeph</strong>和<strong>Tahg</strong>. 在接下来的几个月的时间完成了API的设计＋实现，<strong>Grum</strong>在他工作之余帮忙解决了非常困难的任务。</p>
+<p>我认为关于<strong>Bukkit</strong>我最引以为豪的一件事情就是我们的更新流程，这是一个非常伤脑筋的工作，但是我们为它开发了一个三步流程。<strong>Grum</strong>开发了一些非常优秀的工具让反编译和反混淆流程(流程1和2)实现半自动化，我花费一些时间重写一部分<code>CraftBukkit</code>这是流程3.平均每次更新我将花费20-30个小时一刻不停(只留下上厕所的时间)去为新版本的<code>Minecraft</code>重建我们巨大的代码库。这是一个非常艰难而且吃力不讨好的工作。我非常感激<a href="https://twitter.com/missmarzenia" target="_blank" rel="external">我的未婚妻</a>至始至终支持着我；如果没有她的话Bukkit(甚至Minecraft)可能不会发展到今天的程度:)  你可能发现我是以第一人称写这篇文章的，那是因为在我加入<code>Mojang</code>之前的所有更新都是我完成的。有时我会从其他人那里得到一些帮助，但那是很少的；与其等待其他人帮助，我自己去完成更快速和容易。因为这不是一件可以多人协作的事情。</p>
+<p>当我开始<code>Bukkit</code>这个项目的时候我还没有失业，但是很快我被解雇了。这意味着2011年的大部分时间我是失业的状态。我是完全依靠存款和个人的捐助(差不多几百英镑，基本只够一个月的房租)在生活，到年底，我不得不去解决金钱的问题，并且完全不知道去做什么。我在我的博客上放了”请捐助！”的按钮，并且发到tweeter上；通过这种方式我得到了几个人的直接捐助，正好够我撑过去这一个月(结合现有资金和借款)；在刚开始的时候我们通过<code>Bukkit</code>的捐助收到了可观的金钱(除去花费，我们4个每人可以得到几百欧元)，在接下来的半年我们受到的捐助变得很少，这让人非常的郁闷 :(</p>
+<p>没过多久，<strong>Curse</strong>决定给<code>Bukkit</code>提供帮助和支援，他们来的正是时候。我们的服务器严重的超负载，我们已经负担不起我们正在做的事情。我在<strong>Curse</strong>获得了一份工作(在那里我的工作非常明了，“继续你正在做的事情(开发Bukkit)，不用管我们 ”，他们人真是太好了！)他们还帮我们实现了一个我们刚开始<code>Bukkit</code>时候的梦想，那就是一个更容易搜索到插件的插件库！他们还提供给我们飞往Blizzcon的机票，我一直计划要出席这次活动，因此我们可以聚在一起互相问候一下。迄今为止的第一次，<a href="http://i.imgur.com/2e7rwh.jpg" target="_blank" rel="external">Bukkit团队聚在了一起!</a>。一个多月之后Curse还提供给我们参加第一届<code>Minecon</code>的机票,我们在这里<a href="https://www.youtube.com/watch?v=rTiKwdrq-3s" target="_blank" rel="external">发表了演说</a>，即紧张有感到非常的cool。</p>
+<p>几个月后，时间到了2012年，<strong>Mojang</strong>表示出想要收购我们的意愿，<a href="https://www.reddit.com/r/Minecraft/comments/nghgk/bukkit_at_mojang_offices_team_photo_ahoy/" target="_blank" rel="external">所以我们再一次飞去和他们会面</a>.经过几次来来回回的谈判，我们接受了他们的offer剩下的都是过去的事情了。我把维护<code>Bukkit</code>的重任交给了其他的成员，教会他们如何去更新<code>Bukkit</code>，我一心投入到开发<code>Minecraft</code>中去了。</p>
+<p>这真是一个疯狂的旅程，回首过去，我们在<code>Bukkit</code>上犯了不少的错误，但最后都是值得的，对我来说这是一段奇妙的经历，我从没有想过能够发展到像今天这样成功。<code>Bukkit</code>没有到达终点，它一直在成长至今。我全身心投入到这个项目中，它回报给我一个非常酷炫的工作和很多非常精彩的经历。谢谢你。</p>
+<p>生日快乐，<code>Bukkit</code>。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/18/androidduo-xian-cheng/" itemprop="url">
+                  Android多线程
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-18T11:55:13+08:00" content="2016-05-18">
+              2016-05-18
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>hangyang大神关于 Android 异步消息处理机制 让你深入理解 Looper、Handler、Message三者关系的文章<a href="http://blog.csdn.net/lmj623565791/article/details/38377229" target="_blank" rel="external">http://blog.csdn.net/lmj623565791/article/details/38377229</a></p>
+</blockquote>
+<p>还有几个方法<code>view.post(runnable)</code>和<code>Activity.runonUiThread(runnable)</code>这两个方法和<code>handler.post(runnable)</code>一样，都是发送一个<code>Message</code>而不是创建一个新的线程。不同点是<code>Handler.post()</code>是发送消息到handler创建的ui线程中，而<code>view.post</code>和<code>Activity.runonuiThread</code>都是发送消息到view或者activity所在线程(UI线程)的<code>Handler</code>里。</p>
+<p>代码例子：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></div><div class="line">    <span class="attr">android:orientation</span>=<span class="string">"vertical"</span>&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/title"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"60dp"</span> /&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">Button</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/btn"</span></div><div class="line">        <span class="attr">android:text</span>=<span class="string">"view.post(runnable)"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span> /&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">Button</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/btn2"</span></div><div class="line">        <span class="attr">android:text</span>=<span class="string">"activity.runonUIthread"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span> /&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">Button</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/btn3"</span></div><div class="line">        <span class="attr">android:text</span>=<span class="string">"handler.post(runnable)"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span> /&gt;</div><div class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line">btn1.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                <span class="keyword">try</span> &#123;</div><div class="line">                    Thread.sleep(<span class="number">3000</span>);</div><div class="line">                    btn1.post(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">                        <span class="meta">@Override</span></div><div class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                            title.setText(<span class="string">"按钮1修改"</span>);</div><div class="line">                        &#125;</div><div class="line">                    &#125;);</div><div class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;).start();</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line">btn2.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                <span class="keyword">try</span> &#123;</div><div class="line">                    Thread.sleep(<span class="number">3000</span>);</div><div class="line">                    TestActivity.<span class="keyword">this</span>.runOnUiThread(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">                        <span class="meta">@Override</span></div><div class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                            title.setText(<span class="string">"按钮2修改"</span>);</div><div class="line">                        &#125;</div><div class="line">                    &#125;);</div><div class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;).start();</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line">btn3.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                <span class="keyword">try</span> &#123;</div><div class="line">                    Thread.sleep(<span class="number">3000</span>);</div><div class="line">                    handler.post(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">                        <span class="meta">@Override</span></div><div class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                            title.setText(<span class="string">"按钮3修改"</span>);</div><div class="line">                        &#125;</div><div class="line">                    &#125;);</div><div class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;).start();</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/05/status-barhe-navigation-barde-xian-shi-yu-yin-cang/" itemprop="url">
+                  Status Bar和Navigation Bar的显示与隐藏
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-05T11:23:22+08:00" content="2016-05-05">
+              2016-05-05
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p> 实现仿微信查看大图的时候StatusBar和NavigationBar的状态变化</p>
+<p>两篇不错的关于这两个Bar状态的文章:</p>
+<p>1.<a href="http://angeldevil.me/2014/09/02/About-Status-Bar-and-Navigation-Bar/" target="_blank" rel="external">http://angeldevil.me/2014/09/02/About-Status-Bar-and-Navigation-Bar/</a><br>2.   <a href="http://vitiy.info/small-guide-how-to-support-immersive-mode-under-android-4-4/" target="_blank" rel="external">http://vitiy.info/small-guide-how-to-support-immersive-mode-under-android-4-4/</a><br>3.<a href="http://developer.android.com/training/system-ui/immersive.html" target="_blank" rel="external">http://developer.android.com/training/system-ui/immersive.html</a></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//得到contentView的父布局，是一个FrameLayout</span></div><div class="line">rootContent = (ViewGroup) findViewById(android.R.id.content);</div><div class="line"><span class="comment">//add 大图控件到 rootContent</span></div><div class="line">root.addView(bview);</div></pre></td></tr></table></figure>
+<p>System UI的显示和隐藏通过下面两个函数实现。在<code>hideSystemUI()</code>方法中，通过<code>SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN</code>和<code>SYSTEM_UI_FLAG_FULLSCREEN</code>来隐藏Status Bar，让Activity的UI占满全屏(不会占据Navigation Bar的空间)，通过<code>SYSTEM_UI_FLAG_IMMERSIVE_STICKY</code>模式，使得系统以半透明方法显示System UI方便用户操作，并会在一段时间后自动隐藏，此时并不会引起<code>onSystemUiVibilityChanged</code>的调用.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@TargetApi</span>(Build.VERSION_CODES.HONEYCOMB)</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">hideSystemUI</span><span class="params">()</span> </span>&#123;</div><div class="line">    getWindow().getDecorView().setSystemUiVisibility(</div><div class="line">            View.SYSTEM_UI_FLAG_LAYOUT_STABLE</div><div class="line">                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN</div><div class="line">                    | View.SYSTEM_UI_FLAG_FULLSCREEN</div><div class="line">                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在<code>showSystemUI()</code>方法中，通过<code>SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN</code>使得Activity的UI占据全屏，但是这个时候Status Bar和Navigation Bar都没有被隐藏，所以Status Bar会遮挡住Activity UI的部分空间。解决办法就是给ContentView设置<code>fitSystemWindows</code>为true。这样系统会把被Status Bar遮挡住的区域自动转化成Activity UI的内边距,这样被StatusBar遮挡的问题就得到了解决。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@TargetApi</span>(Build.VERSION_CODES.HONEYCOMB)</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">showSystemUI</span><span class="params">()</span> </span>&#123;</div><div class="line">    getWindow().getDecorView().setSystemUiVisibility(</div><div class="line">            View.SYSTEM_UI_FLAG_LAYOUT_STABLE</div><div class="line">                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>但是当Window的焦点发生变化的时候，<code>SYSTEM_UI_FLAG_IMMERSIVE_STICKY</code>就会失效，Status Bar会重新出现，并且不是透明的。可以监听<code>onWindowFocusChanged</code>事件来重新调用<code>hideSystemUI()</code>方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onWindowFocusChanged</span><span class="params">(<span class="keyword">boolean</span> hasFocus)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onWindowFocusChanged(hasFocus);</div><div class="line">    <span class="keyword">if</span> (hasFocus &amp;&amp; hasView) &#123;</div><div class="line">        mPhotoView.postDelayed(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                hideSystemUI();</div><div class="line">            &#125;</div><div class="line">        &#125;, <span class="number">500</span>);</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<video width="320" height="600" controls><br>  <source src="http://7vzpfd.com1.z0.glb.clouddn.com/shamuMMB29Klijx05052016132032.mp4" poster="http://7vzpfd.com1.z0.glb.clouddn.com/photoview-MainActivity-05052016141341.png" type="video/mp4"><br>  你的浏览器不支持视频播放，请换一个浏览器.<br></video>
+
+
+
+
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/04/19/blog39/" itemprop="url">
+                  Fragment状态保存
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-19T10:04:34+08:00" content="2016-04-19">
+              2016-04-19
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>在一些使用场景中，为了防止数据重复加载，经常需要保存fragment的状态，下面列举出一些最近我遇到的一些场景。</p>
+</blockquote>
+<p>##ViewPager and Fragments</p>
+<ol>
+<li>需求<br>如果有一个ViewPager，里面有多个子页面，ViewPager翻页的时候默认会预加载当前页面的前后两个页面，当ViewPager再次滚动到以前的Fragment页面的时候就不需要再次进行网络请求。</li>
+<li>原理<br>当<code>FragmentPagerAdapter</code>添加一个fragment到FragmentManager中的时候它会使用一个根据这个fragment将被添加到的position生成一个特定的<code>tag</code>，<code>FragmentPagerAdapter.getItem(int position)</code>只有在这个position所对应的fragment不存在的时候才会调用。当Android注意到对于这个position已经创建过一个fragment，它将尝试使用<code>Fragment.findFragmentByTag()</code>来重新得到这个已经被缓存的fragment，而不是重新创建一个。所有的这些逻辑<code>FragmentPagerAdapter</code>都已经帮我们做好了。所以最好不要把fragment的初始化代码放到<code>getItem(int)</code>方法中。<br>当使用<code>FragmentPagerAdapter</code>的时候，我们让adapter去帮我们管理fragment，默认会帮我们预加载当前页面前后相邻的两个页面并且不会被销毁(除非使用<code>FragmentStatePagerAdapter</code>)已经加载到内存中的网络请求数据不会被销毁。然后在fragment中使用一下逻辑，重利用数据集<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if (mTabContent == null) &#123;</div><div class="line">    mPresenter.getTopicList(mTabTitle, mPageIndex, true);</div><div class="line">&#125; else &#123;</div><div class="line">    mAdapter.setData(mTabContent.getTopics());</div><div class="line">&#125;</div></pre></td></tr></table></figure></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/03/09/blog38/" itemprop="url">
+                  RxJava之取消订阅
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-03-09T12:46:57+08:00" content="2016-03-09">
+              2016-03-09
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>当RxJava和Retrofit配合发起网络请求之后，在请求还没返回来的时候快速的取消订阅会导致下面的报错<code>java.lang.RuntimeException: Unable to pause activity {my.project.MyActivity}: android.os.NetworkOnMainThreadException</code></p>
+</blockquote>
+<p>然后在github上面看到了<code>JakeWharton</code>大婶的回答.这个报错是OkHttp2.5的一个bug，解决的办法就是需要指定<code>unsubscribeOn()</code>发生的线程为异步线程:<code>unsubscribeOn(Schedulers.io())</code>或者<code>Schedulers.computation()</code>.</p>
+<p><a href="https://github.com/square/retrofit/issues/1046" target="_blank" rel="external">Unsubscription of RxJavaCallAdapterFactory$CallOnSubscribe$1 requires Network thread on Android #1046</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/02/11/blog37/" itemprop="url">
+                  Fragment生命周期
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-02-11T13:52:27+08:00" content="2016-02-11">
+              2016-02-11
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="http://7vzpfd.com1.z0.glb.clouddn.com/1427420201157410.png" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/12/27/wo-de-2015wo-de-zhuan-zhe-dian/" itemprop="url">
+                  我的2015，我的转折点
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-12-27T14:01:26+08:00" content="2015-12-27">
+              2015-12-27
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p> <strong>2015年之前</strong></p>
+<p>2015对我来说是大学生活的一个转折点，在这之前也就是大一大二的时候，属于一个浪荡期，大部分时间都在玩游戏，玩游戏(LOL,Minecraft).然后开私服(受不了熊孩子骚扰就放弃了)，写Minecraft服务器插件玩的不亦乐乎。这也是我比较宅的原因之一了v_v!</p>
+<p><strong>2015年</strong></p>
+<p>已经到了大三，大学生活过半，该收一下心了，于是从大三开始接触Android开发。游戏也渐渐的不怎么玩了。</p>
+<ol>
+<li><p>在这段时间搭建起了自己的<a href="http://licrafter.com" target="_blank" rel="external">博客</a></p>
+</li>
+<li><p>在大三暑假(7月份)到杭州的一家同城配送公司Android实习，这算是我第一份正式的工作，在这家公司认识了很多很好的朋友，同事，学习了许多git的高级用法，自己也得到了很多的锻炼，这要多亏当时的Android组长给了我很多的锻炼机会。</p>
+</li>
+<li>经过四个月的实习，技术上有了很大的提升。为了做毕业设计，离开了这家公司，回校专心花了一个月的时间做完毕业设计。虽然离开了，但是我还是很感激那家公司，给我一个锻炼自己的机会。</li>
+<li><p>在辞职后的一个月里，我静下心来做了一个V2ex的第三方android客户端，然后又把毕业设计(LBS社交app)做完了。</p>
+</li>
+<li><p>11月份通过校招进入泰和网做android实习至今。</p>
+</li>
+</ol>
+<p><strong>生活上</strong></p>
+<p>说来也惭愧，单身20多年，至今仍未脱单，眼看明年就要大学毕业了，没想到以前经常听说的被逼相亲竟然将要发生在我身上了。</p>
+<p><strong>我的2016</strong></p>
+<p>接下来的一年是技术提升的关键时期，所以要好好的把握</p>
+<p>1.<del>最新在学习rxjava，在接下来的一年内继续对rxjava的学习</del><br>2.对android能有更深入的学习，比如android自定义view 和android的动画等内容<br>4.编写更高质量的android代码<br>5.多看几本书<br>6.<del>买一台mac</del></p>
+<blockquote>
+<p>最后用那句经典的话：回首往事，不因碌碌无为而悔恨。与君共勉。</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/12/02/blog35/" itemprop="url">
+                  阻止ViewPager的某个子页面滑动
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-12-02T20:42:05+08:00" content="2015-12-02">
+              2015-12-02
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>在使用viewpager的时候，通常会遇到这样的情况:在Viewpager的某个子页面中，有一个需要左右拖动的控件，在左右拖动控件的时候，经常触发了ViewPager的滑动事件。可以通过禁止这个控件所在的Viewpager的子页面滑动来解决这个问题</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by shell on 15-12-2.</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomViewPager</span> <span class="keyword">extends</span> <span class="title">ViewPager</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> notScrollItem = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CustomViewPager</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(context);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CustomViewPager</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(context, attrs);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (getCurrentItem() == notScrollItem) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125; <span class="keyword">else</span></div><div class="line">            <span class="keyword">return</span> <span class="keyword">super</span>.onTouchEvent(event);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onInterceptTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (getCurrentItem() == notScrollItem) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125; <span class="keyword">else</span></div><div class="line">            <span class="keyword">return</span> <span class="keyword">super</span>.onInterceptTouchEvent(event);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNotScrollItem</span><span class="params">(<span class="keyword">int</span> item)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.notScrollItem = item;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -499,7 +1324,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">32</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -516,7 +1341,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
