@@ -265,8 +265,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/04/19/Base64编码-md/" itemprop="url">
-                  Base64编码.md
+                <a class="post-title-link" href="/2017/04/19/Base64编码/" itemprop="url">
+                  Base64编码
                 </a>
               
             
@@ -279,7 +279,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-04-19T10:28:27+08:00" content="2017-04-19">
+            <time itemprop="dateCreated" datetime="2017-04-19T10:35:13+08:00" content="2017-04-19">
               2017-04-19
             </time>
           </span>
@@ -327,15 +327,12 @@
 
       
         
-          
-            <p>#Base64编码</p>
-<h2 id="编码字符串Man"><a href="#编码字符串Man" class="headerlink" title="编码字符串Man"></a>编码字符串<code>Man</code></h2><p>在 <code>ASCII</code> 编码系统中字符 <code>M</code>，<code>a</code>，<code>n</code> 被分别存储为 <code>77</code>，<code>79</code> 和 <code>110</code>，8-bit 二进制的值分别为 <code>01001101</code>，<code>01100001</code>，<code>01101110</code> . 这三个二进制值拼接成一个 24-bit 的字符串就是 <code>010011010110000101101110</code> . 然后把他转码成相应的 <code>Base64</code> 字符值如下表:<br><img src="http://7vzpfd.com1.z0.glb.clouddn.com/CB7FE885-42E2-484F-B0CE-D6A09AF20479.png" alt="]"></p>
-<p>如上表把 3 个字节转码成为 4 个字节，当要转码的字节数不能被 3 整除时就会像下面这样 :<br>用 0 填充额外的字节，然后再转码到 <code>Base64</code> .<br>如果被转码的只有一个字节(比如 <code>M</code>)，那么所有的 8-bit 数据都会被转码成 Base64 的前 12-bit (后面全 0 字节用特殊符号 = 代替) .<br><img src="http://7vzpfd.com1.z0.glb.clouddn.com/71A4ACA4-9F7E-49A6-8E6A-B172785162F3.png" alt=""></p>
-<h2 id="为什么要填充-2-字节的0呢？"><a href="#为什么要填充-2-字节的0呢？" class="headerlink" title="为什么要填充 2 字节的0呢？"></a>为什么要填充 2 字节的0呢？</h2><p>因为进行 <code>Base64</code> 转码之前和之后的数据格式变化为 3 <em> 8-bit -&gt; 4 </em> 6-bit . 所以解码过程为 4 个字节的 <code>Base64</code> 字符为一组可以解码成 3 个字节的 <code>ASCII</code> 字符 .<br><img src="http://7vzpfd.com1.z0.glb.clouddn.com/96C045F7-EFA9-420D-B56F-B64638A0CAF9.png" alt=""></p>
-<p>所以如果不填充到足够的字节的话，当两个 <code>Base64</code> 的字符串拼接后在解码过程中就会出现错误 . 所以在转码填充 0 值的时候，要填充后的总位数为 6 和 8 的公倍数 . </p>
-<p><a href="https://en.wikipedia.org/wiki/Base64#Padding" target="_blank" rel="external">图例来源于 Wikipedia</a></p>
-
-          
+          <h2 id="编码字符串Man"><a href="#编码字符串Man" class="headerlink" title="编码字符串Man"></a>编码字符串<code>Man</code></h2><p>在 <code>ASCII</code> 编码系统中字符 <code>M</code>，<code>a</code>，<code>n</code> 被分别存储为 <code>77</code>，<code>79</code> 和 <code>110</code>，8-bit 二进制的值分别为 <code>01001101</code>，<code>01100001</code>，<code>01101110</code> . 这三个二进制值拼接成一个 24-bit 的字符串就是 <code>010011010110000101101110</code> . 然后把他转码成相应的 <code>Base64</code> 字符值如下表:<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/04/19/Base64编码/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -851,8 +848,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/12/02/阻止ViewPager的某个子页面滑动/" itemprop="url">
-                  阻止ViewPager的某个子页面滑动
+                <a class="post-title-link" href="/2015/10/27/本站域名已更换为licrafter-com/" itemprop="url">
+                  本站域名已更换为licrafter.com
                 </a>
               
             
@@ -865,242 +862,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-12-02T20:42:05+08:00" content="2015-12-02">
-              2015-12-02
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
-                    <span itemprop="name">技术杂烩</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>在使用viewpager的时候，通常会遇到这样的情况:在Viewpager的某个子页面中，有一个需要左右拖动的控件，在左右拖动控件的时候，经常触发了ViewPager的滑动事件。可以通过禁止这个控件所在的Viewpager的子页面滑动来解决这个问题</p>
-</blockquote>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/02/阻止ViewPager的某个子页面滑动/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/11/14/Html-fromHtml-应该注意的地方/" itemprop="url">
-                  Html.fromHtml()应该注意的地方
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-11-14T13:58:58+08:00" content="2015-11-14">
-              2015-11-14
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
-                    <span itemprop="name">技术杂烩</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>Html.fromHtml()方法确实是一个非常好用的方法,它可以解析html标签,来展示图文混合的丰富的界面.昨天遇到了一个bug就是关于fromHtml()的.</p>
-</blockquote>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/11/14/Html-fromHtml-应该注意的地方/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/11/11/哈哈哈哈哈/" itemprop="url">
-                  哈哈哈哈哈
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-11-11T17:25:48+08:00" content="2015-11-11">
-              2015-11-11
+            <time itemprop="dateCreated" datetime="2015-10-27T10:55:26+08:00" content="2015-10-27">
+              2015-10-27
             </time>
           </span>
 
@@ -1147,11 +910,235 @@
 
       
         
-          <blockquote>
-<p>今天双11,看着别人剁手的感觉就是爽….<br><img src="http://7vzpfd.com1.z0.glb.clouddn.com/4d8e849aa8a98bf69b44f8ac21a58707.gif" alt=""><br>写代码写累了…去吃点狗粮.</p>
-</blockquote>
+          
+            <p>以前的域名linghun.me已经到期了，现在本站域名改为licrafter.com  新的域名新的开始。。。。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/10/23/需求更新太快的弊端/" itemprop="url">
+                  需求更新太快的弊端
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-10-23T22:03:31+08:00" content="2015-10-23">
+              2015-10-23
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/秋名山上的日子/" itemprop="url" rel="index">
+                    <span itemprop="name">秋名山上的日子</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>项目需求更新频率和尿频患者一样，导致的一个问题就是，代码一点也不优雅，而是在堆代码。。。。废代码太多,项目就像是一坨屎</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/09/19/git-rebase-git-cherry-pick-branch/" itemprop="url">
+                  git rebase & git cherry-pick&branch
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-09-19T16:49:59+08:00" content="2015-09-19">
+              2015-09-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
+                    <span itemprop="name">技术杂烩</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><img src="http://ww1.sinaimg.cn/bmiddle/63918611gw1eqxtzlte6cj206i08awen.jpg" alt="Linus Torvalds"><br>题图是git的发明人—Linux 教父 Linus Torvalds<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/11/11/哈哈哈哈哈/#more" rel="contents">
+            <a class="btn" href="/2015/09/19/git-rebase-git-cherry-pick-branch/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1202,8 +1189,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/11/11/Android-框架-OrmLite/" itemprop="url">
-                  Android 框架 OrmLite
+                <a class="post-title-link" href="/2015/09/08/digitalocean安装laravel/" itemprop="url">
+                  digitalocean安装laravel
                 </a>
               
             
@@ -1216,8 +1203,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-11-11T08:42:12+08:00" content="2015-11-11">
-              2015-11-11
+            <time itemprop="dateCreated" datetime="2015-09-08T17:30:14+08:00" content="2015-09-08">
+              2015-09-08
             </time>
           </span>
 
@@ -1264,12 +1251,12 @@
 
       
         
-          <blockquote>
-<p>关于OrmLite的教程网上有很多,但是有些细节上的坑需要注意一下..<br>昨天要用到<code>OrmLite</code>的一对多的关联,结果踩了一个大坑</p>
+          <p>前段时间在digitalocean上安装laravel遇到了<code>out of memory</code>的坑，下面是一个完美的安装方法</p>
+<blockquote>
+<p>How To Install Laravel with Nginx on an Ubuntu 12.04 LTS VPS</p>
 </blockquote>
-<h2 id=""><a href="#" class="headerlink" title=""></a>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/11/11/Android-框架-OrmLite/#more" rel="contents">
+            <a class="btn" href="/2015/09/08/digitalocean安装laravel/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1320,8 +1307,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/11/09/＃今天遇到bug了吗？＃/" itemprop="url">
-                  ＃今天遇到bug了吗？＃
+                <a class="post-title-link" href="/2015/07/05/Bukkit序列化存储坐标/" itemprop="url">
+                  Bukkit序列化存储坐标
                 </a>
               
             
@@ -1334,8 +1321,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-11-09T17:12:12+08:00" content="2015-11-09">
-              2015-11-09
+            <time itemprop="dateCreated" datetime="2015-07-05T10:55:36+08:00" content="2015-07-05">
+              2015-07-05
             </time>
           </span>
 
@@ -1382,9 +1369,9 @@
 
       
         
-          <p>今天虽然没有遇到什么bug，但是调一个界面布局，调了半天，想要调出一个完美的界面，看着舒服的界面，字体大小，控件之间的间距，字体颜色，背景色，调来调去，看了不少其他应用的布局，最后终于调出了比较满意的效果．审美和界面设计能力令人捉急啊．．．．加油，我的openv2ex开源客户端．</p>
+          <p>Bukkit用于序列化存储对象的例子<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/11/09/＃今天遇到bug了吗？＃/#more" rel="contents">
+            <a class="btn" href="/2015/07/05/Bukkit序列化存储坐标/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1418,7 +1405,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1459,7 +1446,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-count">14</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1476,7 +1463,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

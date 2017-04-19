@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Git," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -90,19 +90,15 @@
 
 
 
-<meta name="description" content="题图是git的发明人—Linux 教父 Linus Torvalds">
-<meta name="keywords" content="Git">
-<meta property="og:type" content="article">
-<meta property="og:title" content="git rebase & git cherry-pick&branch">
-<meta property="og:url" content="http://yoursite.com/2015/09/19/git-rebase-git-cherry-pick-branch/index.html">
+<meta name="description" content="生命不息，奋斗不止，万事起于忽微，量变引起质变">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Shell's Blog">
+<meta property="og:url" content="http://yoursite.com/tags/CTF/index.html">
 <meta property="og:site_name" content="Shell's Blog">
-<meta property="og:description" content="题图是git的发明人—Linux 教父 Linus Torvalds">
-<meta property="og:image" content="http://ww1.sinaimg.cn/bmiddle/63918611gw1eqxtzlte6cj206i08awen.jpg">
-<meta property="og:updated_time" content="2015-10-31T08:54:18.000Z">
+<meta property="og:description" content="生命不息，奋斗不止，万事起于忽微，量变引起质变">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="git rebase & git cherry-pick&branch">
-<meta name="twitter:description" content="题图是git的发明人—Linux 教父 Linus Torvalds">
-<meta name="twitter:image" content="http://ww1.sinaimg.cn/bmiddle/63918611gw1eqxtzlte6cj206i08awen.jpg">
+<meta name="twitter:title" content="Shell's Blog">
+<meta name="twitter:description" content="生命不息，奋斗不止，万事起于忽微，量变引起质变">
 
 
 
@@ -123,10 +119,10 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2015/09/19/git-rebase-git-cherry-pick-branch/"/>
+  <link rel="canonical" href="http://yoursite.com/tags/CTF/"/>
 
 
-  <title> git rebase & git cherry-pick&branch | Shell's Blog </title>
+  <title> 标签: CTF | Shell's Blog </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -147,7 +143,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
@@ -245,158 +241,46 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                git rebase & git cherry-pick&branch
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-09-19T16:49:59+08:00" content="2015-09-19">
-              2015-09-19
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
-                    <span itemprop="name">技术杂烩</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-              &nbsp; | &nbsp;
-              <span class="page-pv"><i class="fa fa-file-o"></i>
-              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
-              </span>
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p><img src="http://ww1.sinaimg.cn/bmiddle/63918611gw1eqxtzlte6cj206i08awen.jpg" alt="Linus Torvalds"><br>题图是git的发明人—Linux 教父 Linus Torvalds<br><a id="more"></a></p>
-<blockquote>
-<p>在软件开发过程中，版本控制和多人协作非常的重要，Ｇit在这两个方面的功能是非常的强大的．在实际工作中Git对我的帮助非常的大，我经常用到这几个指令<code>rebase</code>,<code>cherry-pick</code>,<code>branch</code>,<code>checkout</code>,<code>stash</code>，<code>reset</code></p>
-</blockquote>
-<hr>
-<p>####branch<br>首先锁一下<code>branch</code>分支，在实际开发过程中，开发一个新的功能就新建一个分支，如果正在开发一个新功能，突然来了一个其他功能的bug,如果修改bug的代码和新功能的代码commit混在一起，不同功能的代码commit混在一起，如果同时开发的功能点非常多的话，就会非常混乱，通过<code>git checkout -b newbranch</code>创建不同的分支，来管理不同的开发需求，会让代码管理清楚很多．</p>
-<p>####cherry-pick<br>当多个分支合并代码时，使用<code>merge</code>,会有很多的问题，解决一些莫名的冲突会花费很长的时间．<code>git cherry-pick</code>可以把一个分支上特定的commit合并到另一个分支上去，这样出现的<code>conflict</code>就会少得多，甚至没有冲突．</p>
-<p>####rebase<br><code>rebase</code>指令功能非常的强大，它可用修改commit历史，可以合并多个commit为一个commit，可以调换commit之间的顺序….非常好用．</p>
-<p>####stash<br>当你在一个分支上正写着代码，突然需要你切换到另一个分支上去改bug,你又不想现在提交，可以使用<code>git stash</code>指令，最后记得要把代码<code>pop</code>出来．</p>
-
-      
+  <div id="posts" class="posts-collapse">
+    <div class="collection-title">
+      <h2 >
+        CTF
+        <small>标签</small>
+      </h2>
     </div>
 
-    <div>
+    
       
+
+  <article class="post post-type-normal" itemscope itemtype="//schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
         
-
-      
-    </div>
-
-    <div>
-      
+            <a class="post-title-link" href="/2017/04/19/Base64编码/" itemprop="url">
+              
+                <span itemprop="name">Base64编码</span>
+              
+            </a>
         
+      </h1>
 
-      
-    </div>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2017-04-19T10:35:13+08:00"
+              content="2017-04-19" >
+          04-19
+        </time>
+      </div>
 
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Git/" rel="tag">#Git</a>
-          
-        </div>
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2015/10/23/需求更新太快的弊端/" rel="next" title="需求更新太快的弊端">
-                <i class="fa fa-chevron-left"></i> 需求更新太快的弊端
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/09/08/digitalocean安装laravel/" rel="prev" title="digitalocean安装laravel">
-                digitalocean安装laravel <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
+    </header>
   </article>
 
 
-
-    <div class="post-spread">
-      
-    </div>
+    
   </div>
+
+  
 
 
           </div>
@@ -404,10 +288,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -427,17 +307,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://avatars0.githubusercontent.com/u/7572018?v=3&s=466"
@@ -525,17 +396,6 @@
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <p class="post-toc-empty">此文章未包含目录</p>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -648,10 +508,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
-
-
 
   
 
