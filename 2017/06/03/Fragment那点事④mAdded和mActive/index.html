@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="实现仿微信查看大图的时候StatusBar和NavigationBar的状态变化 两篇不错的关于这两个Bar状态的文章: 1.http://angeldevil.me/2014/09/02/About-Status-Bar-and-Navigation-Bar/2.   http://vitiy.info/small-guide-how-to-support-immersive-mode-un">
+<meta name="description" content="文章里所有分析都是根据Android Sdk 25.3.1 v4包 资料链接 StackOverFlow、mAdded and mActive Fragment Lists  经过前面几篇对 FragmentManager 源码的分析，对 mAdded 和 mActive 这两个属性有了一定的理解，下面是在 StackOverFlow 上的一个问题，详细的总结了这两个属性的具体差异。">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Status Bar和Navigation Bar的显示与隐藏">
-<meta property="og:url" content="http://yoursite.com/2016/05/05/Status-Bar和Navigation-Bar的显示与隐藏/index.html">
+<meta property="og:title" content="Fragment那点事④mAdded和mActive">
+<meta property="og:url" content="http://yoursite.com/2017/06/03/Fragment那点事④mAdded和mActive/index.html">
 <meta property="og:site_name" content="Shell's Blog">
-<meta property="og:description" content="实现仿微信查看大图的时候StatusBar和NavigationBar的状态变化 两篇不错的关于这两个Bar状态的文章: 1.http://angeldevil.me/2014/09/02/About-Status-Bar-and-Navigation-Bar/2.   http://vitiy.info/small-guide-how-to-support-immersive-mode-un">
-<meta property="og:updated_time" content="2016-05-05T06:40:57.000Z">
+<meta property="og:description" content="文章里所有分析都是根据Android Sdk 25.3.1 v4包 资料链接 StackOverFlow、mAdded and mActive Fragment Lists  经过前面几篇对 FragmentManager 源码的分析，对 mAdded 和 mActive 这两个属性有了一定的理解，下面是在 StackOverFlow 上的一个问题，详细的总结了这两个属性的具体差异。">
+<meta property="og:updated_time" content="2017-06-03T14:21:58.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Status Bar和Navigation Bar的显示与隐藏">
-<meta name="twitter:description" content="实现仿微信查看大图的时候StatusBar和NavigationBar的状态变化 两篇不错的关于这两个Bar状态的文章: 1.http://angeldevil.me/2014/09/02/About-Status-Bar-and-Navigation-Bar/2.   http://vitiy.info/small-guide-how-to-support-immersive-mode-un">
+<meta name="twitter:title" content="Fragment那点事④mAdded和mActive">
+<meta name="twitter:description" content="文章里所有分析都是根据Android Sdk 25.3.1 v4包 资料链接 StackOverFlow、mAdded and mActive Fragment Lists  经过前面几篇对 FragmentManager 源码的分析，对 mAdded 和 mActive 这两个属性有了一定的理解，下面是在 StackOverFlow 上的一个问题，详细的总结了这两个属性的具体差异。">
 
 
 
@@ -121,10 +121,10 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/05/05/Status-Bar和Navigation-Bar的显示与隐藏/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/06/03/Fragment那点事④mAdded和mActive/"/>
 
 
-  <title> Status Bar和Navigation Bar的显示与隐藏 | Shell's Blog </title>
+  <title> Fragment那点事④mAdded和mActive | Shell's Blog </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -264,7 +264,7 @@
             
             
               
-                Status Bar和Navigation Bar的显示与隐藏
+                Fragment那点事④mAdded和mActive
               
             
           </h1>
@@ -276,8 +276,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-05T11:23:22+08:00" content="2016-05-05">
-              2016-05-05
+            <time itemprop="dateCreated" datetime="2017-06-03T22:20:37+08:00" content="2017-06-03">
+              2017-06-03
             </time>
           </span>
 
@@ -329,21 +329,70 @@
 
       
         <blockquote>
-<p> 实现仿微信查看大图的时候StatusBar和NavigationBar的状态变化</p>
-<p>两篇不错的关于这两个Bar状态的文章:</p>
-<p>1.<a href="http://angeldevil.me/2014/09/02/About-Status-Bar-and-Navigation-Bar/" target="_blank" rel="external">http://angeldevil.me/2014/09/02/About-Status-Bar-and-Navigation-Bar/</a><br>2.   <a href="http://vitiy.info/small-guide-how-to-support-immersive-mode-under-android-4-4/" target="_blank" rel="external">http://vitiy.info/small-guide-how-to-support-immersive-mode-under-android-4-4/</a><br>3.<a href="http://developer.android.com/training/system-ui/immersive.html" target="_blank" rel="external">http://developer.android.com/training/system-ui/immersive.html</a></p>
+<p>文章里所有分析都是根据Android Sdk 25.3.1 v4包</p>
+<p>资料链接 <a href="https://stackoverflow.com/questions/25695960/difference-between-madded-mactive-in-source-code-of-support-fragmentmanager" target="_blank" rel="external">StackOverFlow</a>、<a href="https://github.com/kgleong/software-engineering/wiki/Fragment-Manager#madded-and-mactive-fragment-lists" target="_blank" rel="external">mAdded and mActive Fragment Lists</a></p>
 </blockquote>
-<a id="more"></a>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//得到contentView的父布局，是一个FrameLayout</span></div><div class="line">rootContent = (ViewGroup) findViewById(android.R.id.content);</div><div class="line"><span class="comment">//add 大图控件到 rootContent</span></div><div class="line">root.addView(bview);</div></pre></td></tr></table></figure>
-<p>System UI的显示和隐藏通过下面两个函数实现。在<code>hideSystemUI()</code>方法中，通过<code>SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN</code>和<code>SYSTEM_UI_FLAG_FULLSCREEN</code>来隐藏Status Bar，让Activity的UI占满全屏(不会占据Navigation Bar的空间)，通过<code>SYSTEM_UI_FLAG_IMMERSIVE_STICKY</code>模式，使得系统以半透明方法显示System UI方便用户操作，并会在一段时间后自动隐藏，此时并不会引起<code>onSystemUiVibilityChanged</code>的调用.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@TargetApi</span>(Build.VERSION_CODES.HONEYCOMB)</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">hideSystemUI</span><span class="params">()</span> </span>&#123;</div><div class="line">    getWindow().getDecorView().setSystemUiVisibility(</div><div class="line">            View.SYSTEM_UI_FLAG_LAYOUT_STABLE</div><div class="line">                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN</div><div class="line">                    | View.SYSTEM_UI_FLAG_FULLSCREEN</div><div class="line">                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在<code>showSystemUI()</code>方法中，通过<code>SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN</code>使得Activity的UI占据全屏，但是这个时候Status Bar和Navigation Bar都没有被隐藏，所以Status Bar会遮挡住Activity UI的部分空间。解决办法就是给ContentView设置<code>fitSystemWindows</code>为true。这样系统会把被Status Bar遮挡住的区域自动转化成Activity UI的内边距,这样被StatusBar遮挡的问题就得到了解决。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@TargetApi</span>(Build.VERSION_CODES.HONEYCOMB)</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">showSystemUI</span><span class="params">()</span> </span>&#123;</div><div class="line">    getWindow().getDecorView().setSystemUiVisibility(</div><div class="line">            View.SYSTEM_UI_FLAG_LAYOUT_STABLE</div><div class="line">                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>但是当Window的焦点发生变化的时候，<code>SYSTEM_UI_FLAG_IMMERSIVE_STICKY</code>就会失效，Status Bar会重新出现，并且不是透明的。可以监听<code>onWindowFocusChanged</code>事件来重新调用<code>hideSystemUI()</code>方法。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onWindowFocusChanged</span><span class="params">(<span class="keyword">boolean</span> hasFocus)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onWindowFocusChanged(hasFocus);</div><div class="line">    <span class="keyword">if</span> (hasFocus &amp;&amp; hasView) &#123;</div><div class="line">        mPhotoView.postDelayed(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                hideSystemUI();</div><div class="line">            &#125;</div><div class="line">        &#125;, <span class="number">500</span>);</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<video width="320" height="600" controls><br>  <source src="http://7vzpfd.com1.z0.glb.clouddn.com/shamuMMB29Klijx05052016132032.mp4" poster="http://7vzpfd.com1.z0.glb.clouddn.com/photoview-MainActivity-05052016141341.png" type="video/mp4"><br>  你的浏览器不支持视频播放，请换一个浏览器.<br></video>
-
-
-
-
+<p>经过前面几篇对 FragmentManager 源码的分析，对 <code>mAdded</code> 和 <code>mActive</code> 这两个属性有了一定的理解，下面是在 StackOverFlow 上的一个问题，详细的总结了这两个属性的具体差异。<br><a id="more"></a><br><strong>mAdded:</strong></p>
+<ol>
+<li>包含了所有已经 added 并且没有被从 Activity 中 removed 和 detached 的 Fragments。</li>
+<li>这些 Fragment 在视图交互上有如下特性:<ul>
+<li>对下面事件作出反应:<ul>
+<li>低内存事件</li>
+<li>configuration changes (比如屏幕旋转)</li>
+</ul>
+</li>
+<li>展示自定义 menu 并对 menu 的点击作出回应 <code>onMenuItemSelected()</code>。</li>
+<li>Fragment 的生命周期响应它宿主 Activity 的生命周期</li>
+</ul>
+</li>
+<li>不在 <code>mAdded</code> 中的 Fragments 不能对事件作出相应和展示自定义的 menu。</li>
+</ol>
+<p><strong>mActive:</strong></p>
+<p><code>mAdded</code> 的一个超集，是绑定到一个 Activity 上的所有 Fragment。包括返回栈中所有的通过任何 <code>FragmentTransaction</code> 添加的 Fragments。这是非常重要的因为如下原因:</p>
+<ul>
+<li>当一个 Activity 要保存它的 State 时，它必须保存它所有 Fragment 的状态，因为 <code>mActive</code> 保存了所有 Fragment，所以系统只要存储这个列表里的 Fragment 的状态就好了。而<code>mAdded</code> 只是被序列化成一个整形数组，每个元素指向 Fragment 在 <code>mActive</code> 中的下标位置(这块在前面 Fragment 的存储与恢复中分析到了)。</li>
+<li>在恢复 Activity 的状态时，FragmentManager 的状态也会被恢复，<code>mActive</code> 列表就可以被用来恢复 <code>mAdded</code> 列表，因为保存状态的时候<code>mAdded</code> 被简单的保存为整形数组。</li>
+<li>当一个 Activity 经历它的各生命周期时，它必须引起所有绑定的 Fragment 经历各自的生命周期。<ul>
+<li>该 Activity 的 FragmentManager 有义务去引导所有 Fragemnt 转换到正确的状态，这其中包括屏幕上可见的 Fragment 的 View 层级的初始化，并且调用正确的生命周期函数。</li>
+<li>为了确保完整，FragmentManager 将遍历<code>mActive</code> 中所有的 Fragment，而不仅仅是 <code>mAdded</code>。</li>
+</ul>
+</li>
+<li>它持有所有 BackStack 返回栈引用的对象。<ul>
+<li>这确保了返回栈中对 Fragment 操作的回滚能够实现。</li>
+</ul>
+</li>
+</ul>
+<p><strong>什么情况下这两个 Fragment 的列表会变动呢？</strong></p>
+<ul>
+<li><p><strong>mAdded</strong></p>
+<ul>
+<li>如果一个 Fragment 被添加到 Activity 中，那么这个 Fragment 会被 <strong>added</strong> 到该列表。</li>
+<li>Fragment 被从该列表中移除:<ul>
+<li>Fragment 被从 Activity 中 removed。</li>
+<li>Fragment 从 Activity 中 detached。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>mActive:</strong></p>
+<ul>
+<li>如果一个 Fragment 被添加到 Activity 中，那么这个 Fragment 会被 <strong>added</strong> 到该列表。</li>
+<li><strong>只有</strong>在下面这两种情况 Fragment 才会被从该列表中移除:<ul>
+<li>Fragment 被从 Activity 中移除，并且没有在返回栈中。</li>
+<li>一个 transaction 从返回栈中被 pop 出来、 Fragment 的 add 或者 replace 操作被逆向，即返回栈不再持有该 Fragment。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>结论</strong></p>
+<p><code>mAdded</code> 是 <strong>alive</strong> in a sense (在感官上存活的)，而 <code>mActive</code> 是所有绑定在 Activity 上的 Framgent 列表。<code>mActive</code> 包括 <strong>alive</strong> Fragments (<code>mAdded</code>) 和 <strong>freeze dried</strong> (冷冻储存) Fragments (仍然在返回栈中等待被恢复)。</p>
+<p>继续对比活着的和冷冻储存的实体的区别：当 activities 触发回调函数比如 <code>onConfigurationChanged()</code> 活着 <code>onLowMemory()</code>，真正关系这些回调事件的只是活着的 Fragments。</p>
+<p>所以你会发现在 <code>FragmentManagerImpl</code> 回调只会遍历 <code>mAdded</code> 即活着的 Fragments。</p>
+<p><code>fragmentManager.dispatchLowMemory()</code> 在 <code>activity.onLowMemory()</code> 中被调用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dispatchLowMemory</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (mAdded != <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;mAdded.size(); i++) &#123;</div><div class="line">            Fragment f = mAdded.get(i);</div><div class="line">            <span class="keyword">if</span> (f != <span class="keyword">null</span>) &#123;</div><div class="line">                f.performLowMemory();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+</ul>
 
       
     </div>
@@ -375,16 +424,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/05/18/Android多线程/" rel="next" title="Android多线程">
-                <i class="fa fa-chevron-left"></i> Android多线程
+              <a href="/2017/06/03/Fragment那点事⑤保存与恢复实践/" rel="next" title="Fragment那点事⑤保存与恢复实践">
+                <i class="fa fa-chevron-left"></i> Fragment那点事⑤保存与恢复实践
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/10/27/本站域名已更换为licrafter-com/" rel="prev" title="本站域名已更换为licrafter.com">
-                本站域名已更换为licrafter.com <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/03/Fragment那点事③保存与恢复/" rel="prev" title="Fragment那点事③保存与恢复">
+                Fragment那点事③保存与恢复 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

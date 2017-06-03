@@ -90,18 +90,18 @@
 
 
 
-<meta name="description" content="文章里所有分析都是根据Android Sdk 25.3.1  在分析栈管理之前先来了解几个基本的概念和 FragmentManager 中主要属性代表什么意思。 FragmentManagerImplFragmentManagerImpl 是 FragmentManager 的实现类，具体实现了管理 Fragment 的各种操作。">
+<meta name="description" content="文章里所有分析都是根据Android Sdk 25.3.1  在分析栈管理之前先来了解几个基本的概念和 FragmentManager 中主要属性代表什么意思。">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Fragment那点事①Fragment栈管理">
 <meta property="og:url" content="http://yoursite.com/2017/06/03/Fragment那点事①Fragment栈管理/index.html">
 <meta property="og:site_name" content="Shell's Blog">
-<meta property="og:description" content="文章里所有分析都是根据Android Sdk 25.3.1  在分析栈管理之前先来了解几个基本的概念和 FragmentManager 中主要属性代表什么意思。 FragmentManagerImplFragmentManagerImpl 是 FragmentManager 的实现类，具体实现了管理 Fragment 的各种操作。">
+<meta property="og:description" content="文章里所有分析都是根据Android Sdk 25.3.1  在分析栈管理之前先来了解几个基本的概念和 FragmentManager 中主要属性代表什么意思。">
 <meta property="og:image" content="http://7vzpfd.com1.z0.glb.clouddn.com/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png">
-<meta property="og:updated_time" content="2017-06-03T14:09:05.000Z">
+<meta property="og:updated_time" content="2017-06-03T14:13:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Fragment那点事①Fragment栈管理">
-<meta name="twitter:description" content="文章里所有分析都是根据Android Sdk 25.3.1  在分析栈管理之前先来了解几个基本的概念和 FragmentManager 中主要属性代表什么意思。 FragmentManagerImplFragmentManagerImpl 是 FragmentManager 的实现类，具体实现了管理 Fragment 的各种操作。">
+<meta name="twitter:description" content="文章里所有分析都是根据Android Sdk 25.3.1  在分析栈管理之前先来了解几个基本的概念和 FragmentManager 中主要属性代表什么意思。">
 <meta name="twitter:image" content="http://7vzpfd.com1.z0.glb.clouddn.com/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png">
 
 
@@ -333,8 +333,8 @@
         <blockquote>
 <p>文章里所有分析都是根据Android Sdk 25.3.1</p>
 </blockquote>
-<p>在分析栈管理之前先来了解几个基本的概念和 FragmentManager 中主要属性代表什么意思。</p>
-<h3 id="FragmentManagerImpl"><a href="#FragmentManagerImpl" class="headerlink" title="FragmentManagerImpl"></a>FragmentManagerImpl</h3><p><code>FragmentManagerImpl</code> 是 <code>FragmentManager</code> 的实现类，具体实现了管理 Fragment 的各种操作。<br><a id="more"></a></p>
+<p>在分析栈管理之前先来了解几个基本的概念和 FragmentManager 中主要属性代表什么意思。<br><a id="more"></a></p>
+<h3 id="FragmentManagerImpl"><a href="#FragmentManagerImpl" class="headerlink" title="FragmentManagerImpl"></a>FragmentManagerImpl</h3><p><code>FragmentManagerImpl</code> 是 <code>FragmentManager</code> 的实现类，具体实现了管理 Fragment 的各种操作。</p>
 <h3 id="BackStackRecord"><a href="#BackStackRecord" class="headerlink" title="BackStackRecord"></a>BackStackRecord</h3><p>BackStackRecord 实现了 FragmentTransaction 是 FragmentManager 执行操作的事务单元，一次 commit 就会产生一个 BackStackRecord 记录，而在一个 BackStackRecord 记录中有一个 OP 列表。<code>popBackStack()</code> 方法也会产生一个相应的 BackStackRecord 记录单元。</p>
 <h3 id="OP"><a href="#OP" class="headerlink" title="OP"></a>OP</h3><p><code>OP</code> 是 BackStackRecord 的一个子类，表示一个事务中的一个对 Fragment 具体的操作。里面包含了操作类型、操作对象 Fragment、入栈进入退出动画、出栈进入退出动画。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Op</span> </span>&#123;</div><div class="line">  <span class="keyword">int</span> cmd;</div><div class="line">  Fragment fragment;</div><div class="line">  <span class="keyword">int</span> enterAnim;</div><div class="line">  <span class="keyword">int</span> exitAnim;</div><div class="line">  <span class="keyword">int</span> popEnterAnim;</div><div class="line">  <span class="keyword">int</span> popExitAnim;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -453,6 +453,10 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/06/03/Fragment那点事②Fragment生命周期/" rel="next" title="Fragment那点事②Fragment生命周期">
+                <i class="fa fa-chevron-left"></i> Fragment那点事②Fragment生命周期
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
@@ -527,7 +531,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-count">19</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

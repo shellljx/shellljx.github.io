@@ -1,0 +1,751 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="fonts.useso.com/css?family=Lato:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="文章里所有分析都是根据Android Sdk 25.3.1 v4包  几种状态Fragment 的状态 mState 总共有如下几种: 123456static final int INITIALIZING = 0;     // Not yet created.static final int CREATED = 1;          // Created.static final int">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fragment那点事②Fragment生命周期">
+<meta property="og:url" content="http://yoursite.com/2017/06/03/Fragment那点事②Fragment生命周期/index.html">
+<meta property="og:site_name" content="Shell's Blog">
+<meta property="og:description" content="文章里所有分析都是根据Android Sdk 25.3.1 v4包  几种状态Fragment 的状态 mState 总共有如下几种: 123456static final int INITIALIZING = 0;     // Not yet created.static final int CREATED = 1;          // Created.static final int">
+<meta property="og:updated_time" content="2017-06-03T14:15:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Fragment那点事②Fragment生命周期">
+<meta name="twitter:description" content="文章里所有分析都是根据Android Sdk 25.3.1 v4包  几种状态Fragment 的状态 mState 总共有如下几种: 123456static final int INITIALIZING = 0;     // Not yet created.static final int CREATED = 1;          // Created.static final int">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/03/Fragment那点事②Fragment生命周期/"/>
+
+
+  <title> Fragment那点事②Fragment生命周期 | Shell's Blog </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Shell's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Fragment那点事②Fragment生命周期
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-03T22:13:50+08:00" content="2017-06-03">
+              2017-06-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
+                    <span itemprop="name">技术杂烩</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>文章里所有分析都是根据Android Sdk 25.3.1 v4包</p>
+</blockquote>
+<h3 id="几种状态"><a href="#几种状态" class="headerlink" title="几种状态"></a>几种状态</h3><p>Fragment 的状态 <code>mState</code> 总共有如下几种:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> INITIALIZING = <span class="number">0</span>;     <span class="comment">// Not yet created.</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CREATED = <span class="number">1</span>;          <span class="comment">// Created.</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ACTIVITY_CREATED = <span class="number">2</span>; <span class="comment">// The activity has finished its creation.</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> STOPPED = <span class="number">3</span>;          <span class="comment">// Fully created, not started.</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> STARTED = <span class="number">4</span>;          <span class="comment">// Created and started, not resumed.</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> RESUMED = <span class="number">5</span>;          <span class="comment">// Created started and resumed.</span></div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p><code>mState</code> 的初始状态默认为 <code>INITIALIZING</code> ，其实这几个状态的名字和生命周期函数不是一一对应的，而是在某个状态内触发一个或多个生命周期函数。那这几种状态都表示什么意思呢？每种状态的过程中又执行了什么生命周期函数呢？由于代码过多就不贴代码了，源码在 <code>FragmentManager.moveToState(Fragment f, int newState, int transit, int transitionStyle,boolean keepActive)</code> 方法中，请自行查看。该方法中的参数 <code>f</code> 表示要操作的 Fragment，<code>newState</code> 表示要转换到的目标 state。</p>
+<p><strong>INITIALIZING</strong></p>
+<p>从后面的注释可知该状态的 Fragment 还没有创建，当 Fragment 处于这种状态的时候 <code>mState = 0</code> 代表要去初始化 Framgent 的一个过程，由源码可知主要做了如下几件事情：</p>
+<ul>
+<li><p>当 <code>f.mSavedFragmentState != null</code> 的时候表示这个 Fragment 被 onSaveInstanceState 保存了状态，这个状态包括但不限于：内部 View 的状态 <code>mSavedViewState</code>、target Fragment 的状态、<code>mUserVisibleHint</code> 的状态，然后取出各状态的值赋值给相应属性。当 <code>f.mUserVisibleHint = false</code> 的时候表示该 Fragment 是不被用户可见的，所以要让 Fragment 的状态不能超过 <code>STOPPED</code> (已经创建但是没有 started)。</p>
+</li>
+<li><p>对 <code>mHost</code>、<code>mParentFragment</code>、<code>mFragmentManager</code> 等属性进行赋值。</p>
+</li>
+<li><p>触发 <strong>Fragment.onAttach(Context context)</strong> 周期函数和 <strong>onAttachFragment(Fragment f)</strong> 周期函数。</p>
+</li>
+<li><p>对 <code>f.mRetaining</code> 进行判断，该属性表示意外重启时保存了 Fragment 实例，<code>Fragment.mRetainInstance</code> 表示重启时是否要保存实例，这在后面的 <em>Fragment那点事③保存与恢复</em> 中会有详细的介绍。当为 true 的时候直接回复 ChildFragment 的SavedState，并把 Fragment 的状态修改为 <code>CREATED</code> (已经创建)。反之触发 <strong>onCreate(savedInstanceState)</strong> 周期函数并把 Fragment 的状态修改为 <code>CREATED</code> (已经创建)。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (!f.mRetaining) &#123;</div><div class="line">  f.performCreate(f.mSavedFragmentState);</div><div class="line">  dispatchOnFragmentCreated(f, f.mSavedFragmentState, <span class="keyword">false</span>);</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">  f.restoreChildFragmentState(f.mSavedFragmentState);</div><div class="line">  f.mState = Fragment.CREATED;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>对属性 <code>f.mFromLayout</code> 进行判断，该属性表示 Fragment 是否是在 xml 中直接通过 <code>&lt;fragment/&gt;</code> 声明的，如果是就直接触发 <strong>onCreateView</strong> 周期函数和 <strong>onViewCreated</strong> 周期函数。(大部分情况下都是在代码中动态添加 Fragment 的)。</p>
+</li>
+</ul>
+<p><strong>CREATED</strong></p>
+<p>该状态表示 Fragment 已经创建 <code>mState = 1</code>，当 <code>newState &gt; Fragment.CREATED</code> 的时候执行如下逻辑：</p>
+<ul>
+<li>判断 <code>f.mFromLayout</code> 属性，如果不是从 xml 中直接声明的而是在代码中动态添加的(通常都是添加到一个  <code>&lt;FrameLayout/&gt;</code> 载体中)，判断 <code>f.mContainerId</code> 是否等于 0 ，如果不等于说明该载体 ViewGroup 有效并通过 <code>onFindViewById</code> 得到载体 ViewGroup。</li>
+<li>触发 <strong>onCreateView</strong> 周期函数返回并赋值给 <code>f.mView</code> 由此可以看出该属性表示 Fragment 的根 View。</li>
+<li>如果 <code>f.mView != null</code> 就赋值给 <code>f.mInnerView</code> 并根据 <code>f.mHidden</code> 属性判断是否要隐藏根 View，并触发<strong>onViewCreated</strong> 周期函数。</li>
+<li>触发 <strong>onActivityCreated</strong> 周期函数，如果根 View 不等于 null 就调用 <code>f.restoreViewState(f.mSavedFragmentState)</code> 恢复内部 View 的 SavedState。然后把 <code>f.mSavedFragmentState</code> 置空。</li>
+</ul>
+<p><strong>ACTIVITY_CREATED</strong></p>
+<p>该状态表示 Activity 已经完成了它的创建过程，此时 <code>mState = 2</code> 。当 <code>newState &gt; ACTIVITY_CREATED</code> 的时候把 Fragment 的状态改变为 <code>STOPPED</code> (已经完全创建完毕，但是还没有 started)。</p>
+<p><strong>STOPPED</strong></p>
+<p>该状态表示 Fragment 已经完成了创建过程，但是还没有 started，此时 <code>mState = 3</code>。当 <code>newState &gt; Fragment.STOPPED</code> 的时候触发 <strong>onStart</strong> 周期函数并将 Fragment 的状态改成 <code>STARTED</code> (已经创建并且 started 但是还没有 resumed)。</p>
+<p><strong>STARTED</strong></p>
+<p>该状态表示 Fragment 已经创建并且 started 但是还没有 resumed，此时 <code>mState = 4</code>。当 <code>newState &gt; Fragment.STARTED</code> 触发 <strong>onResume</strong> 周期函数，并将 Fragment 的状态改变为 <code>RESUMED</code> (已经创建并且 started和 resumed)。</p>
+<p><strong>RESUMED</strong></p>
+<p>该状态表示 Fragment 已经创建并且 started和 resumed，此时 <code>mState = 5</code> 。</p>
+<p><strong>逆过程</strong></p>
+<ol>
+<li>当 Fragment 的状态为 RESUMED 并且 <code>newState &lt; Fragment.RESUMED</code> 触发 <strong>onPause</strong> 周期函数，并将 Fragment 的状态改变为 <code>STARTED</code> 。</li>
+<li>当 Fragment 的状态为 STARTED 并且 <code>newState &lt; Fragment.STARTED</code> 触发 <strong>onStop</strong> 周期函数，并将 Fragment 的状态改为 <code>STOPPED</code>。</li>
+<li>当 Fragment 的状态为 STOPPED 并且 <code>newState &lt; Fragment.STOPPED</code> 将 Fragment 状态改为<code>ACTIVITY_CREATED</code> 。</li>
+<li>当 Fragment 的状态为 ACTIVITY_CREATED 并且 <code>newState &lt; Fragment.ACTIVITY_CREATED</code> 的时候<ul>
+<li>首先判断根 Veiw 是否为空，如果不为空时调用 <code>mHost.onShouldSaveFragmentState(f)</code> 方法判断是否应该保持 Fragment 的状态(当 Activity 内存重启时需要保持状态)。如果需要保持就调用 <code>saveFragmentViewState</code> 方法进行保存。</li>
+<li>触发 <strong>onDestroyView</strong> 周期函数，并将 Fragment 的状态改为 <code>CREATED</code>。</li>
+<li>执行退出动画。</li>
+<li>从 <code>f.mContainer</code> (载体 ViewGrouop) 中 remove 掉根 View。</li>
+</ul>
+</li>
+<li>当 Fragment 的状态为 CREATED 并且 <code>newState &lt; Fragment.CREATED</code> 当退出动画执行完毕后，判断属性 <code>f.mRetaining</code> 当该属性为 false 的时候说明不需要保存 Fragment 实例，触发 <strong>onDestroy</strong> 周期函数，并将 Fragment 的状态改为 <code>INITIALIZING</code> 反之说明要保存 Fragment 的实例，直接将 Fragment 的状态改为 <code>INITIALIZING</code>。然后触发 <strong>onDetach</strong> 周期函数。如果 <code>keepActive == false</code> 并且 <code>f.mRetaining == false</code> 调用 <code>makeInactive(f)</code> 方法把该 Fragment 从 <code>mActive</code> 列表中移除。</li>
+</ol>
+<h3 id="具体示例分析"><a href="#具体示例分析" class="headerlink" title="具体示例分析"></a>具体示例分析</h3><p>分析原理从一件具体的事情上去着手去一步步的 debug 能够产生事半功倍的效果，在 Activity 中添加 Fragment 最典型的步骤就是在 Activity 的 onCreate() 方法中添加如下代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(@Nullable Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">    setContentView(R.layout.activity_ordering_bug);</div><div class="line">    FragmentManager.enableDebugLogging(<span class="keyword">true</span>);</div><div class="line">    getSupportFragmentManager().beginTransaction()</div><div class="line">            .add(R.id.content, a1Fragment)</div><div class="line">            .commit();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Fragment 是被添加到 FragmentActivity 中的，Activity 的生命周期决定了被添加的 Fragment 的生命周期。所以从 <code>getSupportFragmentManager()</code> 点进去进入到了 FragmentActivity 类，那就从这里一步步的分析整个流程。</p>
+<h4 id="OnCreate"><a href="#OnCreate" class="headerlink" title="OnCreate()"></a>OnCreate()</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(@Nullable Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">  <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">    <span class="keyword">if</span> (savedInstanceState != <span class="keyword">null</span>) &#123;</div><div class="line">      Parcelable p = savedInstanceState.getParcelable(FRAGMENTS_TAG);</div><div class="line">      mFragments.restoreAllState(p, nc != <span class="keyword">null</span> ? nc.fragments : <span class="keyword">null</span>);</div><div class="line">      <span class="comment">// Check if there are any pending onActivityResult calls to descendent Fragments.</span></div><div class="line">      <span class="keyword">if</span> (savedInstanceState.containsKey(NEXT_CANDIDATE_REQUEST_INDEX_TAG)) &#123;</div><div class="line">        mNextCandidateRequestIndex =</div><div class="line">          savedInstanceState.getInt(NEXT_CANDIDATE_REQUEST_INDEX_TAG);</div><div class="line">        <span class="keyword">int</span>[] requestCodes =</div><div class="line">          savedInstanceState.getIntArray(ALLOCATED_REQUEST_INDICIES_TAG);</div><div class="line">        String[] fragmentWhos =</div><div class="line">          savedInstanceState.getStringArray(REQUEST_FRAGMENT_WHO_TAG);</div><div class="line">        <span class="keyword">if</span> (requestCodes == <span class="keyword">null</span> || fragmentWhos == <span class="keyword">null</span> ||</div><div class="line">            requestCodes.length != fragmentWhos.length) &#123;</div><div class="line">                    Log.w(TAG, <span class="string">"Invalid requestCode mapping in savedInstanceState."</span>);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">          mPendingFragmentActivityResults = <span class="keyword">new</span> SparseArrayCompat&lt;&gt;(requestCodes.length);</div><div class="line">          <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; requestCodes.length; i++) &#123;</div><div class="line">            mPendingFragmentActivityResults.put(requestCodes[i], fragmentWhos[i]);</div><div class="line">          &#125;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  mFragments.dispatchCreate();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> 上面是 <code>onCreate</code> 中关于 Fragment 生命周期的主要代码，总共干了 3 件事情:</p>
+<ol>
+<li>当 <code>savedInstanceState != null</code> 的时候说明 Activity 被重建，调用 <code>restoreAllState</code> 去执行恢复 Fragment 状态的流程。</li>
+<li>当 <code>savedInstanceState != null</code> 并且 <code>savedInstanceState.containsKey(NEXT_CANDIDATE_REQUEST_INDEX_TAG)</code> 说明 Activity 在被系统销毁的时候还有没传递回来的 <code>startActivityForResult</code> 回调，把<code>requestCode</code> 和 发起 fragment 的标识保存在 <code>mPendingFragmentActivityResults</code> 中。</li>
+<li>调用 <code>dispatchCreate()</code> 分发 create() 流程。</li>
+</ol>
+<h3 id="mFragments-dispatchCreate"><a href="#mFragments-dispatchCreate" class="headerlink" title="mFragments.dispatchCreate()"></a>mFragments.dispatchCreate()</h3><p>首先按最简单的情况分析 Activity 没有被重建而是第一次启动，直接调用 <code>mFragments.dispatchCreate()</code> 点开 FragmentController 源码发现最终是调用 <code>FragmentManager.dispatchCreate()</code> 方法，在 FragmentManager 中调用 <code>moveToState(Fragment.CREATED, false);</code> 把该 FragmentManager 实例的状态 <code>mCurState</code> 转换到 <code>Fragment.CREATED</code> 但是现在还没有执行添加 Fragment 代码所以 <code>FragmentManager.mActive</code> 为空。然后再执行子 Activity onCreate() 方法里的添加 Fragment 的代码片段，即发送一个事务消息(添加 Fragment 的代码片段)到主线程消息队列中等待执行(而不是真正意义上执行 add Fragment 的流程)。</p>
+<h3 id="onStart"><a href="#onStart" class="headerlink" title="onStart()"></a>onStart()</h3><p>当调试到下面添加 Fragment 的流程时发现 <code>mManager.mCurState=2</code> 即 FragmentManager 的状态现在处于 <code>ACTIVITY_CREATED</code> 即 FragmentActivity 已经执行到 <code>onStart()</code> 方法了。因为 <code>commit()</code> 是发送一个消息到主线程等待被执行，所以当队列里的消息被执行的时候 FragmentActivity 已经执行到了 <code>onStart()</code> 方法，如果使用 <code>commitNow()</code> 才是马上执行添加 Fragment 的方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// BackStackRecord.executeOps() 部分代码</span></div><div class="line"><span class="keyword">if</span> (!mAllowOptimization) &#123;</div><div class="line">  <span class="comment">// Added fragments are added at the end to comply with prior behavior.</span></div><div class="line">  <span class="comment">// 此时 mManager.mCurState = 2</span></div><div class="line">  mManager.moveToState(mManager.mCurState, <span class="keyword">true</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>那我们就来分析一下 onStart() 方法验证前面的猜想。下面是源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onStart</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="keyword">super</span>.onStart();</div><div class="line">  </div><div class="line">  mStopped = <span class="keyword">false</span>;</div><div class="line">  mReallyStopped = <span class="keyword">false</span>;</div><div class="line">  mHandler.removeMessages(MSG_REALLY_STOPPED);</div><div class="line">  </div><div class="line">  <span class="keyword">if</span> (!mCreated) &#123;</div><div class="line">    mCreated = <span class="keyword">true</span>;</div><div class="line">    mFragments.dispatchActivityCreated();</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  mFragments.noteStateNotSaved();</div><div class="line">  mFragments.execPendingActions();</div><div class="line"></div><div class="line">  mFragments.doLoaderStart();</div><div class="line"></div><div class="line">  <span class="comment">// <span class="doctag">NOTE:</span> HC onStart goes here.</span></div><div class="line"></div><div class="line">  mFragments.dispatchStart();</div><div class="line">  mFragments.reportLoaderStart();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看出在 onStart() 方法中主要做了下面这几件事情:</p>
+<ol>
+<li><p>调用 <code>mFragments.dispatchActivityCreated()</code> 分发 ActivityCreated 的事件，通过 FragmentController 调用 FragmentManager 的 <code>dispatchActivityCreated()</code> 方法，在 FragmentManager 中 调用 <code>moveToState(Fragment.ACTIVITY_CREATED, false)()</code> 把 FragmentManager 的状态转换到 <code>ACTIVITY_CREATED</code> ，所以现在 <code>FragmentManager.mCurState = 2</code>。但是现在消息队列中的添加 Fragment 的代码片段还没有被执行。</p>
+</li>
+<li><p>调用 <code>mFragments.execPendingActions()</code> 通过 FragmentController 调用 FragmentManager 的 <code>execPendingActions()</code> 方法，开始执行添加 Fragment 的代码片段。(关于这里的具体分析请看[Fragment 那点事之① 栈管理)在 <code>FragmentManager.moveToState(Fragment f, int newState, int transit, int transitionStyle,boolean keepActive)</code> 方法中分别触发 <code>Fragment.onAttach</code>、</p>
+<p><code>Fragment.onCreate</code>、<code>Fragment.onCreateView</code>、<code>Fragment.onViewCreated</code>、<code>Fragment.onActivityCreated</code> 方法，Fragment 的状态现在为 <code>ACTIVITY_CREATED</code> (Activity 已经完成了创建过程) 。</p>
+</li>
+<li><p>调用 <code>mFragments.dispatchStart()</code> 方法，进而执行 <code>FragmentManager.dispatchStart()</code> 方法，在 FragmentManager 中执行 <code>moveToState(Fragment.STARTED, false)</code> 。把 FragmentManager 的状态转换到 <code>STARTED</code> ，现在 <code>FragmentManager.mCurState = 4</code> 。该 FragmentManager 管理的 Fragment 的状态会变成 <code>STOPPED</code> (即已经完全 created 但是还没有 started 的状态) ，然后紧接着就触发 <code>Fragment.onStart()</code> 方法，Fragment 的状态变成 <code>STARTED</code> (已经创建并且 started，但是还没有 resumed)。</p>
+</li>
+</ol>
+<h3 id="onPostResume"><a href="#onPostResume" class="headerlink" title="onPostResume"></a>onPostResume</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onPostResume</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="keyword">super</span>.onPostResume();</div><div class="line">  mHandler.removeMessages(MSG_RESUME_PENDING);</div><div class="line">  onResumeFragments();</div><div class="line">  mFragments.execPendingActions();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这个方法里调用 <code>onResumeFragments()</code> 通过 FragmentController 向 Fragments 分发 onResume 事件，调用 <code>FragmentManager.dispatchResume()</code> 方法，执行 <code>moveToState(Fragment.RESUMED, false)</code> 将 FragmentManager 的状态转换成 <code>RESUMED</code> 即 <code>FragmentManager.mCurState = 5</code> 。该 FragmentManager 管理的 Fragment 的状态也被转换成了 <code>RESUMED</code> ，并触发 <code>Fragment.onResume</code> 方法。至此 Fragment 已经 started 并且resumed。</p>
+<h3 id="其余生命周期函数"><a href="#其余生命周期函数" class="headerlink" title="其余生命周期函数"></a>其余生命周期函数</h3><p>其余的生命周期和前面分析的这几个原理基本一样，比如 onPause() 时 Fragment 的状态为 已经完全创建(created)并且 started 但是没有 resumed 所以通过 FragmentController 分发把 FragmentManager 管理下的 Fragments 的状态都转化为 <code>STARTED</code> 并且触发 <code>Fragment.OnPause</code> 方法。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/03/Fragment那点事③保存与恢复/" rel="next" title="Fragment那点事③保存与恢复">
+                <i class="fa fa-chevron-left"></i> Fragment那点事③保存与恢复
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/03/Fragment那点事①Fragment栈管理/" rel="prev" title="Fragment那点事①Fragment栈管理">
+                Fragment那点事①Fragment栈管理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars0.githubusercontent.com/u/7572018?v=3&s=466"
+               alt="shell" />
+          <p class="site-author-name" itemprop="name">shell</p>
+          <p class="site-description motion-element" itemprop="description">生命不息，奋斗不止，万事起于忽微，量变引起质变</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shellljx" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shellljx" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shellljx" target="_blank" title="QQ">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  QQ
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/shellljx" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#几种状态"><span class="nav-number">1.</span> <span class="nav-text">几种状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体示例分析"><span class="nav-number">2.</span> <span class="nav-text">具体示例分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#OnCreate"><span class="nav-number">2.1.</span> <span class="nav-text">OnCreate()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mFragments-dispatchCreate"><span class="nav-number">3.</span> <span class="nav-text">mFragments.dispatchCreate()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onStart"><span class="nav-number">4.</span> <span class="nav-text">onStart()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onPostResume"><span class="nav-number">5.</span> <span class="nav-text">onPostResume</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其余生命周期函数"><span class="nav-number">6.</span> <span class="nav-text">其余生命周期函数</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shell</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

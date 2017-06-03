@@ -265,6 +265,484 @@
             
               
                 
+                <a class="post-title-link" href="/2017/06/03/Fragment那点事⑤保存与恢复实践/" itemprop="url">
+                  Fragment那点事⑤保存与恢复实践
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-03T22:22:29+08:00" content="2017-06-03">
+              2017-06-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
+                    <span itemprop="name">技术杂烩</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>文章里所有分析都是根据Android Sdk 25.3.1 v4包</p>
+<p>经过前面的分析之后现在有这么一个需求:</p>
+<ol>
+<li>APP 总共 3 个 Tab，首页(HomePageFragment)，分类(CategoryFragment)，我的(MineFragment)这 3 个 Tab 为第一级。</li>
+<li>TopicListFragment 根据穿件来不同的 tab 字段可以分别加载首页、分类(热门，精华，分享，招聘)页面的帖子列表。</li>
+<li>要实现 Activity 被重建的时候所有帖子列表页面维持不变，不重新加载新的数据、帖子列表懒加载。</li>
+<li>Activity 重建用屏幕旋转来模拟。</li>
+</ol>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/06/03/Fragment那点事⑤保存与恢复实践/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/03/Fragment那点事④mAdded和mActive/" itemprop="url">
+                  Fragment那点事④mAdded和mActive
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-03T22:20:37+08:00" content="2017-06-03">
+              2017-06-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
+                    <span itemprop="name">技术杂烩</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>文章里所有分析都是根据Android Sdk 25.3.1 v4包</p>
+<p>资料链接 <a href="https://stackoverflow.com/questions/25695960/difference-between-madded-mactive-in-source-code-of-support-fragmentmanager">StackOverFlow</a>、<a href="https://github.com/kgleong/software-engineering/wiki/Fragment-Manager#madded-and-mactive-fragment-lists">mAdded and mActive Fragment Lists</a></p>
+</blockquote>
+<p>经过前面几篇对 FragmentManager 源码的分析，对 <code>mAdded</code> 和 <code>mActive</code> 这两个属性有了一定的理解，下面是在 StackOverFlow 上的一个问题，详细的总结了这两个属性的具体差异。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/06/03/Fragment那点事④mAdded和mActive/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/03/Fragment那点事③保存与恢复/" itemprop="url">
+                  Fragment那点事③保存与恢复
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-03T22:16:23+08:00" content="2017-06-03">
+              2017-06-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
+                    <span itemprop="name">技术杂烩</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>文章里所有分析都是根据Android Sdk 25.3.1 v4包</p>
+</blockquote>
+<p>上一篇分析了最典型的情况下添加 Fragment 的生命周期，现在再来分析一下特殊情况下 Fragment 的生命周期有什么不同。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/06/03/Fragment那点事③保存与恢复/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/03/Fragment那点事②Fragment生命周期/" itemprop="url">
+                  Fragment那点事②Fragment生命周期
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-03T22:13:50+08:00" content="2017-06-03">
+              2017-06-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
+                    <span itemprop="name">技术杂烩</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>文章里所有分析都是根据Android Sdk 25.3.1 v4包</p>
+</blockquote>
+<h3 id="几种状态"><a href="#几种状态" class="headerlink" title="几种状态"></a>几种状态</h3><p>Fragment 的状态 <code>mState</code> 总共有如下几种:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> INITIALIZING = <span class="number">0</span>;     <span class="comment">// Not yet created.</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CREATED = <span class="number">1</span>;          <span class="comment">// Created.</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ACTIVITY_CREATED = <span class="number">2</span>; <span class="comment">// The activity has finished its creation.</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> STOPPED = <span class="number">3</span>;          <span class="comment">// Fully created, not started.</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> STARTED = <span class="number">4</span>;          <span class="comment">// Created and started, not resumed.</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> RESUMED = <span class="number">5</span>;          <span class="comment">// Created started and resumed.</span></div></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/06/03/Fragment那点事②Fragment生命周期/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/06/03/Fragment那点事①Fragment栈管理/" itemprop="url">
                   Fragment那点事①Fragment栈管理
                 </a>
@@ -330,8 +808,7 @@
           <blockquote>
 <p>文章里所有分析都是根据Android Sdk 25.3.1</p>
 </blockquote>
-<p>在分析栈管理之前先来了解几个基本的概念和 FragmentManager 中主要属性代表什么意思。</p>
-<h3 id="FragmentManagerImpl"><a href="#FragmentManagerImpl" class="headerlink" title="FragmentManagerImpl"></a>FragmentManagerImpl</h3><p><code>FragmentManagerImpl</code> 是 <code>FragmentManager</code> 的实现类，具体实现了管理 Fragment 的各种操作。<br>
+<p>在分析栈管理之前先来了解几个基本的概念和 FragmentManager 中主要属性代表什么意思。<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2017/06/03/Fragment那点事①Fragment栈管理/#more" rel="contents">
               阅读全文 &raquo;
@@ -940,469 +1417,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/05/Status-Bar和Navigation-Bar的显示与隐藏/" itemprop="url">
-                  Status Bar和Navigation Bar的显示与隐藏
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-05T11:23:22+08:00" content="2016-05-05">
-              2016-05-05
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
-                    <span itemprop="name">技术杂烩</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p> 实现仿微信查看大图的时候StatusBar和NavigationBar的状态变化</p>
-<p>两篇不错的关于这两个Bar状态的文章:</p>
-<p>1.<a href="http://angeldevil.me/2014/09/02/About-Status-Bar-and-Navigation-Bar/">http://angeldevil.me/2014/09/02/About-Status-Bar-and-Navigation-Bar/</a><br>2.   <a href="http://vitiy.info/small-guide-how-to-support-immersive-mode-under-android-4-4/">http://vitiy.info/small-guide-how-to-support-immersive-mode-under-android-4-4/</a><br>3.<a href="http://developer.android.com/training/system-ui/immersive.html">http://developer.android.com/training/system-ui/immersive.html</a></p>
-</blockquote>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/05/05/Status-Bar和Navigation-Bar的显示与隐藏/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/10/27/本站域名已更换为licrafter-com/" itemprop="url">
-                  本站域名已更换为licrafter.com
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-10-27T10:55:26+08:00" content="2015-10-27">
-              2015-10-27
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/秋名山上的日子/" itemprop="url" rel="index">
-                    <span itemprop="name">秋名山上的日子</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>以前的域名linghun.me已经到期了，现在本站域名改为licrafter.com  新的域名新的开始。。。。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/10/23/需求更新太快的弊端/" itemprop="url">
-                  需求更新太快的弊端
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-10-23T22:03:31+08:00" content="2015-10-23">
-              2015-10-23
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/秋名山上的日子/" itemprop="url" rel="index">
-                    <span itemprop="name">秋名山上的日子</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>项目需求更新频率和尿频患者一样，导致的一个问题就是，代码一点也不优雅，而是在堆代码。。。。废代码太多,项目就像是一坨屎</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/09/08/digitalocean安装laravel/" itemprop="url">
-                  digitalocean安装laravel
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-09-08T17:30:14+08:00" content="2015-09-08">
-              2015-09-08
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
-                    <span itemprop="name">技术杂烩</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>前段时间在digitalocean上安装laravel遇到了<code>out of memory</code>的坑，下面是一个完美的安装方法</p>
-<blockquote>
-<p>How To Install Laravel with Nginx on an Ubuntu 12.04 LTS VPS</p>
-</blockquote>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/09/08/digitalocean安装laravel/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1448,7 +1462,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-count">19</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="实现仿微信查看大图的时候StatusBar和NavigationBar的状态变化 两篇不错的关于这两个Bar状态的文章: 1.http://angeldevil.me/2014/09/02/About-Status-Bar-and-Navigation-Bar/2.   http://vitiy.info/small-guide-how-to-support-immersive-mode-un">
+<meta name="description" content="文章里所有分析都是根据Android Sdk 25.3.1 v4包 经过前面的分析之后现在有这么一个需求:  APP 总共 3 个 Tab，首页(HomePageFragment)，分类(CategoryFragment)，我的(MineFragment)这 3 个 Tab 为第一级。 TopicListFragment 根据穿件来不同的 tab 字段可以分别加载首页、分类(热门，精华，分享，招聘">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Status Bar和Navigation Bar的显示与隐藏">
-<meta property="og:url" content="http://yoursite.com/2016/05/05/Status-Bar和Navigation-Bar的显示与隐藏/index.html">
+<meta property="og:title" content="Fragment那点事⑤保存与恢复实践">
+<meta property="og:url" content="http://yoursite.com/2017/06/03/Fragment那点事⑤保存与恢复实践/index.html">
 <meta property="og:site_name" content="Shell's Blog">
-<meta property="og:description" content="实现仿微信查看大图的时候StatusBar和NavigationBar的状态变化 两篇不错的关于这两个Bar状态的文章: 1.http://angeldevil.me/2014/09/02/About-Status-Bar-and-Navigation-Bar/2.   http://vitiy.info/small-guide-how-to-support-immersive-mode-un">
-<meta property="og:updated_time" content="2016-05-05T06:40:57.000Z">
+<meta property="og:description" content="文章里所有分析都是根据Android Sdk 25.3.1 v4包 经过前面的分析之后现在有这么一个需求:  APP 总共 3 个 Tab，首页(HomePageFragment)，分类(CategoryFragment)，我的(MineFragment)这 3 个 Tab 为第一级。 TopicListFragment 根据穿件来不同的 tab 字段可以分别加载首页、分类(热门，精华，分享，招聘">
+<meta property="og:updated_time" content="2017-06-03T14:24:50.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Status Bar和Navigation Bar的显示与隐藏">
-<meta name="twitter:description" content="实现仿微信查看大图的时候StatusBar和NavigationBar的状态变化 两篇不错的关于这两个Bar状态的文章: 1.http://angeldevil.me/2014/09/02/About-Status-Bar-and-Navigation-Bar/2.   http://vitiy.info/small-guide-how-to-support-immersive-mode-un">
+<meta name="twitter:title" content="Fragment那点事⑤保存与恢复实践">
+<meta name="twitter:description" content="文章里所有分析都是根据Android Sdk 25.3.1 v4包 经过前面的分析之后现在有这么一个需求:  APP 总共 3 个 Tab，首页(HomePageFragment)，分类(CategoryFragment)，我的(MineFragment)这 3 个 Tab 为第一级。 TopicListFragment 根据穿件来不同的 tab 字段可以分别加载首页、分类(热门，精华，分享，招聘">
 
 
 
@@ -121,10 +121,10 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/05/05/Status-Bar和Navigation-Bar的显示与隐藏/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/06/03/Fragment那点事⑤保存与恢复实践/"/>
 
 
-  <title> Status Bar和Navigation Bar的显示与隐藏 | Shell's Blog </title>
+  <title> Fragment那点事⑤保存与恢复实践 | Shell's Blog </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -264,7 +264,7 @@
             
             
               
-                Status Bar和Navigation Bar的显示与隐藏
+                Fragment那点事⑤保存与恢复实践
               
             
           </h1>
@@ -276,8 +276,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-05T11:23:22+08:00" content="2016-05-05">
-              2016-05-05
+            <time itemprop="dateCreated" datetime="2017-06-03T22:22:29+08:00" content="2017-06-03">
+              2017-06-03
             </time>
           </span>
 
@@ -328,22 +328,152 @@
       
 
       
-        <blockquote>
-<p> 实现仿微信查看大图的时候StatusBar和NavigationBar的状态变化</p>
-<p>两篇不错的关于这两个Bar状态的文章:</p>
-<p>1.<a href="http://angeldevil.me/2014/09/02/About-Status-Bar-and-Navigation-Bar/" target="_blank" rel="external">http://angeldevil.me/2014/09/02/About-Status-Bar-and-Navigation-Bar/</a><br>2.   <a href="http://vitiy.info/small-guide-how-to-support-immersive-mode-under-android-4-4/" target="_blank" rel="external">http://vitiy.info/small-guide-how-to-support-immersive-mode-under-android-4-4/</a><br>3.<a href="http://developer.android.com/training/system-ui/immersive.html" target="_blank" rel="external">http://developer.android.com/training/system-ui/immersive.html</a></p>
-</blockquote>
+        <p>文章里所有分析都是根据Android Sdk 25.3.1 v4包</p>
+<p>经过前面的分析之后现在有这么一个需求:</p>
+<ol>
+<li>APP 总共 3 个 Tab，首页(HomePageFragment)，分类(CategoryFragment)，我的(MineFragment)这 3 个 Tab 为第一级。</li>
+<li>TopicListFragment 根据穿件来不同的 tab 字段可以分别加载首页、分类(热门，精华，分享，招聘)页面的帖子列表。</li>
+<li>要实现 Activity 被重建的时候所有帖子列表页面维持不变，不重新加载新的数据、帖子列表懒加载。</li>
+<li>Activity 重建用屏幕旋转来模拟。</li>
+</ol>
 <a id="more"></a>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//得到contentView的父布局，是一个FrameLayout</span></div><div class="line">rootContent = (ViewGroup) findViewById(android.R.id.content);</div><div class="line"><span class="comment">//add 大图控件到 rootContent</span></div><div class="line">root.addView(bview);</div></pre></td></tr></table></figure>
-<p>System UI的显示和隐藏通过下面两个函数实现。在<code>hideSystemUI()</code>方法中，通过<code>SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN</code>和<code>SYSTEM_UI_FLAG_FULLSCREEN</code>来隐藏Status Bar，让Activity的UI占满全屏(不会占据Navigation Bar的空间)，通过<code>SYSTEM_UI_FLAG_IMMERSIVE_STICKY</code>模式，使得系统以半透明方法显示System UI方便用户操作，并会在一段时间后自动隐藏，此时并不会引起<code>onSystemUiVibilityChanged</code>的调用.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@TargetApi</span>(Build.VERSION_CODES.HONEYCOMB)</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">hideSystemUI</span><span class="params">()</span> </span>&#123;</div><div class="line">    getWindow().getDecorView().setSystemUiVisibility(</div><div class="line">            View.SYSTEM_UI_FLAG_LAYOUT_STABLE</div><div class="line">                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN</div><div class="line">                    | View.SYSTEM_UI_FLAG_FULLSCREEN</div><div class="line">                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在<code>showSystemUI()</code>方法中，通过<code>SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN</code>使得Activity的UI占据全屏，但是这个时候Status Bar和Navigation Bar都没有被隐藏，所以Status Bar会遮挡住Activity UI的部分空间。解决办法就是给ContentView设置<code>fitSystemWindows</code>为true。这样系统会把被Status Bar遮挡住的区域自动转化成Activity UI的内边距,这样被StatusBar遮挡的问题就得到了解决。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@TargetApi</span>(Build.VERSION_CODES.HONEYCOMB)</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">showSystemUI</span><span class="params">()</span> </span>&#123;</div><div class="line">    getWindow().getDecorView().setSystemUiVisibility(</div><div class="line">            View.SYSTEM_UI_FLAG_LAYOUT_STABLE</div><div class="line">                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>但是当Window的焦点发生变化的时候，<code>SYSTEM_UI_FLAG_IMMERSIVE_STICKY</code>就会失效，Status Bar会重新出现，并且不是透明的。可以监听<code>onWindowFocusChanged</code>事件来重新调用<code>hideSystemUI()</code>方法。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onWindowFocusChanged</span><span class="params">(<span class="keyword">boolean</span> hasFocus)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onWindowFocusChanged(hasFocus);</div><div class="line">    <span class="keyword">if</span> (hasFocus &amp;&amp; hasView) &#123;</div><div class="line">        mPhotoView.postDelayed(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                hideSystemUI();</div><div class="line">            &#125;</div><div class="line">        &#125;, <span class="number">500</span>);</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<video width="320" height="600" controls><br>  <source src="http://7vzpfd.com1.z0.glb.clouddn.com/shamuMMB29Klijx05052016132032.mp4" poster="http://7vzpfd.com1.z0.glb.clouddn.com/photoview-MainActivity-05052016141341.png" type="video/mp4"><br>  你的浏览器不支持视频播放，请换一个浏览器.<br></video>
+<p>效果图</p>
+<p>通过分析可以发现，最外层分别为 首页，分类，我的 3 个 Fragment。在首页嵌套一个 TopicListFragment 到 HomePageFragment 里去，在分类页面嵌套一个 ViewPager，ViewPager 的每一页都是 TopicListFragment。</p>
+<p>MainActivity</p>
+<p>根据之前分析的 onSaveInstanceState 在该方法中保存 currPosition 当前可见的 Tab id。</p>
+<pre><code>@Override
+public void onSaveInstanceState(Bundle outState) {
+  super.onSaveInstanceState(outState);
+  outState.putInt(&quot;currPosition&quot;, mCurrPosition);
+}
+</code></pre><p>MainActivity.onCreate() 方法中做如下处理，判断 savedInstanceState == null 。</p>
+<ul>
+<li>如果为真，说明没有发生重启，直接初始化 3 个Fragment 实例并 add 进 Activity 中。</li>
+<li><p>如果为假，说明 FragmentActivity 已经帮我们做好了 Fragment 的保存与恢复工作，不用再重复的去添加新的实例到 FragmentManager，直接去 FragmentManager 中去获取这 3 个 Fragment 的实例(在外部获取实例在切换 tab 的时候需要)。</p>
+<p>  @Override<br>  public void initView(Bundle savedInstanceState) {</p>
+<pre><code>if (savedInstanceState == null) {
+  mFragments = new BaseFragment[3];
+  mFragments[0] = HomePageFragment.newInstance();
+  mFragments[1] = CategoryFragment.newInstance();
+  mFragments[2] = MineFragment.newInstance();
+  FragmentUtils.addMultiple(getSupportFragmentManager(), R.id.content, mCurrPosition, mFragments);
+} else {
+  mCurrPosition = savedInstanceState.getInt(&quot;currPosition&quot;);
+  mFragments[0] = findFragment(HomePageFragment.class);
+  mFragments[1] = findFragment(CategoryFragment.class);
+  mFragments[2] = findFragment(MineFragment.class);
 
+  if (mCurrPosition != 0) {
+    updateNavigationBarState(mCurrPosition);
+  }
+}
+</code></pre><p>  }</p>
+</li>
+</ul>
+<p>下面是 FragmentUtils.addMultiPle() 方法，添加多个 Fragment 到 content 并设置显示和隐藏。并调用 Fragment.setUserVisibleHint 更新 mUserVisibleHint 属性，在 Fragment 中默认该属性为 true。</p>
+<pre><code>public static void addMultiple(FragmentManager manager, int containerId, int showPosition, BaseFragment... fragments) {
+  FragmentTransaction transaction = manager.beginTransaction();
+  for (int i = 0; i &lt; fragments.length; i++) {
+    String tag = fragments[i].getClass().getName();
+    transaction.add(containerId, fragments[i], tag);
+    if (showPosition != i) {
+      transaction.hide(fragments[i]);
+    }
+    fragments[i].setUserVisibleHint(!fragments[i].isHidden());
+  }
+  transaction.commit();
+}
+</code></pre><p>下面是 FragmentUtils.FindFragment() 方法，根据添加 Fragment 的时候设置的 Tag，可以获取 Fragment。</p>
+<pre><code>public static &lt;T extends BaseFragment&gt; T findFragment(FragmentManager manager, Class&lt;T&gt; tClass) {
+  if (manager.getFragments() == null) {
+    return null;
+  }
+  return (T) manager.findFragmentByTag(tClass.getName());
+}
+</code></pre><p>切换 tab 的时候 show 要显示的 Fragment，其余 Fragment 被 hide，因为 show 和 hide 并不会改变 mUserVisibleHint 所以要手动调用 setUserVisibleHint() 。</p>
+<pre><code>public static void showHideFragment(FragmentManager manager, Fragment show, Fragment hide, boolean animation, boolean backStack) {
+  FragmentTransaction transaction = manager.beginTransaction();
+  if (animation) {
+    transaction.setCustomAnimations(
+      R.anim.fragment_translate_in, R.anim.fragment_translate_out
+      ,R.anim.fragment_pop_in,R.anim.fragment_pop_out);
+  }
+  transaction.show(show);
+  if (hide == null) {
+    List&lt;Fragment&gt; fragments = manager.getFragments();
+    if (fragments != null) {
+      for (Fragment fragment : fragments) {
+        if (fragment != show) {
+          transaction.hide(fragment);
+        }
+      }
+    }
+  } else {
+    transaction.hide(hide);
+  }
+  if (backStack) {
+    transaction.addToBackStack(&quot;showHideFragment&quot;);
+  }
+  transaction.commit();
+}
+</code></pre><p>HomePageFragment</p>
+<p>在 HomePageFragment.onViewCreated() 方法中的处理和 MainActivity.onCreate() 方法中相似。这个时候 ChildFragmentManager 已经恢复完毕，调用 findFragmentByTag 查看是否包含 TopicListFragment，如果不包含就重新实例化添加。</p>
+<pre><code>@Override
+public void initView(View root) {
+  if (getChildFragmentManager().findFragmentByTag(TopicListFragment.class.getName()) == null) {
+    TopicListFragment fragment = TopicListFragment.instance(null);
+    fragment.setUserVisibleHint(true);
+    FragmentUtils.replace(getChildFragmentManager(), R.id.home_page_content, fragment, false, TopicListFragment.class.getName());
+  }
+}
+</code></pre><p>TopicListFragment</p>
+<p>在 onCreate() 方法中设置 setRetainInstance(true) 由之前的分析可知，当 Activity 发生重启后，该 Fragment 实例会被保存下来，已经获取的帖子数据也不用重新请求，直接通过 RecyclerView 的自我恢复重新填充。</p>
+<pre><code>@Override
+public void onCreate(@Nullable Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  setRetainInstance(true);
+}
+</code></pre><p>CategoryFragment</p>
+<p>在 CategoryFragment 中的布局是一个 ViewPager，在 ViewPager 中实现了 View.onSaveInstanceState() 这个方法，在之前介绍 Fragment 保存与恢复中(Fragment 保存内部 View 状态的流程)讲过，部分 View 实现了该方法，可以自行保存状态。那就看看 ViewPager 保存了什么东西</p>
+<pre><code>@Override
+public Parcelable onSaveInstanceState() {
+  Parcelable superState = super.onSaveInstanceState();
+  SavedState ss = new SavedState(superState);
+  ss.position = mCurItem;
+  if (mAdapter != null) {
+    ss.adapterState = mAdapter.saveState();
+  }
+  return ss;
+}
+</code></pre><p>通过分析可知，保存了当前页面的 position 并调用 mAdapter.saveState() 方法保存 mAdapter 的状态(FragmentPagerAdapter 并没有保存任何东西返回 null)。</p>
+<p>FragmentPagerAdapter</p>
+<pre><code>@Override
+public Object instantiateItem(ViewGroup container, int position) {
+  if (mCurTransaction == null) {
+    mCurTransaction = mFragmentManager.beginTransaction();
+  }
+  final long itemId = getItemId(position);
 
-
-
+  // Do we already have this fragment?
+  String name = makeFragmentName(container.getId(), itemId);
+  Fragment fragment = mFragmentManager.findFragmentByTag(name);
+  if (fragment != null) {
+    if (DEBUG) Log.v(TAG, &quot;Attaching item #&quot; + itemId + &quot;: f=&quot; + fragment);
+    mCurTransaction.attach(fragment);
+  } else {
+    fragment = getItem(position);
+    if (DEBUG) Log.v(TAG, &quot;Adding item #&quot; + itemId + &quot;: f=&quot; + fragment);
+    mCurTransaction.add(container.getId(), fragment,
+                        makeFragmentName(container.getId(), itemId));
+  }
+  if (fragment != mCurrentPrimaryItem) {
+    fragment.setMenuVisibility(false);
+    fragment.setUserVisibleHint(false);
+  }
+  return fragment;
+}
+</code></pre><p>由上面 instantiateItem 方法可知，PagerAdapter 是靠宿主的 FragmentManager 来管理 Fragment 的，即所有的 Fragment 都被托管在 CategoryFragment 的 ChildFragmentManager 中，当 findFragmentByTag 不为空时就直接使用该 fragment 实例，反之调用 getItem(position) 实例化一个新的 Fragment。</p>
+<p>本文中使用的案例源码地址</p>
 
       
     </div>
@@ -375,16 +505,12 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/05/18/Android多线程/" rel="next" title="Android多线程">
-                <i class="fa fa-chevron-left"></i> Android多线程
-              </a>
-            
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/10/27/本站域名已更换为licrafter-com/" rel="prev" title="本站域名已更换为licrafter.com">
-                本站域名已更换为licrafter.com <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/03/Fragment那点事④mAdded和mActive/" rel="prev" title="Fragment那点事④mAdded和mActive">
+                Fragment那点事④mAdded和mActive <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
