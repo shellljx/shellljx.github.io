@@ -98,7 +98,7 @@
 <meta property="og:site_name" content="Shell's Blog">
 <meta property="og:description" content="文章里所有分析都是根据Android Sdk 25.3.1 v4包  经过前面的分析之后现在有这么一个需求:  APP 总共 3 个 Tab，首页(HomePageFragment)，分类(CategoryFragment)，我的(MineFragment)这 3 个 Tab 为第一级。 TopicListFragment 根据穿件来不同的 tab 字段可以分别加载首页、分类(热门，精华，分享，">
 <meta property="og:image" content="http://7vzpfd.com1.z0.glb.clouddn.com/BD3D9172-D100-49F0-8DC0-D4A6E8FF398A.png">
-<meta property="og:updated_time" content="2017-06-03T15:30:18.000Z">
+<meta property="og:updated_time" content="2017-06-09T04:31:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Fragment那点事⑤保存与恢复实践">
 <meta name="twitter:description" content="文章里所有分析都是根据Android Sdk 25.3.1 v4包  经过前面的分析之后现在有这么一个需求:  APP 总共 3 个 Tab，首页(HomePageFragment)，分类(CategoryFragment)，我的(MineFragment)这 3 个 Tab 为第一级。 TopicListFragment 根据穿件来不同的 tab 字段可以分别加载首页、分类(热门，精华，分享，">
@@ -340,6 +340,7 @@
 <li>要实现 Activity 被重建的时候所有帖子列表页面维持不变，不重新加载新的数据、帖子列表懒加载。</li>
 <li>Activity 重建用屏幕旋转来模拟。</li>
 </ol>
+<a id="more"></a>
 <p><strong>效果图</strong></p>
 <p><img src="http://7vzpfd.com1.z0.glb.clouddn.com/BD3D9172-D100-49F0-8DC0-D4A6E8FF398A.png" alt=""></p>
 <p>通过分析可以发现，最外层分别为 首页，分类，我的 3 个 Fragment。在首页嵌套一个 TopicListFragment 到 HomePageFragment 里去，在分类页面嵌套一个 ViewPager，ViewPager 的每一页都是 TopicListFragment。</p>
@@ -397,6 +398,10 @@
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/09/Matrix矩阵/" rel="next" title="Matrix矩阵">
+                <i class="fa fa-chevron-left"></i> Matrix矩阵
+              </a>
             
           </div>
 
@@ -472,7 +477,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
