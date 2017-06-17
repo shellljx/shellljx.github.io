@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Nginx,PHP,服务器," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -90,17 +90,15 @@
 
 
 
-<meta name="description" content="今天想在自己的服务器上安装一个开源的php论坛平台，论坛平台上传到服务器上，绑定好三级域名之后发现服务器无法解析php文件但是可以解析html，经过google发现原来nginx默认不能解析php，要进行设置才可以。   下面是我在设置nginx解析php的过程和遇到的一些问题。">
-<meta name="keywords" content="Nginx,PHP,服务器">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Nginx不能解析php的解决方法">
-<meta property="og:url" content="http://yoursite.com/2015/04/04/Nginx不能解析php的解决方法/index.html">
+<meta name="description" content="生命不息，奋斗不止，万事起于忽微，量变引起质变">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Shell's Blog">
+<meta property="og:url" content="http://yoursite.com/page/3/index.html">
 <meta property="og:site_name" content="Shell's Blog">
-<meta property="og:description" content="今天想在自己的服务器上安装一个开源的php论坛平台，论坛平台上传到服务器上，绑定好三级域名之后发现服务器无法解析php文件但是可以解析html，经过google发现原来nginx默认不能解析php，要进行设置才可以。   下面是我在设置nginx解析php的过程和遇到的一些问题。">
-<meta property="og:updated_time" content="2015-04-04T15:25:21.000Z">
+<meta property="og:description" content="生命不息，奋斗不止，万事起于忽微，量变引起质变">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nginx不能解析php的解决方法">
-<meta name="twitter:description" content="今天想在自己的服务器上安装一个开源的php论坛平台，论坛平台上传到服务器上，绑定好三级域名之后发现服务器无法解析php文件但是可以解析html，经过google发现原来nginx默认不能解析php，要进行设置才可以。   下面是我在设置nginx解析php的过程和遇到的一些问题。">
+<meta name="twitter:title" content="Shell's Blog">
+<meta name="twitter:description" content="生命不息，奋斗不止，万事起于忽微，量变引起质变">
 
 
 
@@ -121,10 +119,10 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2015/04/04/Nginx不能解析php的解决方法/"/>
+  <link rel="canonical" href="http://yoursite.com/page/3/"/>
 
 
-  <title> Nginx不能解析php的解决方法 | Shell's Blog </title>
+  <title> Shell's Blog </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -145,7 +143,9 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
@@ -242,9 +242,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
   
@@ -264,7 +264,10 @@
             
             
               
-                Nginx不能解析php的解决方法
+                
+                <a class="post-title-link" href="/2015/03/22/bukkit定制插件今天终于完美交付了/" itemprop="url">
+                  bukkit定制插件今天终于完美交付了
+                </a>
               
             
           </h1>
@@ -276,8 +279,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-04-04T22:43:24+08:00" content="2015-04-04">
-              2015-04-04
+            <time itemprop="dateCreated" datetime="2015-03-22T11:36:38+08:00" content="2015-03-22">
+              2015-03-22
             </time>
           </span>
 
@@ -290,8 +293,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
-                    <span itemprop="name">技术杂烩</span>
+                  <a href="/categories/年轻时的往事/" itemprop="url" rel="index">
+                    <span itemprop="name">年轻时的往事</span>
                   </a>
                 </span>
 
@@ -312,11 +315,6 @@
           
 
           
-              &nbsp; | &nbsp;
-              <span class="page-pv"><i class="fa fa-file-o"></i>
-              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
-              </span>
-          
         </div>
       </header>
     
@@ -328,96 +326,51 @@
       
 
       
-        <blockquote>
-<p>今天想在自己的服务器上安装一个开源的php论坛平台，论坛平台上传到服务器上，绑定好三级域名之后发现服务器无法解析php文件但是可以解析html，经过google发现原来nginx默认不能解析php，要进行设置才可以。</p>
+        
+          <blockquote>
+<blockquote>
+<p>在实践的过程中提升技术</p>
 </blockquote>
-<hr>
-<p>下面是我在设置nginx解析php的过程和遇到的一些问题。<br><a id="more"></a></p>
-<ol>
-<li><p>先安装php</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install php5-cli php5-cgi mysql-server php5-mysql</div></pre></td></tr></table></figure>
-</li>
-<li><p>安装FastCgi</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install spawn-fcgi</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>3.配置nginx修改index的一行修改为:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index index.php index.html index.htm;</div></pre></td></tr></table></figure></p>
-<p>4.配置nginx去掉下面部分的注释用于支持 php 脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">location ~ \.php$ &#123;</div><div class="line">include /etc/nginx/fastcgi_params; #需放在第一行，否则会出错</div><div class="line">fastcgi_pass 127.0.0.1:9000;</div><div class="line">fastcgi_index index.php;</div><div class="line">fastcgi_param SCRIPT_FILENAME /var/www/nginx-default$fastcgi_script_name;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>5.重启nginx<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service nginx restart</div></pre></td></tr></table></figure></p>
-<p>6.启动fastcgi php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">spawn-fcgi -a 127.0.0.1 -p 9000 -C 10 -u www-data -f /usr/bin/php-cgi</div></pre></td></tr></table></figure></p>
-<p><strong>为了让php-cgi开机自启动： Ubuntu开机之后会执行/etc/rc.local文件中的脚本 所以我们可以直接在/etc/rc.local中添加启动脚本。 spawn-fcgi -a 127.0.0.1 -p 9000 -C 10 -u www-data -f /usr/bin/php-cgi 添加到语句：exit 0 前面才行</strong></p>
-<p>7.创建、测试phpinfo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vi /var/www/nginx-default/info.php</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;?php phpinfo(); ?&gt;</div></pre></td></tr></table></figure>
-<p>经过上面的几步后应该就可以解析php了，但是有的时候还是会出现错误。</p>
-<p><strong>502 Bad Gateway</strong></p>
-<p>首先要使用指令<code>ps aux | grep php</code>来检查一下<strong>php-fpm</strong>是否在运行<br>，如果在输出的进程中没有<strong>php-fpm</strong>的字样，你要重新安装php-fpm.如果<br>有看到php-fpm的字样，那就可以忽略这一步了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get remove php5 php5-cgi php5-fpm</div><div class="line">sudo apt-get install php5 php5-cgi php5-fpm</div></pre></td></tr></table></figure></p>
-<p>然后打开配置文件<code>/etc/php5/fpm/pool.d/www.conf</code>找到<code>listen</code>修改成和<code>/etc/nginx/sites-available/default</code>中的<code>fastcgi_pass</code>一样就可以了，<br>我是修改成下面这个样子的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">listen = 127.0.0.1:9000</div></pre></td></tr></table></figure></p>
-<p><strong>File not found</strong></p>
-<p>如果经过上面的操作又出现了<code>File not found</code>这个错误的话，一般都是服务器配置错误了。我的<code>nginx/sites-available/default</code>配置文件是配置成这样的，我服务器根目录在<code>/var/www/bbs</code>文件夹下.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">        listen 80;</div><div class="line"></div><div class="line">        root /var/www/bbs;</div><div class="line">        index index.html index.htm index.php;</div><div class="line"></div><div class="line">        # Make site accessible from http://localhost/</div><div class="line">        server_name bbs.linghun.me;</div><div class="line"></div><div class="line">        location ~ \.php$ &#123;</div><div class="line">        include /etc/nginx/fastcgi_params; #需放在第一行，否则会出错</div><div class="line">        fastcgi_pass 127.0.0.1:9000;</div><div class="line">        fastcgi_index index.php;</div><div class="line">        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
-<p>至此就可以解析php了</p>
-
+</blockquote>
+<p>以前都是些一写免费插件分享到mcbbs，这一次的CustomJob是帮别人定制的插件，具体的功能就是把玩家分成4种职业，然后每一种职业都有各自的武器装备，不同职业之间不能共用武器装备，还有转职，聊天前缀等功能。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/03/22/bukkit定制插件今天终于完美交付了/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
       
     </div>
 
     <div>
       
-        
-
-      
     </div>
 
     <div>
-      
-        
-
       
     </div>
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Nginx/" rel="tag">#Nginx</a>
-          
-            <a href="/tags/PHP/" rel="tag">#PHP</a>
-          
-            <a href="/tags/服务器/" rel="tag">#服务器</a>
-          
-        </div>
+
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2015/04/25/Minecraft服务器跨服聊天插件/" rel="next" title="Minecraft服务器跨服聊天插件">
-                <i class="fa fa-chevron-left"></i> Minecraft服务器跨服聊天插件
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/03/22/bukkit定制插件今天终于完美交付了/" rel="prev" title="bukkit定制插件今天终于完美交付了">
-                bukkit定制插件今天终于完美交付了 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
       
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
+
 
 
           </div>
@@ -425,10 +378,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -448,17 +397,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://avatars0.githubusercontent.com/u/7572018?v=3&s=466"
@@ -546,17 +486,6 @@
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <p class="post-toc-empty">此文章未包含目录</p>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -676,10 +605,6 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
-
-
 
   
 
