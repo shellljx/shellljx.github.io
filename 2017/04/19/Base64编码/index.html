@@ -3,7 +3,7 @@
 <h4 id="为什么要填充-2-字节的0呢？"><a href="#为什么要填充-2-字节的0呢？" class="headerlink" title="为什么要填充 2 字节的0呢？"></a>为什么要填充 2 字节的0呢？</h4><p>因为进行 <code>Base64</code> 转码之前和之后的数据格式变化为 3 <em> 8-bit -&gt; 4 </em> 6-bit . 所以解码过程为 4 个字节的 <code>Base64</code> 字符为一组可以解码成 3 个字节的 <code>ASCII</code> 字符 .<br><img src="http://7vzpfd.com1.z0.glb.clouddn.com/96C045F7-EFA9-420D-B56F-B64638A0CAF9.png" alt=""></p>
 <p>所以如果不填充到足够的字节的话，当两个 <code>Base64</code> 的字符串拼接后在解码过程中就会出现错误 . 所以在转码填充 0 值的时候，要填充后的总位数为 6 和 8 的公倍数 . </p>
 <p><a href="https://en.wikipedia.org/wiki/Base64#Padding" target="_blank" rel="external">图例来源于 Wikipedia</a></p>
-</div></article></div></main><footer><div class="paginator"><a href="/2016/10/15/AndroidStickyLayout与触摸事件/" class="prev">上一篇</a><a href="/2017/04/19/删除了一些旧的博客/" class="next">下一篇</a></div><div data-thread-key="2017/04/19/Base64编码/" data-title="Base64编码" data-url="http://yoursite.com/2017/04/19/Base64编码/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"[object Object]"};
+</div></article></div></main><footer><div class="paginator"><a href="/2016/10/15/AndroidStickyLayout与触摸事件/" class="prev">PREV</a><a href="/2017/04/19/删除了一些旧的博客/" class="next">NEXT</a></div><div data-thread-key="2017/04/19/Base64编码/" data-title="Base64编码" data-url="http://yoursite.com/2017/04/19/Base64编码/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"[object Object]"};
 (function() {
     var ds = document.createElement('script');
     ds.type = 'text/javascript';ds.async = true;

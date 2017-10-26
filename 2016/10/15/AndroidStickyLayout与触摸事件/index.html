@@ -20,7 +20,7 @@
 <h1 id="惯性的传递"><a href="#惯性的传递" class="headerlink" title="惯性的传递"></a>惯性的传递</h1><p>惯性的传递就是  <code>Scroller</code>  和重写  <code>computeScroll()</code>  方法进行配合来实现。</p>
 <h4 id="发现的问题"><a href="#发现的问题" class="headerlink" title="发现的问题"></a>发现的问题</h4><p>当把  <code>MotionEvent.ACTION_DOWN</code>  事件重置为  <code>MotionEvent.ACTION_CANCEL</code>  的时候，不会再去执行  <code>onInterceptTouchEvent</code>  方法，而直接由自己的  <code>onTouch</code>  方法来处理后续事件。</p>
 <h4 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h4><p><a href="http://github.com/shellljx/StickyLayout" target="_blank" rel="external">https://github.com/shellljx/StickyLayout</a></p>
-</div></article></div></main><footer><div class="paginator"><a href="/2016/10/09/Dinnerbone和bukkit的故事/" class="prev">上一篇</a><a href="/2017/04/19/Base64编码/" class="next">下一篇</a></div><div data-thread-key="2016/10/15/AndroidStickyLayout与触摸事件/" data-title="Android  StickyLayout  与触摸事件" data-url="http://yoursite.com/2016/10/15/AndroidStickyLayout与触摸事件/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"[object Object]"};
+</div></article></div></main><footer><div class="paginator"><a href="/2016/10/09/Dinnerbone和bukkit的故事/" class="prev">PREV</a><a href="/2017/04/19/Base64编码/" class="next">NEXT</a></div><div data-thread-key="2016/10/15/AndroidStickyLayout与触摸事件/" data-title="Android  StickyLayout  与触摸事件" data-url="http://yoursite.com/2016/10/15/AndroidStickyLayout与触摸事件/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"[object Object]"};
 (function() {
     var ds = document.createElement('script');
     ds.type = 'text/javascript';ds.async = true;
