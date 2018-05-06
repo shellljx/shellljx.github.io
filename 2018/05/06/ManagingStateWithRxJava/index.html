@@ -1,0 +1,735 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="fonts.useso.com/css?family=Lato:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="这篇文章根据 Jake Wharton 的 Managing State with RxJava 演讲视频里的设计思路完成的。视频中 Jake 讲解了如何使用 RxJava 更优雅的去管理 UI 各种状态的切换，整个视频结合例子，由浅入深。">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Managing State With RxJava">
+<meta property="og:url" content="http://blog.licrafter.com/2018/05/06/ManagingStateWithRxJava/index.html">
+<meta property="og:site_name" content="Shell's Blog">
+<meta property="og:description" content="这篇文章根据 Jake Wharton 的 Managing State with RxJava 演讲视频里的设计思路完成的。视频中 Jake 讲解了如何使用 RxJava 更优雅的去管理 UI 各种状态的切换，整个视频结合例子，由浅入深。">
+<meta property="og:image" content="http://7vzpfd.com1.z0.glb.clouddn.com/manage_state_03.png">
+<meta property="og:image" content="http://7vzpfd.com1.z0.glb.clouddn.com/before.png">
+<meta property="og:image" content="http://7vzpfd.com1.z0.glb.clouddn.com/manage_state_02.png">
+<meta property="og:updated_time" content="2018-05-06T10:50:20.515Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Managing State With RxJava">
+<meta name="twitter:description" content="这篇文章根据 Jake Wharton 的 Managing State with RxJava 演讲视频里的设计思路完成的。视频中 Jake 讲解了如何使用 RxJava 更优雅的去管理 UI 各种状态的切换，整个视频结合例子，由浅入深。">
+<meta name="twitter:image" content="http://7vzpfd.com1.z0.glb.clouddn.com/manage_state_03.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://blog.licrafter.com/2018/05/06/ManagingStateWithRxJava/"/>
+
+
+  <title> Managing State With RxJava | Shell's Blog </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-108613684-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?77a2b30b1c241fb48e357fe8642f37d0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Shell's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Managing State With RxJava
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-06T18:46:45+08:00" content="2018-05-06">
+              2018-05-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
+                    <span itemprop="name">技术杂烩</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>这篇文章根据 Jake Wharton 的 <a href="https://www.youtube.com/watch?v=0IKHxjkgop4" target="_blank" rel="external">Managing State with RxJava</a> 演讲视频里的设计思路完成的。视频中 Jake 讲解了如何使用 RxJava 更优雅的去管理 UI 各种状态的切换，整个视频结合例子，由浅入深。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="Why-Reactive"><a href="#Why-Reactive" class="headerlink" title="Why Reactive?"></a>Why Reactive?</h3><p>如果不使用 RxJava 除非可以把系统设计成同步模式，否则一个或者多个异步操作混合在一起会使得代码很难去维护。<br>假如有一个类管理当前登录用户的状态，所有操作都是同步操作</p>
+<p>然而当这些操作变成了异步之后，问题就会随之而来，比如更新当前用户到文件系统或者写入数据库，客户端需要请求后端 API 和后端服务器进行交互。在异步过程中会遇到网络问题或者并发操作问题，然而你却得不到任何反馈，无能为力，只能祈求它们是可以正常运行的。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">UserManager</span> </span>&#123;</div><div class="line">  <span class="function">User <span class="title">getUser</span><span class="params">()</span></span>;</div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span></span>;  <span class="comment">// &lt;-- now Async</span></div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span></span>;  <span class="comment">// &lt;-- now Async</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">UserManager um = <span class="keyword">new</span> UserManager();</div><div class="line">System.out.println(um.getUser());</div><div class="line">um.setName(<span class="string">"Jane Doe"</span>);</div><div class="line">System.out.println(um.getUser());</div></pre></td></tr></table></figure></p>
+<p>所以你给这些异步操作加了回调函数，当操作成功后输出新的用户信息，当操作失败后也执行相应的方法，这基本上解决了上面所说的异步问题。如下面执行了两个异步操作就已经定义了4个回调函数，可想而知如果有更多的异步方法或者回调嵌套，会让人抓狂。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">UserManager um = <span class="keyword">new</span> UserManager();</div><div class="line">System.out.println(um.getUser());</div><div class="line">um.setName(<span class="string">"Jane Doe"</span>,<span class="keyword">new</span> UserManager.Listener()&#123;</div><div class="line">  <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">success</span><span class="params">()</span></span>&#123;</div><div class="line">    System.out.println(um.getUser());</div><div class="line">  &#125;</div><div class="line">  <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">failure</span><span class="params">(IOException e)</span></span>&#123;</div><div class="line">    <span class="comment">//TODO show the error...</span></div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line">um.setAge(<span class="number">40</span>,<span class="keyword">new</span> UserManager.Listener()&#123;</div><div class="line">  <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">success</span><span class="params">()</span></span>&#123;</div><div class="line">    System.out.println(um.getUser());</div><div class="line">  &#125;</div><div class="line">  <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">failure</span><span class="params">(IOException e)</span></span>&#123;</div><div class="line">    <span class="comment">//TODO show the error...</span></div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>现在我们把上面的案例放在 Android 的 Activity 中，我们还需要注意更多的东西，比如回调回来后的线程切换，用户的输入操作，Activity 的生命周期(当屏幕旋转，切换 app ，收到通知，任何其他的 configuration change 都会在没有警告的情况下触发)。但是上面的这些问题正是 RxJava 所擅长的。</p>
+<h3 id="Being-Reactive"><a href="#Being-Reactive" class="headerlink" title="Being Reactive"></a>Being Reactive</h3><p>RxJava 把网络请求，数据库操作，生命周期监听分成了互相独立的部分，然后这些单独的部分直接进行交互，去掉了我们的代码在中心直接管理操作一切的职责。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//onCreate</span></div><div class="line">disposables.add(um.getUser()</div><div class="line">  .observaOn(AndroidSchedulers.mainThread())</div><div class="line">  .subscribeWith(<span class="keyword">new</span> DisposableObserver&lt;User&gt;()&#123;</div><div class="line">    <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(User user)</span></span>&#123;</div><div class="line">      tv.setText(user.toString());</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onComplete</span><span class="params">()</span></span>&#123;<span class="comment">/* ignored */</span>&#125;</div><div class="line">    <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable t)</span></span>&#123;<span class="comment">/* show throwable */</span>&#125;</div><div class="line">  &#125;));</div><div class="line">  </div><div class="line"><span class="comment">//button click listener</span></div><div class="line">disposables.add(um.setName(<span class="string">"Jane Doe"</span>)</div><div class="line">  .observaOn(AndroidSchedulers.mainThread())</div><div class="line">  .subscribeWith(<span class="keyword">new</span> DisposableObserver&lt;User&gt;()&#123;</div><div class="line">    <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onComplete</span><span class="params">()</span></span>&#123;</div><div class="line">      <span class="comment">//success</span></div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onComplete</span><span class="params">()</span></span>&#123;<span class="comment">/* ignored */</span>&#125;</div><div class="line">    <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable t)</span></span>&#123;</div><div class="line">      <span class="comment">//retry or show</span></div><div class="line">    &#125;</div><div class="line">  &#125;));</div><div class="line">  <span class="comment">//onDestroy</span></div><div class="line">  disposables.dispose();</div></pre></td></tr></table></figure></p>
+<h3 id="Managing-State"><a href="#Managing-State" class="headerlink" title="Managing State"></a>Managing State</h3><p><img src="http://7vzpfd.com1.z0.glb.clouddn.com/manage_state_03.png" alt=""><br>这是一个用户修改昵称的例子，在 EditText 中输入昵称，然后点提交按钮。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">disposables.add(RxView.clicks(submitView)</div><div class="line">  .doOnNext(ignored -&gt; &#123;</div><div class="line">    submitView.setEnabled(<span class="keyword">false</span>);</div><div class="line">    progressView.setVisibility(VISIBLE);</div><div class="line">  &#125;)</div><div class="line">  .flatMap(ignored -&gt; service.setName(nameView.getText().toString()))</div><div class="line">  .observeOn(AndroidSchedulers.mainThread())</div><div class="line">  .doOnNext(ignored -&gt; progressView.setVisibility(GONE))</div><div class="line">  .subscribe(s -&gt; finish(), t -&gt; &#123;</div><div class="line">    submitView.setEnabled(<span class="keyword">true</span>);</div><div class="line">    Toast.makeText(<span class="keyword">this</span>,<span class="string">"Failed to set name"</span>,LENGTH_SHORT).show;</div><div class="line">  &#125;));</div></pre></td></tr></table></figure></p>
+<p>上面的代码中 <code>doOnNext()</code> 和 <code>flatMap()</code> 跳出了整个流，转向 去操作 UI 和从 UI 中获取数据，然后再回到 RxJava 的流中。还有就是 <code>doOnNext()</code> 只会在成功的时候才会调用，当发生 error 后是不会调用的，如果忘了切换到主线程直接操作 UI 又会报错。也不利于测试，因为已经脱离出整个流和 UI 耦合在了一起。因为向服务器提交的数据不一定是来自于 UI ，响应状态变化的也不应该是 UI ，UI 只是我们把各种状态翻译成能和用户交互的一种方式，状态变化也可以仅仅是一个日志输出。如果我们可以直接把各种状态变化直接传到用户的大脑中，我们可以不需要 UI。<br><img src="http://7vzpfd.com1.z0.glb.clouddn.com/before.png" alt=""><br>如果我们把需要从 UI 中获取的所有数据(包括点击提交按钮事件和用户输入的数据)打包成一个单独的对象发射出去，我们就不需要跳出流去获取数据了，然后我们回到 <code>subscribe()</code> 方法，现在变成了事件流，事件可以有多个，但是每个事件代表的不是最终的 UI 展示，而是代表了 UI 不同的状态。 </p>
+<p>现在整个流程变成了一个单向数据流，我们接收来自 UI 的事件进入一个单向流，然后相反方向的数据流把代表不同状态的对象推向 UI。<br><img src="http://7vzpfd.com1.z0.glb.clouddn.com/manage_state_02.png" alt=""></p>
+<h3 id="Reactive-State"><a href="#Reactive-State" class="headerlink" title="Reactive State"></a>Reactive State</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubmitUiModel</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> inProgress;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> success;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> String errorMessage;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">SubmitUiModel</span><span class="params">(<span class="keyword">boolean</span> inProgress, <span class="keyword">boolean</span> success, String errorMessage)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.inProgress = inProgress;</div><div class="line">        <span class="keyword">this</span>.success = success;</div><div class="line">        <span class="keyword">this</span>.errorMessage = errorMessage;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SubmitUiModel <span class="title">inProgress</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SubmitUiModel(<span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">null</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SubmitUiModel <span class="title">success</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SubmitUiModel(<span class="keyword">false</span>, <span class="keyword">true</span>, <span class="keyword">null</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SubmitUiModel <span class="title">failure</span><span class="params">(String message)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SubmitUiModel(<span class="keyword">false</span>, <span class="keyword">false</span>, message);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>所以整个功能改造后的样子如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Observable&lt;SubmitEvent&gt; events = RxView.clicks(submitView)</div><div class="line">  .map(ignored -&gt; <span class="keyword">new</span> SubmitEvent(nameView.getText().toString()));</div><div class="line"></div><div class="line">disposables.add(events.flatMap(event -&gt; service.setName(event.name)</div><div class="line">    .map(response -&gt; SubmitUiModel.success())</div><div class="line">    .onErrorReturn(t -&gt; SubmitUiModel.failure(t.getMessage()))</div><div class="line">    .onBserveOn(AndroidSchedulers.mainThread())</div><div class="line">    .startWith(SubmitUiModel.inProgress()))</div><div class="line">  .subscribe(model -&gt; &#123;</div><div class="line">    submitView.setEnabled(!model.inprogress);</div><div class="line">    progressView.setVisibility(model.inProgress ? VISIBLE : GONE);</div><div class="line">  &#125;))</div></pre></td></tr></table></figure></p>
+<p>但是又有更复杂的需求来了，那就是当用户输入昵称的时候需要向服务器发起请求验证昵称的可用性，需要满足如下细节：</p>
+<ol>
+<li>如果用户在输入了一个字符后的200毫秒内又输入了字符则取消上次请求</li>
+<li>如果后面的请求已经回来了，则取消前面的请求</li>
+</ol>
+<p>思路就是通过 <code>sample</code> 操作符延时 200ms 用<code>switchMap</code> 操作符转换和取消请求，用 <code>merge</code> 操作符把用户输入字符的事件和 submit 的事件合并成一个流，然后使用 <code>typeOf</code> 操作符区分出不同事件分别用对应的 Transformer 进行转换，然后再用 <code>merge</code> 操作符合并成同一个流。</p>
+<p>具体代码就不往下贴了，请查看 Demo <a href="https://github.com/shellljx/ManagingStateWithRxJava" target="_blank" rel="external">ManagingStateWithRxJava</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/05/webhooks/" rel="prev" title="Blog 搬到了 Vultr Cloud VPS">
+                Blog 搬到了 Vultr Cloud VPS <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2138572"></script>
+<!-- UY END -->
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars0.githubusercontent.com/u/7572018?v=3&s=466"
+               alt="shell" />
+          <p class="site-author-name" itemprop="name">shell</p>
+          <p class="site-description motion-element" itemprop="description">Read, write and share</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shellljx" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/3268435743" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shellljx" target="_blank" title="QQ">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  QQ
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/shellljx" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              基友们
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://hellovass.info/" title="轲神" target="_blank">轲神</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-Reactive"><span class="nav-number">1.</span> <span class="nav-text">Why Reactive?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Being-Reactive"><span class="nav-number">2.</span> <span class="nav-text">Being Reactive</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Managing-State"><span class="nav-number">3.</span> <span class="nav-text">Managing State</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reactive-State"><span class="nav-number">4.</span> <span class="nav-text">Reactive State</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shell</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
