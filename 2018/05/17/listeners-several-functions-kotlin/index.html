@@ -1,0 +1,748 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="fonts.useso.com/css?family=Lato:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,Kotlin," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="如何用 kotlin 简化有多个方法的接口。当只有一个方法的 Listeners(或者任何接口)很容易，会自动被替换成 lambda。但是有多个方法的 listeners 并不会自动替换。所以这篇文章将展示如何用 kotlin 解决这个问题。这篇文章中使用到了 kotlin 的 函数类型，扩展函数，带接收者的函数字面量，接口等知识点">
+<meta name="keywords" content="Android,Kotlin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Listeners with several functions in Kotlin">
+<meta property="og:url" content="http://blog.licrafter.com/2018/05/17/listeners-several-functions-kotlin/index.html">
+<meta property="og:site_name" content="Shell's Blog">
+<meta property="og:description" content="如何用 kotlin 简化有多个方法的接口。当只有一个方法的 Listeners(或者任何接口)很容易，会自动被替换成 lambda。但是有多个方法的 listeners 并不会自动替换。所以这篇文章将展示如何用 kotlin 解决这个问题。这篇文章中使用到了 kotlin 的 函数类型，扩展函数，带接收者的函数字面量，接口等知识点">
+<meta property="og:updated_time" content="2018-05-17T14:10:12.701Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Listeners with several functions in Kotlin">
+<meta name="twitter:description" content="如何用 kotlin 简化有多个方法的接口。当只有一个方法的 Listeners(或者任何接口)很容易，会自动被替换成 lambda。但是有多个方法的 listeners 并不会自动替换。所以这篇文章将展示如何用 kotlin 解决这个问题。这篇文章中使用到了 kotlin 的 函数类型，扩展函数，带接收者的函数字面量，接口等知识点">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://blog.licrafter.com/2018/05/17/listeners-several-functions-kotlin/"/>
+
+
+  <title> Listeners with several functions in Kotlin | Shell's Blog </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-108613684-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?77a2b30b1c241fb48e357fe8642f37d0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Shell's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Listeners with several functions in Kotlin
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-17T22:02:57+08:00" content="2018-05-17">
+              2018-05-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
+                    <span itemprop="name">技术杂烩</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>如何用 kotlin 简化有多个方法的接口。当只有一个方法的 Listeners(或者任何接口)很容易，会自动被替换成 lambda。但是有多个方法的 listeners 并不会自动替换。所以这篇文章将展示如何用 kotlin 解决这个问题。<br>这篇文章中使用到了 kotlin 的 <code>函数类型</code>，<code>扩展函数</code>，<code>带接收者的函数字面量</code>，<code>接口</code>等知识点</p>
+<a id="more"></a>
+<h3 id="The-problem"><a href="#The-problem" class="headerlink" title="The problem"></a>The problem</h3><p>当我们给 View 设置 <code>OnclickListener</code> 的时候 kotlin 会自动优化成 lambda 表达式<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">view.setOnClickListener(<span class="keyword">object</span> : View.OnClickListener &#123;</div><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onClick</span><span class="params">(v: <span class="type">View</span>?)</span></span>&#123;</div><div class="line">  toast(<span class="string">"View clicked!"</span>)&#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>简化成下面:<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">view.setOnClickListener &#123;toast(<span class="string">"View clicked!"</span>)&#125;</div></pre></td></tr></table></figure></p>
+<p>但是如果接口里有多个方法并不能被自动优化。比如我们想给 view animation 设置 listener ，我们可以不是很优雅的写成如下样子:<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">view.animate()</div><div class="line">        .alpha(<span class="number">0</span>f)</div><div class="line">        .setListener(<span class="keyword">object</span> : Animator.AnimatorListener &#123;</div><div class="line">            <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onAnimationStart</span><span class="params">(animation: <span class="type">Animator</span>?)</span></span> &#123;</div><div class="line">                toast(<span class="string">"Animation Start"</span>)</div><div class="line">            &#125;</div><div class="line"> </div><div class="line">            <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onAnimationRepeat</span><span class="params">(animation: <span class="type">Animator</span>?)</span></span> &#123;</div><div class="line">                toast(<span class="string">"Animation Repeat"</span>)</div><div class="line">            &#125;</div><div class="line"> </div><div class="line">            <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onAnimationEnd</span><span class="params">(animation: <span class="type">Animator</span>?)</span></span> &#123;</div><div class="line">                toast(<span class="string">"Animation End"</span>)</div><div class="line">            &#125;</div><div class="line"> </div><div class="line">            <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onAnimationCancel</span><span class="params">(animation: <span class="type">Animator</span>?)</span></span> &#123;</div><div class="line">                toast(<span class="string">"Animation Cancel"</span>)</div><div class="line">            &#125;</div><div class="line">        &#125;)</div></pre></td></tr></table></figure></p>
+<p>但是 Android 系统早已经有了解决方法：adapters。系统对大多数有多个方法的接口提供了一个对所有方法有个空实现的实现类。所以可以优化成下面的样子：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">view.animate()</div><div class="line">        .alpha(<span class="number">0</span>f)</div><div class="line">        .setListener(<span class="keyword">object</span> : AnimatorListenerAdapter() &#123;</div><div class="line">            <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onAnimationEnd</span><span class="params">(animation: <span class="type">Animator</span>?)</span></span> &#123;</div><div class="line">                toast(<span class="string">"Animation End"</span>)</div><div class="line">            &#125;</div><div class="line">        &#125;)</div></pre></td></tr></table></figure></p>
+<p>上面的代码优雅了一点点，但是还有几个问题：</p>
+<ul>
+<li>这些 adapters 都是 class，意味着不是扩展不是很方便</li>
+<li>使用匿名类对象和函数来实现，如果使用 lambda 会更优雅</li>
+</ul>
+<h3 id="Kotlin-里的接口"><a href="#Kotlin-里的接口" class="headerlink" title="Kotlin 里的接口"></a>Kotlin 里的接口</h3><p>在 kotlin 中，接口除了包含抽象方法的声明，也包含实现。所以你可以声明一个可以被实现的 adapter<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">MyAnimatorListenerAdapter</span> : <span class="type">Animator.AnimatorListener &#123;</span></span></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onAnimationStart</span><span class="params">(animation: <span class="type">Animator</span>)</span></span> = <span class="built_in">Unit</span></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onAnimationRepeat</span><span class="params">(animation: <span class="type">Animator</span>)</span></span> = <span class="built_in">Unit</span></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onAnimationCancel</span><span class="params">(animation: <span class="type">Animator</span>)</span></span> = <span class="built_in">Unit</span></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onAnimationEnd</span><span class="params">(animation: <span class="type">Animator</span>)</span></span> = <span class="built_in">Unit</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>所有的方法有一个空的默认实现，所以一个类可以只去实现需要的方法：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">AppCompatActivity</span></span>(), MyAnimatorListenerAdapter &#123;</div><div class="line">    ...</div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onAnimationEnd</span><span class="params">(animation: <span class="type">Animator</span>)</span></span> &#123;</div><div class="line">        toast(<span class="string">"Animation End"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>然后作为 listener 方法的参数来调用<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">view.animate()</div><div class="line">        .alpha(<span class="number">0</span>f)</div><div class="line">        .setListener(<span class="keyword">this</span>)</div></pre></td></tr></table></figure></p>
+<p>但是上面的实现还是需要去显示的声明方法，并没有用到 lambda，这和直接使用系统的 adapter 没什么区别。</p>
+<h3 id="扩展函数Extension-functions"><a href="#扩展函数Extension-functions" class="headerlink" title="扩展函数Extension functions"></a>扩展函数Extension functions</h3><p>让我们看一下更优雅的解决方法。大多数情况下你可能只需要用到一个接口里的特定方法，对其他的并不感兴趣。比如 <code>AnimatorListener</code> 我们经常用到的就是 <code>onAnimationEnd</code> 。所以我们可以创建一个<a href="https://www.kotlincn.net/docs/reference/extensions.html" target="_blank" rel="external">扩展函数</a>，达到下面的效果：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">view.animate()</div><div class="line">        .alpha(<span class="number">0</span>f)</div><div class="line">        .onAnimationEnd &#123; toast(<span class="string">"Animation End"</span>) &#125;</div></pre></td></tr></table></figure></p>
+<p>这个扩展函数被添加到 <code>ViewPropertyAnimator</code> 上，这个 Animator 对象是被方法 <code>animate()</code>,<code>alpha()</code> 方法返回的。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> ViewPropertyAnimator.<span class="title">onAnimationEnd</span><span class="params">(<span class="keyword">crossinline</span> continuation: (<span class="type">Animator</span>)</span></span> -&gt; <span class="built_in">Unit</span>) &#123;</div><div class="line">    setListener(<span class="keyword">object</span> : AnimatorListenerAdapter() &#123;</div><div class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onAnimationEnd</span><span class="params">(animation: <span class="type">Animator</span>)</span></span> &#123;</div><div class="line">            continuation(animation)</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以看到，这个扩展方法接收一个 lambda <a href="https://www.kotlincn.net/docs/reference/lambdas.html" target="_blank" rel="external">函数</a> 当动画结束后这个函数会被调用。这个扩展函数帮我们做了点脏活：创建 adapter 和调用 <code>setListener</code>。</p>
+<h3 id="命名参数和默认值named-arguments-and-default-values"><a href="#命名参数和默认值named-arguments-and-default-values" class="headerlink" title="命名参数和默认值named arguments and default values"></a>命名参数和默认值named arguments and default values</h3><p>为什么喜欢 kotlin 的理由之一就是它有很多神奇的功能可以优化我们的代码！下面我们可以使用 <a href="https://www.kotlincn.net/docs/reference/functions.html" target="_blank" rel="external">named arguments</a> 来命名 lambdas 明确表达我们需要用那些方法，大大增加了可读性。扩展函数可以生命成如下样子：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> ViewPropertyAnimator.<span class="title">setListener</span><span class="params">(</span></span></div><div class="line">        <span class="keyword">crossinline</span> animationStart: (<span class="type">Animator</span>) -&gt; <span class="built_in">Unit</span>,</div><div class="line">        <span class="keyword">crossinline</span> animationRepeat: (Animator) -&gt; <span class="built_in">Unit</span>,</div><div class="line">        <span class="keyword">crossinline</span> animationCancel: (Animator) -&gt; <span class="built_in">Unit</span>,</div><div class="line">        <span class="keyword">crossinline</span> animationEnd: (Animator) -&gt; <span class="built_in">Unit</span>) &#123;</div><div class="line"> </div><div class="line">    setListener(<span class="keyword">object</span> : AnimatorListenerAdapter() &#123;</div><div class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onAnimationStart</span><span class="params">(animation: <span class="type">Animator</span>)</span></span> &#123;</div><div class="line">            animationStart(animation)</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onAnimationRepeat</span><span class="params">(animation: <span class="type">Animator</span>)</span></span> &#123;</div><div class="line">            animationRepeat(animation)</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onAnimationCancel</span><span class="params">(animation: <span class="type">Animator</span>)</span></span> &#123;</div><div class="line">            animationCancel(animation)</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onAnimationEnd</span><span class="params">(animation: <span class="type">Animator</span>)</span></span> &#123;</div><div class="line">            animationEnd(animation)</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>所以我们可以像下面这样去使用它：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">view.animate()</div><div class="line">        .alpha(<span class="number">0</span>f)</div><div class="line">        .setListener(</div><div class="line">                animationStart = &#123; toast(<span class="string">"Animation start"</span>) &#125;,</div><div class="line">                animationRepeat = &#123; toast(<span class="string">"Animation repeat"</span>) &#125;,</div><div class="line">                animationCancel = &#123; toast(<span class="string">"Animation cancel"</span>) &#125;,</div><div class="line">                animationEnd = &#123; toast(<span class="string">"Animation end"</span>) &#125;</div><div class="line">        )</div></pre></td></tr></table></figure></p>
+<p>上面的解决方式需要我们实现所有方法。但是我们可以使用 <a href="https://antonioleiva.com/kotlin-android-extension-functions/" target="_blank" rel="external">参数的默认值</a> 来优化：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> ViewPropertyAnimator.<span class="title">setListener</span><span class="params">(</span></span></div><div class="line">        <span class="keyword">crossinline</span> animationStart: (<span class="type">Animator</span>) -&gt; <span class="built_in">Unit</span> = &#123;&#125;,</div><div class="line">        <span class="keyword">crossinline</span> animationRepeat: (Animator) -&gt; <span class="built_in">Unit</span> = &#123;&#125;,</div><div class="line">        <span class="keyword">crossinline</span> animationCancel: (Animator) -&gt; <span class="built_in">Unit</span> = &#123;&#125;,</div><div class="line">        <span class="keyword">crossinline</span> animationEnd: (Animator) -&gt; <span class="built_in">Unit</span> = &#123;&#125;) &#123;</div><div class="line"> </div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>然后如下调用：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">view.animate()</div><div class="line">        .alpha(<span class="number">0</span>f)</div><div class="line">        .setListener(</div><div class="line">                animationEnd = &#123; toast(<span class="string">"Animation end"</span>) &#125;</div><div class="line">        )</div></pre></td></tr></table></figure></p>
+<h3 id="The-killer-option-DSLs"><a href="#The-killer-option-DSLs" class="headerlink" title="The killer option: DSLs"></a>The killer option: DSLs</h3><p>下面我们来看一种更加灵活的解决方案，我们可以创建一个 helper 实现一系列方法，这些方法接收 lambda 作为参数。这些 lambda 将会在动画事件接口中被调用。先来看一下优化后的结果，再来看是如何实现的：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">view.animate()</div><div class="line">        .alpha(<span class="number">0</span>f)</div><div class="line">        .setListener &#123;</div><div class="line">            onAnimationStart &#123;</div><div class="line">                toast(<span class="string">"Animation start"</span>)</div><div class="line">            &#125;</div><div class="line">            onAnimationEnd &#123;</div><div class="line">                toast(<span class="string">"Animation End"</span>)</div><div class="line">            &#125;</div><div class="line">        &#125;</div></pre></td></tr></table></figure></p>
+<p>我们设计了一些 animation 监听事件，我们只需要调用我们需要的方法就好了。这种做法可以死清楚的告诉开发者正在覆写哪个动画动作，比命名参数更加的直观。<br>下面我们来看一下如何实现的。首先我们还是需要一个扩展函数:<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> ViewPropertyAnimator.<span class="title">setListener</span><span class="params">(init: <span class="type">AnimListenerHelper</span>.()</span></span> -&gt; <span class="built_in">Unit</span>) &#123;</div><div class="line">    <span class="keyword">val</span> listener = AnimListenerHelper()</div><div class="line">    listener.init()</div><div class="line">    <span class="keyword">this</span>.setListener(listener)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这个扩展函数接收一个<a href="https://www.kotlincn.net/docs/reference/lambdas.html" target="_blank" rel="external">带接收者的函数字面值</a> 作为参数，然后创建了一个 <code>AnimListenerHelper()</code> 实例，去调用这个 lambda 函数。然后把该实例作为 listener 设置动画监听器。这里把扩展函数和带接收者的函数字面值放在一起刚开始不是很好的理解，先来看一下 AnimListenerHelper 的源码：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> ViewPropertyAnimator.<span class="title">setListener</span><span class="params">(init: <span class="type">AnimListenerHelper</span>.()</span></span> -&gt; <span class="built_in">Unit</span>) &#123;</div><div class="line">    <span class="keyword">val</span> listener = AnimListenerHelper()</div><div class="line">    listener.init()</div><div class="line">    <span class="keyword">this</span>.setListener(listener)</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="keyword">private</span> typealias AnimListener = (Animator) -&gt; <span class="built_in">Unit</span></div><div class="line"> </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AnimListenerHelper</span> : <span class="type">Animator.AnimatorListener &#123;</span></span></div><div class="line"> </div><div class="line">    <span class="keyword">private</span> <span class="keyword">var</span> animationStart: AnimListener? = <span class="literal">null</span></div><div class="line"> </div><div class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">onAnimationStart</span><span class="params">(onAnimationStart: <span class="type">AnimListener</span>)</span></span> &#123;</div><div class="line">        animationStart = onAnimationStart</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onAnimationStart</span><span class="params">(animation: <span class="type">Animator</span>)</span></span> &#123;</div><div class="line">        animationStart?.invoke(animation)</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="keyword">private</span> <span class="keyword">var</span> animationRepeat: AnimListener? = <span class="literal">null</span></div><div class="line"> </div><div class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">onAnimationRepeat</span><span class="params">(onAnimationRepeat: <span class="type">AnimListener</span>)</span></span> &#123;</div><div class="line">        animationRepeat = onAnimationRepeat</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onAnimationRepeat</span><span class="params">(animation: <span class="type">Animator</span>)</span></span> &#123;</div><div class="line">        animationRepeat?.invoke(animation)</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="keyword">private</span> <span class="keyword">var</span> animationCancel: AnimListener? = <span class="literal">null</span></div><div class="line"> </div><div class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">onAnimationCancel</span><span class="params">(onAnimationCancel: <span class="type">AnimListener</span>)</span></span> &#123;</div><div class="line">        animationCancel = onAnimationCancel</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onAnimationCancel</span><span class="params">(animation: <span class="type">Animator</span>)</span></span> &#123;</div><div class="line">        animationCancel?.invoke(animation)</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="keyword">private</span> <span class="keyword">var</span> animationEnd: AnimListener? = <span class="literal">null</span></div><div class="line"> </div><div class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">onAnimationEnd</span><span class="params">(onAnimationEnd: <span class="type">AnimListener</span>)</span></span> &#123;</div><div class="line">        animationEnd = onAnimationEnd</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onAnimationEnd</span><span class="params">(animation: <span class="type">Animator</span>)</span></span> &#123;</div><div class="line">        animationEnd?.invoke(animation)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>AnimListenerHelper 实现动画监听事件 <code>Animator.AnimatorListener</code> 。</li>
+<li>使用<a href="https://www.kotlincn.net/docs/reference/type-aliases.html" target="_blank" rel="external">类型别名</a> 声明了一个函数类型 <code>AnimListener</code>，这个函数类型接收一个 Animator 参数，没有返回值。</li>
+<li>定义了相应的 <code>onAnimationXXX</code> 方法，接收上面声明的 <code>AnimListener</code> 函数类型作为参数，并赋值。</li>
+<li>覆写动画的系统回调方法，调用相应的函数类型变量的 <code>invoke()</code> 方法执行对应的函数</li>
+</ul>
+<p>然后看下面这段代码，给 <code>ViewPropertyAnimator</code> 添加扩展函数 <code>setListener</code>，接收一个带 <code>AnimListenerHelper</code> 接收者的函数字面值(函数内部提供了一个 AnimListenerHelper 对象)作为参数。在这个函数内部调用接收者对象的成员可以无需任何额外的限定符。调用带有接收者的函数类型值的方法之一就是在其前面加上接收者对象:<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> ViewPropertyAnimator.<span class="title">setListener</span><span class="params">(init: <span class="type">AnimListenerHelper</span>.()</span></span> -&gt; <span class="built_in">Unit</span>) &#123;</div><div class="line">    <span class="keyword">val</span> listener = AnimListenerHelper()</div><div class="line">    listener.init()</div><div class="line">    <span class="keyword">this</span>.setListener(listener)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>所以再回到最初调用 <code>setListener()</code> 的地方，如果写成下面的形式就会好理解很对：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> listener: AnimListenerHelper.()-&gt;<span class="built_in">Unit</span> = &#123;</div><div class="line">  <span class="keyword">this</span>.onAnimationStart &#123; toast(<span class="string">"animator start"</span>) &#125;</div><div class="line">    <span class="keyword">this</span>.onAnimationEnd &#123; toast(<span class="string">"animator end"</span>) &#125;</div><div class="line">&#125;</div><div class="line">view.animate()</div><div class="line">        .alpha(<span class="number">0</span>f)</div><div class="line">        .setListener (listener)</div></pre></td></tr></table></figure></p>
+<p><a href="https://antonioleiva.com/listeners-several-functions-kotlin/" target="_blank" rel="external">https://antonioleiva.com/listeners-several-functions-kotlin/</a></p>
+<p><a href="https://www.kotlincn.net/docs/reference/" target="_blank" rel="external">https://www.kotlincn.net/docs/reference/</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+            <a href="/tags/Kotlin/" rel="tag">#Kotlin</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/06/ManagingStateWithRxJava/" rel="prev" title="Managing State With RxJava">
+                Managing State With RxJava <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2138572"></script>
+<!-- UY END -->
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars0.githubusercontent.com/u/7572018?v=3&s=466"
+               alt="shell" />
+          <p class="site-author-name" itemprop="name">shell</p>
+          <p class="site-description motion-element" itemprop="description">Read, write and share</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shellljx" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/3268435743" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shellljx" target="_blank" title="QQ">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  QQ
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/shellljx" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              基友们
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://hellovass.info/" title="轲神" target="_blank">轲神</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-problem"><span class="nav-number">1.</span> <span class="nav-text">The problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kotlin-里的接口"><span class="nav-number">2.</span> <span class="nav-text">Kotlin 里的接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展函数Extension-functions"><span class="nav-number">3.</span> <span class="nav-text">扩展函数Extension functions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命名参数和默认值named-arguments-and-default-values"><span class="nav-number">4.</span> <span class="nav-text">命名参数和默认值named arguments and default values</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-killer-option-DSLs"><span class="nav-number">5.</span> <span class="nav-text">The killer option: DSLs</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shell</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
