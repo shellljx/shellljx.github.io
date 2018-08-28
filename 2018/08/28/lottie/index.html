@@ -103,7 +103,7 @@
 <meta property="og:image" content="http://7vzpfd.com1.z0.glb.clouddn.com/lottie_flow04.png">
 <meta property="og:image" content="http://7vzpfd.com1.z0.glb.clouddn.com/lottie_flow05.png">
 <meta property="og:image" content="http://7vzpfd.com1.z0.glb.clouddn.com/lottie_flow06.png">
-<meta property="og:updated_time" content="2018-08-28T00:57:41.497Z">
+<meta property="og:updated_time" content="2018-08-28T01:01:11.818Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lottie-Android源码解析">
 <meta name="twitter:description" content="简介 airbnb 开源动画库 Github 这个动画库出来时间比较久了，前段时间做需求用到了，好奇它如何把 Json 转化到动画的就去了解了一下。">
@@ -383,10 +383,60 @@
 </tr>
 </tbody>
 </table>
-<p><strong>layers 对应字段</strong>：</p>
-<p>描述包含的所有图层<br>|字段|含义|<br>|-|-|<br>|ind|图层id|<br>|ty|数字值，图层类型：0预合成层、1 固态层、2图片层、3空层、4形状层、5位置层|<br>|ip、op|当前图层的开始和结束关键帧，决定该图层动画开始和结束的时间，使动画可以只在整个过程的某一部分产生。帧率和根图层共享|</p>
-<p><strong>layers.ks</strong></p>
-<p>描述了外观信息的一些属性的变化过程<br>|字段|含义|<br>|-|-|<br>|o|opacity 不透明度|<br>|p|position 位置|<br>|a|anchor 锚点|<br>|s|scale 缩放|<br>|r|rotation 旋转|</p>
+<p><strong>layers 对应字段</strong>：<br>描述包含的所有图层</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ind</td>
+<td>图层id</td>
+</tr>
+<tr>
+<td>ty</td>
+<td>数字值，图层类型：0预合成层、1 固态层、2图片层、3空层、4形状层、5位置层</td>
+</tr>
+<tr>
+<td>ip、op</td>
+<td>当前图层的开始和结束关键帧，决定该图层动画开始和结束的时间，使动画可以只在整个过程的某一部分产生。帧率和根图层共享</td>
+</tr>
+</tbody>
+</table>
+<p><strong>layers.ks</strong><br>描述了外观信息的一些属性的变化过程</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>o</td>
+<td>opacity 不透明度</td>
+</tr>
+<tr>
+<td>p</td>
+<td>position 位置</td>
+</tr>
+<tr>
+<td>a</td>
+<td>anchor 锚点</td>
+</tr>
+<tr>
+<td>s</td>
+<td>scale 缩放</td>
+</tr>
+<tr>
+<td>r</td>
+<td>rotation 旋转</td>
+</tr>
+</tbody>
+</table>
 <p>从 k 属性取值，k 分为下面两种情况</p>
 <ol>
 <li>数字或者几个数字组成的数组，表示对应属性值，代表没有动画</li>
@@ -397,13 +447,27 @@
 </ul>
 </li>
 </ol>
-<p><strong>layers.shapes</strong><br>形状图层数组，通过 path 属性作出多种效果，描述了要绘制的内容 content<br>|名称|定义|<br>|:-:|-|<br>|ty|gr图形合并<br>st图形描边<br>fl图形填<br>tr图形变换<br>sh图形路径<br>el椭圆路径<br>rc矩形路径<br>tm剪裁路径|</p>
+<p><strong>layers.shapes</strong><br>形状图层数组，通过 path 属性作出多种效果，描述了要绘制的内容 content</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">ty</td>
+<td>gr图形合并<br>st图形描边<br>fl图形填<br>tr图形变换<br>sh图形路径<br>el椭圆路径<br>rc矩形路径<br>tm剪裁路径</td>
+</tr>
+</tbody>
+</table>
 <h4 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h4><p><strong>1. 基本流程图</strong><br><img src="http://7vzpfd.com1.z0.glb.clouddn.com/lottie_flow01.png" alt="Alt text"></p>
 <p><strong>2. 解析 Json 简要流程图</strong><br><img src="http://7vzpfd.com1.z0.glb.clouddn.com/lottie_flow04.png" alt=""></p>
 <p><strong>3. 动画流程图</strong><br><img src="http://7vzpfd.com1.z0.glb.clouddn.com/lottie_flow05.png" alt=""></p>
 <p><strong>4. 绘制流程图</strong><br><img src="http://7vzpfd.com1.z0.glb.clouddn.com/lottie_flow06.png" alt=""></p>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>所以 Lottie 最终会把 Json 的动画变换和绘制内容都解析成最基本的关键帧列表，每个关键帧都有开始属性和结束属性以及插值器，绘制的时候遍历 Layer 获取每个图层当前时间点对应的关键帧属性值，进而用 Matrix 对 Canvas 和 Path 进行变换绘制。</p>
-<h4 id="bilibili-music"><a href="#bilibili-music" class="headerlink" title="bilibili music"></a>bilibili music</h4><p><video width="200px" id="video" controls preload="none"><br>      <source id="mp4" src="http://7vzpfd.com1.z0.glb.clouddn.com/albus_retcnNZS26.71-97-41lijx08242018111405.mp4" type="video/mp4"><br></video>。</p>
+<h4 id="bilibili-music"><a href="#bilibili-music" class="headerlink" title="bilibili music"></a>bilibili music</h4><p><video width="200px" id="video" controls preload="none" poster="http://7vzpfd.com1.z0.glb.clouddn.com/108083D0-405B-4445-AF82-DEA324847F9C.png"><br>      <source id="mp4" src="http://7vzpfd.com1.z0.glb.clouddn.com/albus_retcnNZS26.71-97-41lijx08242018111405.mp4" type="video/mp4"><br></video>。</p>
 
       
     </div>
