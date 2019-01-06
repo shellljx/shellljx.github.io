@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Minecraft," />
+  <meta name="keywords" content="Android," />
 
 
 
@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="译自Dinnerbone的博文文章作者:  Dinnerbone   on Jan. 6, 2013译文:  shell  今年的一月1日对我来说是不同寻常的一天，难以相信，我亲爱的小宝贝Bukkit已经两岁了。虽然听起来非常的肉麻，但是我仍然记得这写下的第一个commit就好像是发生在昨天一样。">
-<meta name="keywords" content="Minecraft">
+<meta name="description" content="整理了一下关于 Android 屏幕旋转的一些方向定义  1. SCREEN_ORIENTATION_LANDSCAPE: 固定横屏，不会根据重力感应自动旋转2. SCREEN_ORIENTATION_REVERSE_LANDSCAPE: 固定反向横屏，不会根据重力感应自动旋转，相对 SCREEN_ORIENTATION_LANDSCAPE 相差 180 度3. SCREEN_ORIENTATI">
+<meta name="keywords" content="Android">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Dinnerbone和bukkit的故事">
-<meta property="og:url" content="http://blog.licrafter.com/2016/10/09/Dinnerbone和bukkit的故事/index.html">
+<meta property="og:title" content="Android Screen Orientation">
+<meta property="og:url" content="http://blog.licrafter.com/2019/01/06/screen-orientation/index.html">
 <meta property="og:site_name" content="Shell's Blog">
-<meta property="og:description" content="译自Dinnerbone的博文文章作者:  Dinnerbone   on Jan. 6, 2013译文:  shell  今年的一月1日对我来说是不同寻常的一天，难以相信，我亲爱的小宝贝Bukkit已经两岁了。虽然听起来非常的肉麻，但是我仍然记得这写下的第一个commit就好像是发生在昨天一样。">
-<meta property="og:updated_time" content="2016-10-09T03:59:23.000Z">
+<meta property="og:description" content="整理了一下关于 Android 屏幕旋转的一些方向定义  1. SCREEN_ORIENTATION_LANDSCAPE: 固定横屏，不会根据重力感应自动旋转2. SCREEN_ORIENTATION_REVERSE_LANDSCAPE: 固定反向横屏，不会根据重力感应自动旋转，相对 SCREEN_ORIENTATION_LANDSCAPE 相差 180 度3. SCREEN_ORIENTATI">
+<meta property="og:updated_time" content="2019-01-06T15:15:50.930Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Dinnerbone和bukkit的故事">
-<meta name="twitter:description" content="译自Dinnerbone的博文文章作者:  Dinnerbone   on Jan. 6, 2013译文:  shell  今年的一月1日对我来说是不同寻常的一天，难以相信，我亲爱的小宝贝Bukkit已经两岁了。虽然听起来非常的肉麻，但是我仍然记得这写下的第一个commit就好像是发生在昨天一样。">
+<meta name="twitter:title" content="Android Screen Orientation">
+<meta name="twitter:description" content="整理了一下关于 Android 屏幕旋转的一些方向定义  1. SCREEN_ORIENTATION_LANDSCAPE: 固定横屏，不会根据重力感应自动旋转2. SCREEN_ORIENTATION_REVERSE_LANDSCAPE: 固定反向横屏，不会根据重力感应自动旋转，相对 SCREEN_ORIENTATION_LANDSCAPE 相差 180 度3. SCREEN_ORIENTATI">
 
 
 
@@ -121,10 +121,10 @@
 
 
 
-  <link rel="canonical" href="http://blog.licrafter.com/2016/10/09/Dinnerbone和bukkit的故事/"/>
+  <link rel="canonical" href="http://blog.licrafter.com/2019/01/06/screen-orientation/"/>
 
 
-  <title> Dinnerbone和bukkit的故事 | Shell's Blog </title>
+  <title> Android Screen Orientation | Shell's Blog </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -283,7 +283,7 @@
             
             
               
-                Dinnerbone和bukkit的故事
+                Android Screen Orientation
               
             
           </h1>
@@ -295,8 +295,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-09T11:58:48+08:00" content="2016-10-09">
-              2016-10-09
+            <time itemprop="dateCreated" datetime="2019-01-06T23:12:21+08:00" content="2019-01-06">
+              2019-01-06
             </time>
           </span>
 
@@ -309,8 +309,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/秋名山上的日子/" itemprop="url" rel="index">
-                    <span itemprop="name">秋名山上的日子</span>
+                  <a href="/categories/技术杂烩/" itemprop="url" rel="index">
+                    <span itemprop="name">技术杂烩</span>
                   </a>
                 </span>
 
@@ -348,20 +348,12 @@
 
       
         <blockquote>
-<p><a href="and that&#39;s because I did absolutely every update myself up until the day I joined Mojang">译自Dinnerbone的博文</a><br>文章作者:  <a href="https://dinnerbone.com/blog/" target="_blank" rel="external">Dinnerbone</a>   on Jan. 6, 2013<br>译文:  <a href="http://licrafter.com" target="_blank" rel="external">shell</a></p>
+<p>整理了一下关于 Android 屏幕旋转的一些方向定义</p>
 </blockquote>
-<p>今年的一月1日对我来说是不同寻常的一天，难以相信，我亲爱的小宝贝<code>Bukkit</code>已经两岁了。虽然听起来非常的肉麻，但是我仍然记得这<a href="https://github.com/Bukkit/Bukkit/commit/4e8311a6551e8d7794cff73c57a481251b47459c" target="_blank" rel="external">写下的第一个commit</a>就好像是发生在昨天一样。<br><a id="more"></a><br>我想现在是一个奇妙的时刻给大家介绍这个项目的历史，它对我生活的影响以及如何发展到今天这个大型项目的所有事情。其中一些事情可能对于一部分人来说是不知道的，还有一些事情有点过时了。但我会尽自己最大的努力让这篇文章值得一读。虽然<code>Bukkit</code>项目是曾经发生在我身上的最好的事情，但并非没有一些大的失误和缺点。我可能把这些事情告诉大家，但是写下这些事情并非易事因为可能牵涉一些利害关系。</p>
-<p>在介绍<code>Bukkit</code>之前，先让我带大家回到2010年并向大家介绍另一个服务器改造平台，那就是被大家熟知的”<a href="https://github.com/traitor/Minecraft-Server-Mod" target="_blank" rel="external">hMod</a>“.当时<code>Minecraft</code>才发展到<code>Alpha 1.2</code>当时改造这个游戏和现在是完全不一样的。<code>hMod</code>是一个叫<strong>hey0</strong>的人创建的，这是一个让人们不需要学习如何反编译<code>minecraft</code>的源码就可以制作更加定制化的服务器的尝试。它听起来不像一个改造平台因为它不是为这个目的而生的，只是和改造平台有点相似。它为服主提供了一些方便的实用工具比如通过一些指令<code>(/ban,/give)</code>来控制服务器，白名单，和一些服务器运行日志。这些在今天大家看起来理所当然的东西在当时对那些勇敢的有兴趣的mod开发者来说是难以置信的奢华的功能。不知何时开始<code>hMod</code>加快了发展速度人们开始通过编写插件扩展它，向这个已经雄心勃勃的项目加入更多的功能。</p>
-<p>我非常喜欢这个奇特的项目的设计理念，我想要一探究竟并尝试制作自己的插件。可以根据自己的想法定制一个游戏？是的！我之前没怎么接触过java，但是我学习新的编程语言非常快速并且我对C#非常熟悉所以还是比较容易做这件事情的。我精确的知道自己要做什么并且我有很多支持我并且想要和我一起尝试的朋友。在当时<code>Minecraft</code>多人游戏是一个非常新鲜并且有很多问题的东西。比如在当时矿车就是一个无敌崩溃机器(非常严重;你不能破坏它们并且铁轨可以使你的服务端和客户端崩溃)，所以迫切的需要一个能够在服务器快速的四处走动的新方法。在网上已经有一些插件可以让玩家使用指令<code>/teleport</code>在玩家之间传送，但是我不喜欢这种。命令没有任何方式和图形世界进行交互！所以我开始准备编写一个插件叫做”<a href="https://www.youtube.com/watch?v=mvBN_PddR-g" target="_blank" rel="external">Stargate</a>“，我希望它能够成为现在传送门插件的标准。没有任何的先例，我全力以赴努力让Stargate实现我的思路。在不同的传送门之间定位合适的位置传送保持姿势不变，使用木牌作为交互的方式(在当时没有任何其他插件做到的－现在这个功能很普遍)。</p>
-<p>在我制作<code>Stargate</code>的过程中，我稀里糊涂的和其他几个同样不知道为何会这样的人承担起了维护<code>hMod</code>的重担，<strong>Hey0</strong>已经销声匿迹了,<code>Minecraft</code>更新的比以前更频繁了。 我们需要知道要去做什么！我和<strong>Grum</strong>管理并花费时间更新<code>hMod</code>，这是一个恐怖的任务花费了大量的时间，但是我们完成了这个任务。这个项目很难控制，我们甚至不能发布自己的版本，所以这是一个极其困难的境地做这件事情－但是我们做到了。我和<strong>Grum</strong>花费了几个月的时间更新<code>hMode</code>，后来我们对于不得不支持有问题的东西甚至无法修复它们而感到疲倦。我私下对其他人交流并建议从头开始一个新的项目，一个我们可以集中精力去做一些真正需要的事情并且希望做一些更棒的事情。一些人认为不值得花费时间去开启一个新的项目，其他的一些人(<strong>Grum</strong>,<strong>Tahg</strong>,<strong>EvilSeph</strong>)认为这是一个很好的想法。我想，任何积极的回应足够让这个项目开始，所以我朝着我的计划前进。</p>
-<p>人们经常问我，“为什么叫’Bukkit’?”.好吧，说起来有点傻傻的，在我的主页IRC频道有个程序叫做”Scrapbucket”,是我fork的<a href="http://wiki.xkcd.com/irc/Bucket" target="_blank" rel="external">xkcd’s IRC bot “Bucket”</a>.我提议新项目叫做”CraftBucket”,其他成员表示赞同这是一个好名字。当我们意识到要吧项目分成两部分(一个API一个实现部分)的时候我们决定分别叫做”Bucket”和”CraftBucket”-但是<strong>Grum</strong>开玩的提议”Bukkit”这个其实妙想的名字。不用多说，就是它了:)</p>
-<p>所以我们有了自己的团体和计划，我们已经准备好接管世界了。我们发表了一个声明表示我们不再维护<code>hMod</code>我们将创建一个新的项目。这个声明被发表在一个小网站上。<a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-tools/1260642-introducing-bukkit-a-new-minecraft-server-mod" target="_blank" rel="external">minecraftforum thread现在还可以访问</a>，刚开始团队对声明的反响非常好，但的确滋生了普遍的热潮”一个项目死去，我们需要另一个项目来填补空白”许多其他的项目突然出现和我们竞争代替我们要做的事情，但是他们没有坚持下去。我非常的激动，有太多的事情需要去做，如果我专注的去做，我可以完成很多东西。全力以赴，我们的项目和其他的相比一只在成长。过了几个月后，最初的团队失去了奋斗的激情我们只剩下了4个人的”核心”。<strong>我自己</strong>,<strong>Grum</strong>,<strong>EvilSeph</strong>和<strong>Tahg</strong>. 在接下来的几个月的时间完成了API的设计＋实现，<strong>Grum</strong>在他工作之余帮忙解决了非常困难的任务。</p>
-<p>我认为关于<strong>Bukkit</strong>我最引以为豪的一件事情就是我们的更新流程，这是一个非常伤脑筋的工作，但是我们为它开发了一个三步流程。<strong>Grum</strong>开发了一些非常优秀的工具让反编译和反混淆流程(流程1和2)实现半自动化，我花费一些时间重写一部分<code>CraftBukkit</code>这是流程3.平均每次更新我将花费20-30个小时一刻不停(只留下上厕所的时间)去为新版本的<code>Minecraft</code>重建我们巨大的代码库。这是一个非常艰难而且吃力不讨好的工作。我非常感激<a href="https://twitter.com/missmarzenia" target="_blank" rel="external">我的未婚妻</a>至始至终支持着我；如果没有她的话Bukkit(甚至Minecraft)可能不会发展到今天的程度:)  你可能发现我是以第一人称写这篇文章的，那是因为在我加入<code>Mojang</code>之前的所有更新都是我完成的。有时我会从其他人那里得到一些帮助，但那是很少的；与其等待其他人帮助，我自己去完成更快速和容易。因为这不是一件可以多人协作的事情。</p>
-<p>当我开始<code>Bukkit</code>这个项目的时候我还没有失业，但是很快我被解雇了。这意味着2011年的大部分时间我是失业的状态。我是完全依靠存款和个人的捐助(差不多几百英镑，基本只够一个月的房租)在生活，到年底，我不得不去解决金钱的问题，并且完全不知道去做什么。我在我的博客上放了”请捐助！”的按钮，并且发到tweeter上；通过这种方式我得到了几个人的直接捐助，正好够我撑过去这一个月(结合现有资金和借款)；在刚开始的时候我们通过<code>Bukkit</code>的捐助收到了可观的金钱(除去花费，我们4个每人可以得到几百欧元)，在接下来的半年我们受到的捐助变得很少，这让人非常的郁闷 :(</p>
-<p>没过多久，<strong>Curse</strong>决定给<code>Bukkit</code>提供帮助和支援，他们来的正是时候。我们的服务器严重的超负载，我们已经负担不起我们正在做的事情。我在<strong>Curse</strong>获得了一份工作(在那里我的工作非常明了，“继续你正在做的事情(开发Bukkit)，不用管我们 ”，他们人真是太好了！)他们还帮我们实现了一个我们刚开始<code>Bukkit</code>时候的梦想，那就是一个更容易搜索到插件的插件库！他们还提供给我们飞往Blizzcon的机票，我一直计划要出席这次活动，因此我们可以聚在一起互相问候一下。迄今为止的第一次，<a href="http://i.imgur.com/2e7rwh.jpg" target="_blank" rel="external">Bukkit团队聚在了一起!</a>。一个多月之后Curse还提供给我们参加第一届<code>Minecon</code>的机票,我们在这里<a href="https://www.youtube.com/watch?v=rTiKwdrq-3s" target="_blank" rel="external">发表了演说</a>，即紧张有感到非常的cool。</p>
-<p>几个月后，时间到了2012年，<strong>Mojang</strong>表示出想要收购我们的意愿，<a href="https://www.reddit.com/r/Minecraft/comments/nghgk/bukkit_at_mojang_offices_team_photo_ahoy/" target="_blank" rel="external">所以我们再一次飞去和他们会面</a>.经过几次来来回回的谈判，我们接受了他们的offer剩下的都是过去的事情了。我把维护<code>Bukkit</code>的重任交给了其他的成员，教会他们如何去更新<code>Bukkit</code>，我一心投入到开发<code>Minecraft</code>中去了。</p>
-<p>这真是一个疯狂的旅程，回首过去，我们在<code>Bukkit</code>上犯了不少的错误，但最后都是值得的，对我来说这是一段奇妙的经历，我从没有想过能够发展到像今天这样成功。<code>Bukkit</code>没有到达终点，它一直在成长至今。我全身心投入到这个项目中，它回报给我一个非常酷炫的工作和很多非常精彩的经历。谢谢你。</p>
-<p>生日快乐，<code>Bukkit</code>。</p>
+<p><strong>1. SCREEN_ORIENTATION_LANDSCAPE</strong>: 固定横屏，不会根据重力感应自动旋转<br><strong>2. SCREEN_ORIENTATION_REVERSE_LANDSCAPE</strong>: 固定反向横屏，不会根据重力感应自动旋转，相对 <code>SCREEN_ORIENTATION_LANDSCAPE</code> 相差 180 度<br><strong>3. SCREEN_ORIENTATION_PORTRAIT</strong>: 固定竖屏，不会根据重力自动旋转<br><strong>4. SCREEN_ORIENTATION_REVERSE_PORTRAIT</strong>: 固定反向竖屏，不会根据重力感应自动旋转，相对 <code>SCREEN_ORIENTATION_PORTRAIT</code> 相差180度<br><a id="more"></a></p>
+<p><strong>5. SCREEN_ORIENTATION_USER</strong>: 首选使用用户手机当前方向，可根据重力感应旋转，但是不能旋转到反向竖屏(屏幕底朝上)<br><strong>6. SCREEN_ORIENTATION_FULL_USER</strong>: 和 <code>SCREEN_ORIENTATION_USER</code> 一样，但是可以根据重力旋转到反向竖屏<br><strong>7. SCREEN_ORIENTATION_SENSOR</strong>: 根据重力感应旋转屏幕方向，但是无法旋转到反向竖屏，无视系统设置关闭重力感应自动旋转开关关闭<br><strong>8. SCREEN_ORIENTATION_FULL_SENSOR</strong>: 和<code>SCREEN_ORIENTATION_SENSOR</code> 效果一样，但是可以旋转到反向竖屏</p>
+<p><strong>9. SCREEN_ORIENTATION_USER_LANDSCAPE</strong>: <em>require API &gt; 18</em> 固定横屏，可以根据重力感应旋转 180 度到反向横屏<br><strong>10. SCREEN_ORIENTATION_USER_PORTRAIT</strong>: <em>require API &gt; 18</em> 固定竖屏，但是无法根据重力感应旋转到反向竖屏<br><strong>11. SCREEN_ORIENTATION_SENSOR_LANDSCAPE</strong>: 固定横屏，可以根据重力感应旋转 180 度到反向横屏，且无视重力感应自动旋转开关关闭<br><strong>12. SCREEN_ORIENTATION_SENSOR_PORTRAIT</strong>: 固定竖屏，但是无法根据重力感应旋转到反向竖屏，且无视重力感应自动旋转开关关闭</p>
+<p><strong>13. SCREEN_ORIENTATION_BEHIND</strong>: 继承堆栈中当前 <code>Activity</code> 下面的那个 <code>Activity</code> 的 Screen Orientation 设置<br><strong>14. SCREEN_ORIENTATION_NOSENSOR</strong>: 忽略物理感应器——即显示方向与物理感应器无关<br><strong>15. SCREEN_ORIENTATION_LOCKED</strong>: <em>require API &gt; 18</em> 锁定当前屏幕方向</p>
 
       
     </div>
@@ -384,7 +376,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Minecraft/" rel="tag">#Minecraft</a>
+            <a href="/tags/Android/" rel="tag">#Android</a>
           
         </div>
       
@@ -393,16 +385,12 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/10/15/AndroidStickyLayout与触摸事件/" rel="next" title="Android  StickyLayout  与触摸事件">
-                <i class="fa fa-chevron-left"></i> Android  StickyLayout  与触摸事件
-              </a>
-            
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/05/05/Status-Bar和Navigation-Bar的显示与隐藏/" rel="prev" title="Status Bar和Navigation Bar的显示与隐藏">
-                Status Bar和Navigation Bar的显示与隐藏 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/28/lottie/" rel="prev" title="Lottie-Android源码解析">
+                Lottie-Android源码解析 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
